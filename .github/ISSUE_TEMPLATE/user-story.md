@@ -1,15 +1,6 @@
 ---
 name: User Story
 about: A template for a new User Story.
-title: "[US-x]"
-labels: ''
-assignees: marcbendixen
-
----
-
----
-name: User Story
-about: This is a template for a new User Story
 title: "[US-x] Title"
 labels: ''
 assignees: marcbendixen
