@@ -29,13 +29,14 @@ const StyledPosterList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
   list-style: none;
   padding: 0;
   margin: 0;
 
   li {
     display: flex;
+    border-radius: 4px;
 
     img {
       max-width: 140px;
