@@ -16,7 +16,7 @@ export default function PosterList({ list }) {
               path={
                 poster_path && `https://image.tmdb.org/t/p/w300/${poster_path}`
               }
-              alt={`Poster of ${name}`}
+              alt={`Poster von ${name}`}
             />
           </li>
         )
