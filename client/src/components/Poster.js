@@ -1,5 +1,5 @@
-import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
+import styled from 'styled-components/macro'
 
 Poster.defaultProps = {
   path: 'https://via.placeholder.com/300x450?text=POSTER',
