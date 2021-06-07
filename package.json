@@ -19,7 +19,8 @@
   "homepage": "https://github.com/marcbendixen/capstone-project#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "express": "^5.0.0-alpha.8"
+    "express": "^5.0.0-alpha.8",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
