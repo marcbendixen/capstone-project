@@ -1,5 +1,21 @@
-function App() {
-  return <h1>Serientracker</h1>
+import styled from 'styled-components/macro'
+import PosterList from './components/PosterList'
+import popularList from './example_data/popular.json'
+
+export default function App() {
+  return (
+    <Container>
+      <h1>Serientracker</h1>
+      <h2>Beliebt</h2>
+      <PosterList list={popularList.results} />
+    </Container>
+  )
 }
 
-export default App
+const Container = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin-bottom: 32px;
+`
