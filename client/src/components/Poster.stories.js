@@ -9,4 +9,7 @@ export default {
 const Template = args => <Poster {...args} />
 
 export const Default = Template.bind({})
-Default.args = {}
+Default.args = {
+  path: 'poster.png',
+  alt: 'Poster of Series',
+}

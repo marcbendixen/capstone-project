@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import PosterList from './components/PosterList'
 import popularList from './example_data/popular.json'
 

@@ -3,27 +3,27 @@ import Poster from './Poster'
 
 describe('Poster', () => {
   it('renders', () => {
-    render(<Poster />)
+    render(<Poster path="https://localhost:3000/" alt="Poster of Series" />)
 
     const poster = screen.getByRole('img')
     expect(poster).toBeInTheDocument()
   })
 
   it('has the correct image path', () => {
-    const imagePath = 'https://via.placeholder.com/300x450?text=POSTER'
+    const imagePath = 'https://localhost:3000/'
 
-    render(<Poster path={imagePath} />)
+    render(<Poster path={imagePath} alt="Poster of Series" />)
 
     const poster = screen.getByRole('img')
     expect(poster).toHaveAttribute('src', imagePath)
   })
 
   it('has the correct alt text', () => {
-    const altText = 'Text for alt attribute'
+    const altText = 'Poster of Series'
 
-    render(<Poster alt={altText} />)
+    render(<Poster path="https://localhost:3000/" alt={altText} />)
 
-    const poster = screen.getByRole('img')
+    const poster = screen.getByAltText(altText)
     expect(poster).toHaveAttribute('alt', altText)
   })
 })

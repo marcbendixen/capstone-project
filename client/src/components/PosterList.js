@@ -3,24 +3,20 @@ import styled from 'styled-components/macro'
 import Poster from './Poster'
 
 PosterList.propTypes = {
-  list: PropTypes.array,
+  list: PropTypes.array.isRequired,
 }
 
-export default function PosterList({ list }) {
+export default function PosterList({ list = [] }) {
   return (
     <StyledPosterList>
-      {list.map(({ id, poster_path, name }) => {
-        return (
-          <li key={id}>
-            <Poster
-              path={
-                poster_path && `https://image.tmdb.org/t/p/w300/${poster_path}`
-              }
-              alt={`Poster von ${name}`}
-            />
-          </li>
-        )
-      })}
+      {list.map(({ id, poster_path: posterPath, name }) => (
+        <li key={id}>
+          <Poster
+            path={posterPath && `https://image.tmdb.org/t/p/w300/${posterPath}`}
+            alt={`Poster von ${name}`}
+          />
+        </li>
+      ))}
     </StyledPosterList>
   )
 }

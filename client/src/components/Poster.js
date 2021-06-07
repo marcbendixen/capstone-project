@@ -1,17 +1,15 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
 
-Poster.defaultProps = {
-  path: 'https://via.placeholder.com/300x450?text=POSTER',
-  alt: 'Poster of Series',
-}
-
 Poster.propTypes = {
-  path: PropTypes.string,
-  alt: PropTypes.string,
+  path: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
 }
 
-export default function Poster({ path, alt }) {
+export default function Poster({
+  path = 'poster.png',
+  alt = 'Poster of Series',
+}) {
   return <StyledPoster src={path} alt={alt} />
 }
 
