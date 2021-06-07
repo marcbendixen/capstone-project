@@ -4,8 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npm-run-all --parallel dev:client dev:server",
+    "dev:client": "cd client && npm start",
+    "dev:server": "nodemon server.js",
+    "storybook": "cd client && npm run storybook",
+    "build": "cd client && npm run build",
+    "postinstall": "cd client && npm install",
+    "start": "node server.js",
+    "test": "cd client && npm run test"
   },
   "repository": {
     "type": "git",
@@ -23,6 +29,7 @@
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5"
   }
 }
