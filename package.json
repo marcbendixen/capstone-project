@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/marcbendixen/capstone-project#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "dotenv": "^10.0.0",
     "express": "^5.0.0-alpha.8",
     "node-fetch": "^2.6.1"
