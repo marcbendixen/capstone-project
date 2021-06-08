@@ -23,6 +23,7 @@ export default function App() {
         <Route exact path="/">
           <PosterList list={popularSeries} />
         </Route>
+        <Route>404 not found</Route>
       </Switch>
     </Container>
   )
