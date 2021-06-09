@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import PosterList from './components/PosterList'
+import SeriesDetailsPage from './pages/SeriesDetailsPage'
 
 export default function App() {
   const [popularSeries, setPopularSeries] = useState([])
@@ -17,11 +18,14 @@ export default function App() {
 
   return (
     <Container>
-      <h1>Serientracker</h1>
-      <h2>Beliebt</h2>
       <Switch>
         <Route exact path="/">
+          <h1>Serientracker</h1>
+          <h2>Beliebt</h2>
           <PosterList list={popularSeries} />
+        </Route>
+        <Route exact path="/serie/:id">
+          <SeriesDetailsPage />
         </Route>
         <Route>404 not found</Route>
       </Switch>
