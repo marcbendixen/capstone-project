@@ -2,20 +2,16 @@ import { useEffect, useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import PosterList from './components/PosterList'
-import Loading from './components/ui/Loading'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
 
 export default function App() {
   const [popularSeries, setPopularSeries] = useState([])
-  const [loading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    setIsLoading(true)
     fetch('/api/series/popular')
       .then(res => res.json())
       .then(data => {
         setPopularSeries(data.results)
-        setIsLoading(false)
       })
       .catch(error => {
         console.error('Error:', error)
@@ -28,7 +24,7 @@ export default function App() {
         <Route exact path="/">
           <h1>Serientracker</h1>
           <h2>Beliebt</h2>
-          {loading ? <Loading /> : <PosterList list={popularSeries} />}
+          <PosterList list={popularSeries} />
         </Route>
         <Route exact path="/serie/:id">
           <SeriesDetailsPage />
