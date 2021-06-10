@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import SeriesDetailsPage from './SeriesDetailsPage'
 
-describe('SeriesDetailsPage', () => {
+describe.skip('SeriesDetailsPage', () => {
   it('has heading', () => {
     render(
       <Router>
