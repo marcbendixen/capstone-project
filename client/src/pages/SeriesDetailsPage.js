@@ -28,7 +28,10 @@ export default function SeriesDetails() {
   useEffect(() => {
     fetch(`/api/series/${id}/credits`)
       .then(res => res.json())
-      .then(data => setCast(data.cast))
+      .then(data => {
+        console.log(data)
+        setCast(data.cast)
+      })
       .catch(error => {
         console.error('Error:', error)
       })
@@ -49,7 +52,7 @@ export default function SeriesDetails() {
             <Poster
               path={
                 posterPath !== undefined
-                  ? `https://image.tmdb.org/t/p/w300/${posterPath}`
+                  ? `https://image.tmdb.org/t/p/w300${posterPath}`
                   : '../poster.png'
               }
               alt={`Poster von ${name}`}
@@ -62,7 +65,11 @@ export default function SeriesDetails() {
             {cast.map(({ id, profile_path: profilePath, name, character }) => (
               <ListItem key={id}>
                 <img
-                  src={`https://image.tmdb.org/t/p/w200/${profilePath}`}
+                  src={
+                    profilePath !== null
+                      ? `https://image.tmdb.org/t/p/w200${profilePath}`
+                      : '../profile.png'
+                  }
                   alt={`Portait von ${name}`}
                 />
                 <NameWrapper>
