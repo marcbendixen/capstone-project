@@ -29,7 +29,6 @@ export default function SeriesDetails() {
     fetch(`/api/series/${id}/credits`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         setCast(data.cast)
       })
       .catch(error => {
@@ -84,6 +83,8 @@ export default function SeriesDetails() {
                       : '../profile.png'
                   }
                   alt={`Portait von ${name}`}
+                  width="200"
+                  height="300"
                 />
                 <NameWrapper>
                   <h4>{name}</h4>
@@ -104,6 +105,7 @@ const Wrapper = styled.section`
   gap: 16px;
   padding: 8px;
   margin: 0;
+  width: 100%;
 
   h2 {
     font-size: 1.25rem;

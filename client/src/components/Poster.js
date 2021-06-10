@@ -10,7 +10,7 @@ export default function Poster({
   path = 'poster.png',
   alt = 'Poster of Series',
 }) {
-  return <StyledPoster src={path} alt={alt} />
+  return <StyledPoster src={path} alt={alt} width="300" height="450" />
 }
 
 const StyledPoster = styled.img`

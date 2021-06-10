@@ -5,6 +5,10 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
 }
 
+#root {
+  width: 100%;
+}
+
 body {
   display: flex;
   justify-content: center;
