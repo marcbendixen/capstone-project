@@ -59,7 +59,20 @@ export default function SeriesDetails() {
             />
             <h1>{name}</h1>
           </Header>
-          <p>{overview}</p>
+          <Overview>
+            {overview !== '' ? (
+              overview
+            ) : (
+              <span>
+                <em>
+                  Die Beschreibung der Serie ist leider noch nicht vorhanden.
+                  Bitte hab noch etwas Geduld und sieh später nochmal rein,
+                  danke
+                </em>
+                ✌️
+              </span>
+            )}
+          </Overview>
           <h2>Besetzung</h2>
           <List>
             {cast.map(({ id, profile_path: profilePath, name, character }) => (
@@ -116,6 +129,10 @@ const Header = styled.header`
   h1 {
     margin: 0;
   }
+`
+
+const Overview = styled.p`
+  min-width: 100%;
 `
 
 const List = styled.ul`
