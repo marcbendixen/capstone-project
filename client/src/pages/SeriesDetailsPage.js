@@ -1,20 +1,25 @@
-// import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Poster from '../components/Poster'
 import IconLeftArrow from '../components/ui/IconLeftArrow'
+import Loading from '../components/ui/Loading'
 
 export default function SeriesDetails() {
   const { id } = useParams()
   const [seriesDetails, setSeriesDetails] = useState([])
   const [cast, setCast] = useState([])
+  const [loading, setIsLoading] = useState(false)
 
   useEffect(() => {
+    setIsLoading(true)
     fetch(`/api/series/${id}`)
       .then(res => res.json())
-      .then(data => setSeriesDetails(data))
+      .then(data => {
+        setSeriesDetails(data)
+        setIsLoading(false)
+      })
       .catch(error => {
         console.error('Error:', error)
       })
@@ -33,36 +38,42 @@ export default function SeriesDetails() {
 
   return (
     <Wrapper>
-      <BackButton to="/">
-        <IconLeftArrow />
-      </BackButton>
-      <Header>
-        <Poster
-          path={
-            posterPath !== undefined
-              ? `https://image.tmdb.org/t/p/w300/${posterPath}`
-              : '../poster.png'
-          }
-          alt={`Poster von ${name}`}
-        />
-        <h1>{name}</h1>
-      </Header>
-      <p>{overview}</p>
-      <h2>Besetzung</h2>
-      <List>
-        {cast.map(({ id, profile_path: profilePath, name, character }) => (
-          <ListItem key={id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w200/${profilePath}`}
-              alt={`Portait von ${name}`}
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <BackButton to="/">
+            <IconLeftArrow />
+          </BackButton>
+          <Header>
+            <Poster
+              path={
+                posterPath !== undefined
+                  ? `https://image.tmdb.org/t/p/w300/${posterPath}`
+                  : '../poster.png'
+              }
+              alt={`Poster von ${name}`}
             />
-            <NameWrapper>
-              <h4>{name}</h4>
-              <span>{character}</span>
-            </NameWrapper>
-          </ListItem>
-        ))}
-      </List>
+            <h1>{name}</h1>
+          </Header>
+          <p>{overview}</p>
+          <h2>Besetzung</h2>
+          <List>
+            {cast.map(({ id, profile_path: profilePath, name, character }) => (
+              <ListItem key={id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w200/${profilePath}`}
+                  alt={`Portait von ${name}`}
+                />
+                <NameWrapper>
+                  <h4>{name}</h4>
+                  <span>{character}</span>
+                </NameWrapper>
+              </ListItem>
+            ))}
+          </List>
+        </>
+      )}
     </Wrapper>
   )
 }
