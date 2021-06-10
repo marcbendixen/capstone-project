@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Poster from './Poster'
 
@@ -11,10 +12,16 @@ export default function PosterList({ list = [] }) {
     <StyledPosterList>
       {list.map(({ id, poster_path: posterPath, name }) => (
         <li key={id}>
-          <Poster
-            path={posterPath && `https://image.tmdb.org/t/p/w300/${posterPath}`}
-            alt={`Poster von ${name}`}
-          />
+          <Link to={`/serie/${id}`}>
+            <Poster
+              path={
+                posterPath
+                  ? `https://image.tmdb.org/t/p/w300/${posterPath}`
+                  : 'poster.png'
+              }
+              alt={`Poster von ${name}`}
+            />
+          </Link>
         </li>
       ))}
     </StyledPosterList>
@@ -29,15 +36,10 @@ const StyledPosterList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%;
 
   li {
     display: flex;
     border-radius: 4px;
-
-    img {
-      max-width: 140px;
-      width: 100%;
-      height: auto;
-    }
   }
 `

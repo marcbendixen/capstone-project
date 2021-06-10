@@ -5,13 +5,22 @@ const GlobalStyles = createGlobalStyle`
   box-sizing: border-box;
 }
 
+#root {
+  width: 100%;
+}
+
 body {
   display: flex;
   justify-content: center;
-  font-family: sans-serif;
+  font-family: Helvetica, sans-serif;
+  line-height: 1.25;
   color: #fff;
-  background-color: #1e1e1e;
+  background-color: #171717;
   scroll-behavior: smooth;
+}
+
+a, a:active, a:visited {
+  color: #fff;
 }
 `
 
