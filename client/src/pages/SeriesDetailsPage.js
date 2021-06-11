@@ -5,7 +5,7 @@ import styled from 'styled-components/macro'
 import Poster from '../components/Poster'
 import IconLeftArrow from '../components/ui/IconLeftArrow'
 
-export default function SeriesDetails() {
+export default function SeriesDetails({ handleWatchlist }) {
   const { id } = useParams()
   const [seriesDetails, setSeriesDetails] = useState([])
   const [cast, setCast] = useState([])
@@ -48,7 +48,10 @@ export default function SeriesDetails() {
           }
           alt={`Poster von ${name}`}
         />
-        <h1>{name}</h1>
+        <div>
+          <h1>{name}</h1>
+          <button onClick={() => handleWatchlist(seriesDetails)}>add</button>
+        </div>
       </Header>
       <Overview>
         {overview !== '' ? (

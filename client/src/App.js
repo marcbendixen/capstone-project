@@ -6,6 +6,7 @@ import SeriesDetailsPage from './pages/SeriesDetailsPage'
 
 export default function App() {
   const [popularSeries, setPopularSeries] = useState([])
+  const [watchlist, setWatchlist] = useState([])
 
   useEffect(() => {
     fetch('/api/series/popular')
@@ -27,12 +28,16 @@ export default function App() {
           <PosterList list={popularSeries} />
         </Route>
         <Route exact path="/serie/:id">
-          <SeriesDetailsPage />
+          <SeriesDetailsPage handleWatchlist={handleWatchlist} />
         </Route>
         <Route>404 not found</Route>
       </Switch>
     </Container>
   )
+
+  function handleWatchlist(newEntry) {
+    setWatchlist([...watchlist, newEntry])
+  }
 }
 
 const Container = styled.main`
