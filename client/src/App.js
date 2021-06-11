@@ -36,7 +36,19 @@ export default function App() {
           <SeriesDetailsPage handleWatchlist={handleWatchlist} />
         </Route>
         <Route exact path="/watchlist">
-          <PosterList list={watchlist} />
+          {watchlist.length === 0 ? (
+            <p>
+              <em>Du hast noch keine Serie(n) auf deiner Watchlist.</em>
+            </p>
+          ) : (
+            <>
+              <p>
+                Du hast <strong>{watchlist.length}</strong> Serie
+                {watchlist.length > 1 && 'n'} auf deiner Watchlist.
+              </p>
+              <PosterList list={watchlist} />
+            </>
+          )}
         </Route>
         <Route>404 not found</Route>
       </Switch>
