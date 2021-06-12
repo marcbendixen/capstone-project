@@ -5,10 +5,18 @@ import styled from 'styled-components/macro'
 import Poster from '../components/Poster'
 import IconLeftArrow from '../components/ui/IconLeftArrow'
 
-export default function SeriesDetails({ handleWatchlist }) {
+export default function SeriesDetails({ handleWatchlist, watchlist }) {
   const { id } = useParams()
   const [seriesDetails, setSeriesDetails] = useState([])
   const [cast, setCast] = useState([])
+  const [isOnWatchlist, setIsOnWatchlist] = useState(false)
+
+  useEffect(() => {
+    if (watchlist.length > 0) {
+      const result = watchlist.find(element => element.id === Number(id))
+      result && setIsOnWatchlist(true)
+    }
+  }, [watchlist, id])
 
   useEffect(() => {
     fetch(`/api/series/${id}`)
@@ -50,7 +58,9 @@ export default function SeriesDetails({ handleWatchlist }) {
         />
         <div>
           <h1>{name}</h1>
-          <button onClick={() => handleWatchlist(seriesDetails)}>add</button>
+          {!isOnWatchlist && (
+            <button onClick={() => handleWatchlist(seriesDetails)}>add</button>
+          )}
         </div>
       </Header>
       <Overview>

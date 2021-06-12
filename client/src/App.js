@@ -33,7 +33,10 @@ export default function App() {
           <PosterList list={popularSeries} />
         </Route>
         <Route exact path="/serie/:id">
-          <SeriesDetailsPage handleWatchlist={handleWatchlist} />
+          <SeriesDetailsPage
+            handleWatchlist={handleWatchlist}
+            watchlist={watchlist}
+          />
         </Route>
         <Route exact path="/watchlist">
           {watchlist.length === 0 ? (
