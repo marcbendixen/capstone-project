@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Poster from '../components/Poster'
-import IconLeftArrow from '../components/ui/IconLeftArrow'
+import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
 
 export default function SeriesDetails({
   series,
@@ -54,7 +54,7 @@ export default function SeriesDetails({
   return (
     <Wrapper>
       <BackButton to="/">
-        <IconLeftArrow />
+        <IconArrowLeft />
       </BackButton>
       <Header>
         <Poster
