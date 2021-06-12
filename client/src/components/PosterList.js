@@ -39,7 +39,8 @@ const StyledPosterList = styled.ul`
   width: 100%;
 
   li {
-    display: flex;
-    border-radius: 4px;
+    a {
+      display: flex;
+    }
   }
 `
