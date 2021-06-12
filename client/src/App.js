@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link, Route, Switch } from 'react-router-dom'
+import { NavLink, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import PosterList from './components/PosterList'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
@@ -28,13 +28,22 @@ export default function App() {
         })
   }, [series])
 
+  useEffect(() => {
+    const onWatchlist = series.filter(el => el.isOnWatchlist)
+    setWatchlist(onWatchlist)
+  }, [series])
+
   return (
     <Container>
       <Route exact path={['/', '/watchlist']}>
         <h1>Serientracker</h1>
         <Navigation>
-          <StyledLink to="/">Beliebt</StyledLink>
-          <StyledLink to="/watchlist">Watchlist</StyledLink>
+          <StyledLink exact to="/" activeClassName="active">
+            Beliebt
+          </StyledLink>
+          <StyledLink exact to="/watchlist" activeClassName="active">
+            Watchlist
+          </StyledLink>
         </Navigation>
       </Route>
       <Switch>
@@ -52,7 +61,7 @@ export default function App() {
         <Route exact path="/watchlist">
           {watchlist.length === 0 ? (
             <p>
-              <em>Du hast noch keine Serie(n) auf deiner Watchlist.</em>
+              <em>Du hast noch keine Serie auf deiner Watchlist.</em>
             </p>
           ) : (
             <>
@@ -73,8 +82,15 @@ export default function App() {
     setSeries([...series, data])
   }
 
-  function handleWatchlist(newEntry) {
-    setWatchlist([...watchlist, newEntry])
+  function handleWatchlist(id) {
+    const index = series.findIndex(el => el.id === Number(id))
+    const entryToUpdate = series[index]
+
+    setSeries([
+      ...series.slice(0, index),
+      { ...entryToUpdate, isOnWatchlist: !entryToUpdate.isOnWatchlist },
+      ...series.slice(index + 1),
+    ])
   }
 }
 
@@ -89,10 +105,10 @@ const Container = styled.main`
 
 const Navigation = styled.nav`
   display: flex;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 `
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(NavLink)`
   margin: 8px 16px;
   font-size: 14px;
   font-weight: 600;
@@ -107,5 +123,20 @@ const StyledLink = styled(Link)`
 
   :hover {
     color: #fff;
+  }
+
+  &.active {
+    color: #fff;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #fff;
+    }
   }
 `

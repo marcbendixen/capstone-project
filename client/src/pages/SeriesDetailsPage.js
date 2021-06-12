@@ -2,31 +2,22 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import Poster from '../components/Poster'
 import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
+import Poster from '../components/Poster'
 
 export default function SeriesDetails({
   series,
-  watchlist,
   handleWatchlist,
   handleNewSeries,
 }) {
   const { id } = useParams()
   const [seriesDetails, setSeriesDetails] = useState([])
   const [cast, setCast] = useState([])
-  const [isOnWatchlist, setIsOnWatchlist] = useState(false)
 
   useEffect(() => {
-    if (watchlist.length > 0) {
-      const result = watchlist.find(element => element.id === Number(id))
-      result && setIsOnWatchlist(true)
-    }
-  }, [watchlist, id])
-
-  useEffect(() => {
-    const filteredSeries = series.filter(el => el.id === Number(id))
-    filteredSeries.length !== 0
-      ? setSeriesDetails(filteredSeries[0])
+    const filteredItem = series.filter(el => el.id === Number(id))
+    filteredItem.length !== 0
+      ? setSeriesDetails(filteredItem[0])
       : fetch(`/api/series/${id}`)
           .then(res => res.json())
           .then(data => {
@@ -49,7 +40,12 @@ export default function SeriesDetails({
       })
   }, [id])
 
-  const { name, poster_path: posterPath, overview } = seriesDetails
+  const {
+    name,
+    poster_path: posterPath,
+    overview,
+    isOnWatchlist,
+  } = seriesDetails
 
   return (
     <Wrapper>
@@ -67,9 +63,9 @@ export default function SeriesDetails({
         />
         <div>
           <h1>{name}</h1>
-          {!isOnWatchlist && (
-            <button onClick={() => handleWatchlist(seriesDetails)}>add</button>
-          )}
+          <button onClick={() => handleWatchlist(id)}>
+            {isOnWatchlist ? 'remove' : 'add'}
+          </button>
         </div>
       </Header>
       <Overview>
