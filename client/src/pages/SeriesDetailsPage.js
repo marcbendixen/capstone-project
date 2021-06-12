@@ -165,6 +165,7 @@ const ListItem = styled.li`
     max-width: 80px;
     width: 100%;
     height: auto;
+    font-size: 0;
     border-radius: 4px;
     border: 1px solid rgba(221, 238, 255, 0.35);
   }
