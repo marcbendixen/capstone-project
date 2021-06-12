@@ -5,7 +5,12 @@ import styled from 'styled-components/macro'
 import Poster from '../components/Poster'
 import IconLeftArrow from '../components/ui/IconLeftArrow'
 
-export default function SeriesDetails({ handleWatchlist, watchlist }) {
+export default function SeriesDetails({
+  series,
+  watchlist,
+  handleWatchlist,
+  handleNewSeries,
+}) {
   const { id } = useParams()
   const [seriesDetails, setSeriesDetails] = useState([])
   const [cast, setCast] = useState([])
@@ -19,15 +24,19 @@ export default function SeriesDetails({ handleWatchlist, watchlist }) {
   }, [watchlist, id])
 
   useEffect(() => {
-    fetch(`/api/series/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setSeriesDetails(data)
-      })
-      .catch(error => {
-        console.error('Error:', error)
-      })
-  }, [id])
+    const filteredSeries = series.filter(el => el.id === Number(id))
+    filteredSeries.length !== 0
+      ? setSeriesDetails(filteredSeries[0])
+      : fetch(`/api/series/${id}`)
+          .then(res => res.json())
+          .then(data => {
+            setSeriesDetails(data)
+            handleNewSeries(data)
+          })
+          .catch(error => {
+            console.error('Error:', error)
+          })
+  }, [id, series, handleNewSeries])
 
   useEffect(() => {
     fetch(`/api/series/${id}/credits`)

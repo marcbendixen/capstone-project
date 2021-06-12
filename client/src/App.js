@@ -5,19 +5,28 @@ import PosterList from './components/PosterList'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
 
 export default function App() {
-  const [popularSeries, setPopularSeries] = useState([])
+  const [series, setSeries] = useState([])
   const [watchlist, setWatchlist] = useState([])
 
   useEffect(() => {
-    fetch('/api/series/popular')
-      .then(res => res.json())
-      .then(data => {
-        setPopularSeries(data.results)
-      })
-      .catch(error => {
-        console.error('Error:', error)
-      })
-  }, [])
+    series.length === 0 &&
+      fetch('/api/series/popular')
+        .then(res => res.json())
+        .then(data => {
+          Promise.all(
+            data.results.map(({ id }) =>
+              fetch(`/api/series/${id}`)
+                .then(res => res.json())
+                .then(data => (data = { ...data, isPopular: true }))
+            )
+          ).then(data => {
+            setSeries(data)
+          })
+        })
+        .catch(error => {
+          console.error('Error:', error)
+        })
+  }, [series])
 
   return (
     <Container>
@@ -30,12 +39,14 @@ export default function App() {
       </Route>
       <Switch>
         <Route exact path="/">
-          <PosterList list={popularSeries} />
+          <PosterList list={series.filter(el => el.isPopular)} />
         </Route>
         <Route exact path="/serie/:id">
           <SeriesDetailsPage
-            handleWatchlist={handleWatchlist}
+            series={series}
             watchlist={watchlist}
+            handleNewSeries={handleNewSeries}
+            handleWatchlist={handleWatchlist}
           />
         </Route>
         <Route exact path="/watchlist">
@@ -57,6 +68,10 @@ export default function App() {
       </Switch>
     </Container>
   )
+
+  function handleNewSeries(data) {
+    setSeries([...series, data])
+  }
 
   function handleWatchlist(newEntry) {
     setWatchlist([...watchlist, newEntry])
