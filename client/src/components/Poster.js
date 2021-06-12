@@ -14,9 +14,10 @@ export default function Poster({
 }
 
 const StyledPoster = styled.img`
-  max-width: 140px;
-  width: 100%;
+  display: flex;
+  width: 140px;
   height: auto;
+  font-size: 0;
   border-radius: 4px;
   border: 1px solid rgba(221, 238, 255, 0.35);
 `
