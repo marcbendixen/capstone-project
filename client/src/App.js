@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import { ReactComponent as IconFire } from './assets/icons/fire-solid.svg'
+import { ReactComponent as IconList } from './assets/icons/list-solid.svg'
 import PosterList from './components/PosterList'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
 
@@ -35,46 +37,52 @@ export default function App() {
 
   return (
     <Container>
-      <Route exact path={['/', '/watchlist']}>
-        <h1>Serientracker</h1>
-        <Navigation>
-          <StyledLink exact to="/" activeClassName="active">
-            Beliebt
-          </StyledLink>
-          <StyledLink exact to="/watchlist" activeClassName="active">
-            Watchlist
-          </StyledLink>
-        </Navigation>
-      </Route>
-      <Switch>
-        <Route exact path="/">
-          <PosterList list={series.filter(el => el.isPopular)} />
+      <header>
+        <Route exact path={['/', '/watchlist']}>
+          <h1>Serientracker</h1>
+          <Navigation>
+            <StyledLink exact to="/" activeClassName="active">
+              <StyledIconFire />
+              Beliebt
+            </StyledLink>
+            <StyledLink exact to="/watchlist" activeClassName="active">
+              <StyledIconList />
+              Watchlist
+            </StyledLink>
+          </Navigation>
         </Route>
-        <Route exact path="/serie/:id">
-          <SeriesDetailsPage
-            series={series}
-            watchlist={watchlist}
-            handleNewSeries={handleNewSeries}
-            handleWatchlist={handleWatchlist}
-          />
-        </Route>
-        <Route exact path="/watchlist">
-          {watchlist.length === 0 ? (
-            <p>
-              <em>Du hast noch keine Serie auf deiner Watchlist.</em>
-            </p>
-          ) : (
-            <>
+      </header>
+      <main>
+        <Switch>
+          <Route exact path="/">
+            <PosterList list={series.filter(el => el.isPopular)} />
+          </Route>
+          <Route exact path="/serie/:id">
+            <SeriesDetailsPage
+              series={series}
+              watchlist={watchlist}
+              handleNewSeries={handleNewSeries}
+              handleWatchlist={handleWatchlist}
+            />
+          </Route>
+          <Route exact path="/watchlist">
+            {watchlist.length === 0 ? (
               <p>
-                Du hast <strong>{watchlist.length}</strong> Serie
-                {watchlist.length > 1 && 'n'} auf deiner Watchlist.
+                <em>Du hast noch keine Serie auf deiner Watchlist.</em>
               </p>
-              <PosterList list={watchlist} />
-            </>
-          )}
-        </Route>
-        <Route>404 not found</Route>
-      </Switch>
+            ) : (
+              <>
+                <p>
+                  Du hast <strong>{watchlist.length}</strong> Serie
+                  {watchlist.length > 1 && 'n'} auf deiner Watchlist.
+                </p>
+                <PosterList list={watchlist} />
+              </>
+            )}
+          </Route>
+          <Route>404 not found</Route>
+        </Switch>
+      </main>
     </Container>
   )
 
@@ -94,21 +102,24 @@ export default function App() {
   }
 }
 
-const Container = styled.main`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1024px;
   width: 100%;
-  margin-bottom: 32px;
 `
 
 const Navigation = styled.nav`
   display: flex;
-  margin-bottom: 16px;
+  justify-content: space-between;
+  margin: 0 -8px 16px 8px;
 `
 
 const StyledLink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  position: relative;
   margin: 8px 16px;
   font-size: 14px;
   font-weight: 600;
@@ -132,11 +143,26 @@ const StyledLink = styled(NavLink)`
     &::after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: -4px;
       left: 0;
       width: 100%;
       height: 2px;
       background: #fff;
     }
   }
+
+  svg {
+    position: absolute;
+    left: -24px;
+    width: 16px;
+    height: 16px;
+  }
+`
+
+const StyledIconFire = styled(IconFire)`
+  color: #ff7500;
+`
+
+const StyledIconList = styled(IconList)`
+  color: #01dc4a;
 `
