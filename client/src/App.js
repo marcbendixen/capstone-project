@@ -67,15 +67,15 @@ export default function App() {
           </Route>
           <Route exact path="/watchlist">
             {watchlist.length === 0 ? (
-              <p>
+              <StyledParagraph>
                 <em>Du hast noch keine Serie auf deiner Watchlist.</em>
-              </p>
+              </StyledParagraph>
             ) : (
               <>
-                <p>
+                <StyledParagraph>
                   Du hast <strong>{watchlist.length}</strong> Serie
                   {watchlist.length > 1 && 'n'} auf deiner Watchlist.
-                </p>
+                </StyledParagraph>
                 <PosterList list={watchlist} />
               </>
             )}
@@ -166,4 +166,8 @@ const StyledIconFire = styled(IconFire)`
 
 const StyledIconList = styled(IconList)`
   color: #01dc4a;
+`
+
+const StyledParagraph = styled.p`
+  text-align: center;
 `
