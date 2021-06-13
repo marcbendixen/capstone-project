@@ -108,6 +108,7 @@ const Container = styled.div`
   align-items: center;
   max-width: 1024px;
   width: 100%;
+  margin-bottom: 32px;
 `
 
 const Navigation = styled.nav`
