@@ -3,8 +3,7 @@ import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
-import { ReactComponent as IconMinus } from '../assets/icons/minus-solid.svg'
-import { ReactComponent as IconPlus } from '../assets/icons/plus-solid.svg'
+import ButtonWatchlist from '../components/ButtonWatchlist'
 import Poster from '../components/Poster'
 
 export default function SeriesDetails({
@@ -65,22 +64,10 @@ export default function SeriesDetails({
         />
         <RightArea>
           <h1>{name}</h1>
-          <WatchlistButton
+          <ButtonWatchlist
             onClick={() => handleWatchlist(id)}
             isOnWatchlist={isOnWatchlist}
-          >
-            {isOnWatchlist ? (
-              <>
-                <IconMinus />
-                <div>entfernen</div>
-              </>
-            ) : (
-              <>
-                <IconPlus />
-                <div>hinzufügen</div>
-              </>
-            )}
-          </WatchlistButton>
+          />
         </RightArea>
       </Header>
       <Overview>
@@ -157,31 +144,6 @@ const Header = styled.header`
 
 const RightArea = styled.div`
   width: 100%;
-`
-
-const WatchlistButton = styled.button`
-  display: flex;
-  align-items: center;
-  border: 2px solid ${props => (props.isOnWatchlist ? '#ff7500' : '#01dc4a')};
-  padding: 4px;
-  margin: 8px 0 0 0;
-  text-decoration: none;
-  background: #14171a;
-  color: ${props => (props.isOnWatchlist ? '#ff7500' : '#01dc4a')};
-  font-family: inherit;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  text-transform: uppercase;
-
-  svg {
-    color: ${props => (props.isOnWatchlist ? '#ff7500' : '#01dc4a')};
-    margin-right: 4px;
-    width: 12px;
-    height: 12px;
-  }
 `
 
 const Overview = styled.p`
