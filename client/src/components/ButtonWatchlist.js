@@ -14,12 +14,12 @@ export default function ButtonWatchlist({ isOnWatchlist, onClick }) {
       {isOnWatchlist ? (
         <>
           <IconMinus />
-          <div>entfernen</div>
+          <span>entfernen</span>
         </>
       ) : (
         <>
           <IconPlus />
-          <div>hinzufügen</div>
+          <span>hinzufügen</span>
         </>
       )}
     </StyledButton>
@@ -27,7 +27,7 @@ export default function ButtonWatchlist({ isOnWatchlist, onClick }) {
 }
 
 const StyledButton = styled.button`
-  display: flex;
+  display: inline-flex;
   align-items: center;
   border: 2px solid ${props => (props.isOnWatchlist ? '#ff7500' : '#01dc4a')};
   padding: 4px;
