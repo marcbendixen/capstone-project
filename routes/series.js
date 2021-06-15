@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const fetch = require('node-fetch')
-const axios = require('axios')
 require('dotenv').config()
 
 const { API_BASE_URL, API_KEY, API_LANGUAGE } = process.env

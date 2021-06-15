@@ -1,45 +1,104 @@
 import { useEffect, useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import Header from './components/Header'
 import PosterList from './components/PosterList'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
+import getPopular from './services/getPopular'
+import getSeriesDetails from './services/getSeriesDetails'
 
 export default function App() {
-  const [popularSeries, setPopularSeries] = useState([])
+  const [series, setSeries] = useState([])
+  const [watchlist, setWatchlist] = useState([])
 
   useEffect(() => {
-    fetch('/api/series/popular')
-      .then(res => res.json())
-      .then(data => {
-        setPopularSeries(data.results)
-      })
-      .catch(error => {
-        console.error('Error:', error)
-      })
-  }, [])
+    series.length === 0 &&
+      getPopular()
+        .then(data => {
+          Promise.all(
+            data.results.map(({ id }) =>
+              getSeriesDetails(id).then(
+                data => (data = { ...data, isPopular: true })
+              )
+            )
+          ).then(data => {
+            setSeries(data)
+          })
+        })
+        .catch(error => {
+          console.error('Error:', error)
+        })
+  }, [series])
+
+  useEffect(() => {
+    const onWatchlist = series.filter(el => el.isOnWatchlist)
+    setWatchlist(onWatchlist)
+  }, [series])
 
   return (
     <Container>
-      <Switch>
-        <Route exact path="/">
-          <h1>Serientracker</h1>
-          <h2>Beliebt</h2>
-          <PosterList list={popularSeries} />
-        </Route>
-        <Route exact path="/serie/:id">
-          <SeriesDetailsPage />
-        </Route>
-        <Route>404 not found</Route>
-      </Switch>
+      <Route exact path={['/', '/watchlist']}>
+        <Header />
+      </Route>
+      <main>
+        <Switch>
+          <Route exact path="/">
+            <PosterList list={series.filter(el => el.isPopular)} />
+          </Route>
+          <Route exact path="/serie/:id">
+            <SeriesDetailsPage
+              series={series}
+              watchlist={watchlist}
+              handleNewSeries={handleNewSeries}
+              handleWatchlist={handleWatchlist}
+            />
+          </Route>
+          <Route exact path="/watchlist">
+            {watchlist.length === 0 ? (
+              <StyledParagraph>
+                <i>Du hast noch keine Serie auf deiner Watchlist.</i>
+              </StyledParagraph>
+            ) : (
+              <>
+                <StyledParagraph>
+                  Du hast <strong>{watchlist.length}</strong> Serie
+                  {watchlist.length > 1 && 'n'} auf deiner Watchlist.
+                </StyledParagraph>
+                <PosterList list={watchlist} />
+              </>
+            )}
+          </Route>
+          <Route>404 not found</Route>
+        </Switch>
+      </main>
     </Container>
   )
+
+  function handleNewSeries(data) {
+    setSeries([...series, data])
+  }
+
+  function handleWatchlist(id) {
+    const index = series.findIndex(el => el.id === Number(id))
+    const entryToUpdate = series[index]
+
+    setSeries([
+      ...series.slice(0, index),
+      { ...entryToUpdate, isOnWatchlist: !entryToUpdate.isOnWatchlist },
+      ...series.slice(index + 1),
+    ])
+  }
 }
 
-const Container = styled.main`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1024px;
   width: 100%;
   margin-bottom: 32px;
+`
+
+const StyledParagraph = styled.p`
+  text-align: center;
 `

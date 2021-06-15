@@ -2,28 +2,37 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
+import ButtonWatchlist from '../components/ButtonWatchlist'
 import Poster from '../components/Poster'
-import IconLeftArrow from '../components/ui/IconLeftArrow'
+import getSeriesCredits from '../services/getSeriesCredits'
+import getSeriesDetails from '../services/getSeriesDetails'
 
-export default function SeriesDetails() {
+export default function SeriesDetails({
+  series,
+  handleWatchlist,
+  handleNewSeries,
+}) {
   const { id } = useParams()
   const [seriesDetails, setSeriesDetails] = useState([])
   const [cast, setCast] = useState([])
 
   useEffect(() => {
-    fetch(`/api/series/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        setSeriesDetails(data)
-      })
-      .catch(error => {
-        console.error('Error:', error)
-      })
-  }, [id])
+    const findItem = series.find(el => el.id === Number(id))
+    findItem
+      ? setSeriesDetails(findItem)
+      : getSeriesDetails(id)
+          .then(data => {
+            setSeriesDetails(data)
+            handleNewSeries(data)
+          })
+          .catch(error => {
+            console.error('Error:', error)
+          })
+  }, [id, series, handleNewSeries])
 
   useEffect(() => {
-    fetch(`/api/series/${id}/credits`)
-      .then(res => res.json())
+    getSeriesCredits(id)
       .then(data => {
         setCast(data.cast)
       })
@@ -32,23 +41,36 @@ export default function SeriesDetails() {
       })
   }, [id])
 
-  const { name, poster_path: posterPath, overview } = seriesDetails
+  const {
+    name,
+    poster_path: posterPath,
+    overview,
+    isOnWatchlist,
+  } = seriesDetails
 
   return (
     <Wrapper>
-      <BackButton to="/">
-        <IconLeftArrow />
+      <BackButton to="/" aria-label="Zurück zur Startseite">
+        <IconArrowLeft />
       </BackButton>
       <Header>
-        <Poster
-          path={
-            posterPath !== undefined
-              ? `https://image.tmdb.org/t/p/w300${posterPath}`
-              : '../poster.png'
-          }
-          alt={`Poster von ${name}`}
-        />
-        <h1>{name}</h1>
+        <PosterWrapper>
+          <Poster
+            path={
+              posterPath !== undefined
+                ? `https://image.tmdb.org/t/p/w300${posterPath}`
+                : '../poster.png'
+            }
+            alt={`Poster von ${name}`}
+          />
+        </PosterWrapper>
+        <RightArea>
+          <h1>{name}</h1>
+          <ButtonWatchlist
+            onClick={() => handleWatchlist(id)}
+            isOnWatchlist={isOnWatchlist ?? false}
+          />
+        </RightArea>
       </Header>
       <Overview>
         {overview !== '' ? (
@@ -120,6 +142,16 @@ const Header = styled.header`
   h1 {
     margin: 0;
   }
+`
+
+const PosterWrapper = styled.div`
+  max-width: 140px;
+  width: 100%;
+  height: auto;
+`
+
+const RightArea = styled.div`
+  width: 100%;
 `
 
 const Overview = styled.p`

@@ -1,3 +1,4 @@
+import { BrowserRouter as Router } from 'react-router-dom'
 import GlobalStyles from '../src/GlobalStyles'
 
 export const parameters = {
@@ -12,9 +13,9 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <>
+    <Router>
       <GlobalStyles />
       <Story />
-    </>
+    </Router>
   )
 ]

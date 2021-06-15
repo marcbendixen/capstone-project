@@ -6,17 +6,28 @@ const GlobalStyles = createGlobalStyle`
 }
 
 #root {
+  display: flex;
+  justify-content: center;
   width: 100%;
 }
 
 body {
   display: flex;
   justify-content: center;
-  font-family: Helvetica, sans-serif;
-  line-height: 1.25;
+  font-family: 'Gudea', Helvetica, sans-serif;
+  line-height: 1.5;
   color: #fff;
-  background-color: #171717;
+  background-color: #14171A;
   scroll-behavior: smooth;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  letter-spacing: 0.04em;
+}
+
+h1 {
+  font-weight: bold;
 }
 
 a, a:active, a:visited {

@@ -3,12 +3,15 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import SeriesDetailsPage from './SeriesDetailsPage'
 
 describe('SeriesDetailsPage', () => {
+  const series = []
+
   it('has heading', () => {
     render(
       <Router>
-        <SeriesDetailsPage />
+        <SeriesDetailsPage series={series} />
       </Router>
     )
+
     const heading = screen.getAllByRole('heading')
     expect(heading).toHaveLength(2)
   })
@@ -16,7 +19,7 @@ describe('SeriesDetailsPage', () => {
   it('has a header', () => {
     render(
       <Router>
-        <SeriesDetailsPage />
+        <SeriesDetailsPage series={series} />
       </Router>
     )
 
@@ -27,7 +30,7 @@ describe('SeriesDetailsPage', () => {
   it('has a list', () => {
     render(
       <Router>
-        <SeriesDetailsPage />
+        <SeriesDetailsPage series={series} />
       </Router>
     )
 
