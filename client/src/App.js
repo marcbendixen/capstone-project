@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import { NavLink, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { ReactComponent as IconFire } from './assets/icons/fire-solid.svg'
-import { ReactComponent as IconList } from './assets/icons/list-solid.svg'
+import Header from './components/Header'
 import PosterList from './components/PosterList'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
 
@@ -37,21 +36,9 @@ export default function App() {
 
   return (
     <Container>
-      <header>
-        <Route exact path={['/', '/watchlist']}>
-          <h1>Serientracker</h1>
-          <Navigation>
-            <StyledLink exact to="/" activeClassName="active">
-              <StyledIconFire />
-              Beliebt
-            </StyledLink>
-            <StyledLink exact to="/watchlist" activeClassName="active">
-              <StyledIconList />
-              Watchlist
-            </StyledLink>
-          </Navigation>
-        </Route>
-      </header>
+      <Route exact path={['/', '/watchlist']}>
+        <Header />
+      </Route>
       <main>
         <Switch>
           <Route exact path="/">
@@ -109,63 +96,6 @@ const Container = styled.div`
   max-width: 1024px;
   width: 100%;
   margin-bottom: 32px;
-`
-
-const Navigation = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  margin: 0 -8px 16px 8px;
-`
-
-const StyledLink = styled(NavLink)`
-  display: flex;
-  align-items: center;
-  position: relative;
-  margin: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: #d8e0e8;
-
-  :visited {
-    color: #d8e0e8;
-  }
-
-  :hover {
-    color: #fff;
-  }
-
-  &.active {
-    color: #fff;
-    position: relative;
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: #fff;
-    }
-  }
-
-  svg {
-    position: absolute;
-    left: -24px;
-    width: 16px;
-    height: 16px;
-  }
-`
-
-const StyledIconFire = styled(IconFire)`
-  color: #ff7500;
-`
-
-const StyledIconList = styled(IconList)`
-  color: #01dc4a;
 `
 
 const StyledParagraph = styled.p`
