@@ -50,7 +50,7 @@ export default function SeriesDetails({
 
   return (
     <Wrapper>
-      <BackButton to="/">
+      <BackButton to="/" aria-label="Zurück zur Startseite">
         <IconArrowLeft />
       </BackButton>
       <Header>
