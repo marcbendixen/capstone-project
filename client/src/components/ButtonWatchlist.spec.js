@@ -22,7 +22,12 @@ describe('ButtonWatchlist', () => {
   it('has the correct button text', () => {
     render(<ButtonWatchlist onClick={() => jest.fn()} isOnWatchlist={false} />)
 
-    const text = screen.getByText('hinzufügen')
-    expect(text).toBeInTheDocument()
+    const textAdd = screen.getByText('hinzufügen')
+    expect(textAdd).toBeInTheDocument()
+
+    render(<ButtonWatchlist onClick={() => jest.fn()} isOnWatchlist={true} />)
+
+    const textRemove = screen.getByText('entfernen')
+    expect(textRemove).toBeInTheDocument()
   })
 })
