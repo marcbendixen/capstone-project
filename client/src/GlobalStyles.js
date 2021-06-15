@@ -28,7 +28,6 @@ h1, h2, h3 {
 
 h1 {
   font-weight: bold;
-  /* letter-spacing: 1px; */
 }
 
 a, a:active, a:visited {
