@@ -5,6 +5,8 @@ import styled from 'styled-components/macro'
 import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
 import ButtonWatchlist from '../components/ButtonWatchlist'
 import Poster from '../components/Poster'
+import getSeriesCredits from '../services/getSeriesCredits'
+import getSeriesDetails from '../services/getSeriesDetails'
 
 export default function SeriesDetails({
   series,
@@ -19,8 +21,7 @@ export default function SeriesDetails({
     const findItem = series.find(el => el.id === Number(id))
     findItem
       ? setSeriesDetails(findItem)
-      : fetch(`/api/series/${id}`)
-          .then(res => res.json())
+      : getSeriesDetails(id)
           .then(data => {
             setSeriesDetails(data)
             handleNewSeries(data)
@@ -31,8 +32,7 @@ export default function SeriesDetails({
   }, [id, series, handleNewSeries])
 
   useEffect(() => {
-    fetch(`/api/series/${id}/credits`)
-      .then(res => res.json())
+    getSeriesCredits(id)
       .then(data => {
         setCast(data.cast)
       })

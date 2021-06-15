@@ -4,6 +4,8 @@ import styled from 'styled-components/macro'
 import Header from './components/Header'
 import PosterList from './components/PosterList'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
+import getPopular from './services/getPopular'
+import getSeriesDetails from './services/getSeriesDetails'
 
 export default function App() {
   const [series, setSeries] = useState([])
@@ -11,14 +13,13 @@ export default function App() {
 
   useEffect(() => {
     series.length === 0 &&
-      fetch('/api/series/popular')
-        .then(res => res.json())
+      getPopular()
         .then(data => {
           Promise.all(
             data.results.map(({ id }) =>
-              fetch(`/api/series/${id}`)
-                .then(res => res.json())
-                .then(data => (data = { ...data, isPopular: true }))
+              getSeriesDetails(id).then(
+                data => (data = { ...data, isPopular: true })
+              )
             )
           ).then(data => {
             setSeries(data)
