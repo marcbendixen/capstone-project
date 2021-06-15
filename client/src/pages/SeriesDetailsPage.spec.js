@@ -2,13 +2,16 @@ import { render, screen } from '@testing-library/react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import SeriesDetailsPage from './SeriesDetailsPage'
 
-describe.skip('SeriesDetailsPage', () => {
+describe('SeriesDetailsPage', () => {
+  const series = []
+
   it('has heading', () => {
     render(
       <Router>
-        <SeriesDetailsPage />
+        <SeriesDetailsPage series={series} />
       </Router>
     )
+
     const heading = screen.getAllByRole('heading')
     expect(heading).toHaveLength(2)
   })
@@ -16,7 +19,7 @@ describe.skip('SeriesDetailsPage', () => {
   it('has a header', () => {
     render(
       <Router>
-        <SeriesDetailsPage />
+        <SeriesDetailsPage series={series} />
       </Router>
     )
 
@@ -27,7 +30,7 @@ describe.skip('SeriesDetailsPage', () => {
   it('has a list', () => {
     render(
       <Router>
-        <SeriesDetailsPage />
+        <SeriesDetailsPage series={series} />
       </Router>
     )
 
