@@ -16,9 +16,9 @@ export default function SeriesDetails({
   const [cast, setCast] = useState([])
 
   useEffect(() => {
-    const filteredItem = series.filter(el => el.id === Number(id))
-    filteredItem.length !== 0
-      ? setSeriesDetails(filteredItem[0])
+    const findItem = series.find(el => el.id === Number(id))
+    findItem
+      ? setSeriesDetails(findItem)
       : fetch(`/api/series/${id}`)
           .then(res => res.json())
           .then(data => {
@@ -68,7 +68,7 @@ export default function SeriesDetails({
           <h1>{name}</h1>
           <ButtonWatchlist
             onClick={() => handleWatchlist(id)}
-            isOnWatchlist={isOnWatchlist}
+            isOnWatchlist={isOnWatchlist ?? false}
           />
         </RightArea>
       </Header>
