@@ -39,7 +39,8 @@ const StyledPosterList = styled.ul`
   width: 100%;
 
   li {
-    width: 140px;
+    max-width: 105px;
+    width: 100%;
 
     a {
       display: flex;
