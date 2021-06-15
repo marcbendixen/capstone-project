@@ -54,14 +54,16 @@ export default function SeriesDetails({
         <IconArrowLeft />
       </BackButton>
       <Header>
-        <Poster
-          path={
-            posterPath !== undefined
-              ? `https://image.tmdb.org/t/p/w300${posterPath}`
-              : '../poster.png'
-          }
-          alt={`Poster von ${name}`}
-        />
+        <PosterWrapper>
+          <Poster
+            path={
+              posterPath !== undefined
+                ? `https://image.tmdb.org/t/p/w300${posterPath}`
+                : '../poster.png'
+            }
+            alt={`Poster von ${name}`}
+          />
+        </PosterWrapper>
         <RightArea>
           <h1>{name}</h1>
           <ButtonWatchlist
@@ -140,6 +142,12 @@ const Header = styled.header`
   h1 {
     margin: 0;
   }
+`
+
+const PosterWrapper = styled.div`
+  max-width: 140px;
+  width: 100%;
+  height: auto;
 `
 
 const RightArea = styled.div`
