@@ -55,7 +55,7 @@ export default function App() {
           <Route exact path="/watchlist">
             {watchlist.length === 0 ? (
               <StyledParagraph>
-                <em>Du hast noch keine Serie auf deiner Watchlist.</em>
+                <i>Du hast noch keine Serie auf deiner Watchlist.</i>
               </StyledParagraph>
             ) : (
               <>
