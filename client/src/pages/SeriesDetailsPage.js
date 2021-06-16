@@ -5,6 +5,7 @@ import styled from 'styled-components/macro'
 import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
 import ButtonWatchlist from '../components/ButtonWatchlist'
 import Poster from '../components/Poster'
+import getSeason from '../services/getSeason'
 import getSeriesCredits from '../services/getSeriesCredits'
 import getSeriesDetails from '../services/getSeriesDetails'
 
@@ -15,20 +16,38 @@ export default function SeriesDetails({
 }) {
   const { id } = useParams()
   const [seriesDetails, setSeriesDetails] = useState([])
+  const [seriesSeasons, setSeriesSeasons] = useState([])
   const [cast, setCast] = useState([])
 
   useEffect(() => {
     const findItem = series.find(el => el.id === Number(id))
-    findItem
-      ? setSeriesDetails(findItem)
-      : getSeriesDetails(id)
-          .then(data => {
-            setSeriesDetails(data)
-            handleNewSeries(data)
-          })
-          .catch(error => {
-            console.error('Error:', error)
-          })
+
+    if (findItem) {
+      setSeriesDetails(findItem)
+      fetchSeasonDetails(findItem)
+    } else {
+      getSeriesDetails(id)
+        .then(data => {
+          setSeriesDetails(data)
+          handleNewSeries(data)
+          fetchSeasonDetails(data)
+        })
+        .catch(error => {
+          console.error('Error:', error)
+        })
+    }
+
+    async function fetchSeasonDetails(element) {
+      const { id, seasons } = element
+
+      const fetchData = Promise.all(
+        seasons.map(({ season_number: seasonNumber }) =>
+          getSeason(id, seasonNumber).then(data => data)
+        )
+      )
+      const allSeasons = await fetchData
+      setSeriesSeasons([...allSeasons])
+    }
   }, [id, series, handleNewSeries])
 
   useEffect(() => {
@@ -85,6 +104,23 @@ export default function SeriesDetails({
           </span>
         )}
       </Overview>
+      <h2>Staffeln</h2>
+      <ul>
+        {seriesSeasons.map(({ id, name, episodes }) => (
+          <span key={id}>
+            <li>{name}</li>
+            <ul>
+              {episodes.map(({ id, name, overview }) => (
+                <li key={id}>
+                  {name}
+                  <br />
+                  {overview}
+                </li>
+              ))}
+            </ul>
+          </span>
+        ))}
+      </ul>
       <h2>Besetzung</h2>
       <List>
         {cast.map(({ id, profile_path: profilePath, name, character }) => (
