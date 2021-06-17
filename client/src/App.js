@@ -40,7 +40,7 @@ export default function App() {
       <Route exact path={['/', '/watchlist']}>
         <Header />
       </Route>
-      <main>
+      <StyledMain>
         <Switch>
           <Route exact path="/">
             <PosterList list={series.filter(el => el.isPopular)} />
@@ -70,7 +70,7 @@ export default function App() {
           </Route>
           <Route>404 not found</Route>
         </Switch>
-      </main>
+      </StyledMain>
     </Container>
   )
 
@@ -97,6 +97,10 @@ const Container = styled.div`
   max-width: 1024px;
   width: 100%;
   margin-bottom: 32px;
+`
+
+const StyledMain = styled.main`
+  width: 100%;
 `
 
 const StyledParagraph = styled.p`
