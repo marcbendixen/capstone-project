@@ -5,6 +5,7 @@ import styled from 'styled-components/macro'
 import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
 import ButtonWatchlist from '../components/ButtonWatchlist'
 import Poster from '../components/Poster'
+import SeasonsList from '../components/SeasonsList'
 import getSeason from '../services/getSeason'
 import getSeriesCredits from '../services/getSeriesCredits'
 import getSeriesDetails from '../services/getSeriesDetails'
@@ -105,22 +106,7 @@ export default function SeriesDetails({
         )}
       </Overview>
       <h2>Staffeln</h2>
-      <ul>
-        {seriesSeasons.map(({ id, name, episodes }) => (
-          <span key={id}>
-            <li>{name}</li>
-            <ul>
-              {episodes.map(({ id, name, overview }) => (
-                <li key={id}>
-                  {name}
-                  <br />
-                  {overview}
-                </li>
-              ))}
-            </ul>
-          </span>
-        ))}
-      </ul>
+      <SeasonsList seriesSeasons={seriesSeasons} />
       <h2>Besetzung</h2>
       <List>
         {cast.map(({ id, profile_path: profilePath, name, character }) => (
