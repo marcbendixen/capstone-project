@@ -1,42 +1,21 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
 import styled from 'styled-components/macro'
 import ButtonSeason from './ButtonSeason'
 import EpisodeCard from './EpisodeCard'
 import Poster from './Poster'
+import useSeasons from '../hooks/useSeasons'
 
 SeasonsList.propTypes = {
   seriesSeasons: PropTypes.array.isRequired,
 }
 
 export default function SeasonsList({ seriesSeasons }) {
-  const [seasons, setSeasons] = useState(null)
-  const [currentSeasonNumber, setCurrentSeasonNumber] = useState(1)
-  const [currentSeason, setCurrentSeason] = useState(null)
-  const [currentEpisodes, setCurrentEpisodes] = useState(null)
-
-  useEffect(() => {
-    if (seriesSeasons.length > 0) {
-      setSeasons(seriesSeasons)
-    }
-  }, [seriesSeasons])
-
-  useEffect(() => {
-    if (seasons) {
-      const filteredSeason = seasons.find(
-        ({ season_number: seasonNumber }) =>
-          seasonNumber === currentSeasonNumber
-      )
-      setCurrentSeason(filteredSeason)
-    }
-  }, [seasons, currentSeasonNumber])
-
-  useEffect(() => {
-    if (currentSeason) {
-      const episodes = currentSeason.episodes
-      setCurrentEpisodes(episodes)
-    }
-  }, [currentSeason])
+  const {
+    currentSeason,
+    currentSeasonNumber,
+    currentEpisodes,
+    setCurrentSeasonNumber,
+  } = useSeasons(seriesSeasons)
 
   return (
     <Wrapper>
@@ -46,7 +25,7 @@ export default function SeasonsList({ seriesSeasons }) {
             key={seasonNumber}
             name={name}
             onClick={() => handleOnClick(seasonNumber)}
-            isActive={Number(seasonNumber) === Number(currentSeasonNumber)}
+            isActive={seasonNumber === currentSeasonNumber}
           />
         ))}
       </Navigation>

@@ -17,7 +17,6 @@ export default function ButtonSeason({ name, onClick, isActive }) {
 const StyledButton = styled.button`
   border: 2px solid #38b4f2;
   padding: 4px;
-  /* margin: 8px 0 0 0; */
   text-decoration: none;
   background-color: ${props => (props.isActive ? '#38b4f2' : '#14171a')};
   color: ${props => (props.isActive ? '#14171a' : '#fff')};
