@@ -13,7 +13,7 @@ describe('SeriesDetailsPage', () => {
     )
 
     const heading = screen.getAllByRole('heading')
-    expect(heading).toHaveLength(2)
+    expect(heading).toHaveLength(3)
   })
 
   it('has a header', () => {
@@ -27,14 +27,14 @@ describe('SeriesDetailsPage', () => {
     expect(header).toBeInTheDocument()
   })
 
-  it('has a list', () => {
+  it('has lists', () => {
     render(
       <Router>
         <SeriesDetailsPage series={series} />
       </Router>
     )
 
-    const list = screen.getByRole('list')
-    expect(list).toBeInTheDocument()
+    const list = screen.getAllByRole('list')
+    expect(list).toHaveLength(2)
   })
 })
