@@ -34,5 +34,6 @@ export default function useSeasons(seriesSeasons) {
     currentSeasonNumber,
     currentEpisodes,
     setCurrentSeasonNumber,
+    setCurrentEpisodes,
   }
 }

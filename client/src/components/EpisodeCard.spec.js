@@ -9,7 +9,13 @@ describe('EpisodeCard', () => {
       episode_number: 1,
     }
 
-    render(<EpisodeCard episode={episode} />)
+    render(
+      <EpisodeCard
+        episode={episode}
+        isOnWatchlist={true}
+        handleCheckEpisode={() => jest.fn()}
+      />
+    )
 
     const element = screen.getByRole('listitem')
     expect(element).toBeInTheDocument()
@@ -22,7 +28,13 @@ describe('EpisodeCard', () => {
       episode_number: 1,
     }
 
-    render(<EpisodeCard episode={episode} />)
+    render(
+      <EpisodeCard
+        episode={episode}
+        isOnWatchlist={true}
+        handleCheckEpisode={() => jest.fn()}
+      />
+    )
 
     const headline = screen.getByRole('heading')
     expect(headline).toBeInTheDocument()
@@ -35,7 +47,13 @@ describe('EpisodeCard', () => {
       episode_number: 1,
     }
 
-    render(<EpisodeCard episode={episode} />)
+    render(
+      <EpisodeCard
+        episode={episode}
+        isOnWatchlist={true}
+        handleCheckEpisode={() => jest.fn()}
+      />
+    )
 
     const text = screen.getByText('Title')
     expect(text).toBeInTheDocument()

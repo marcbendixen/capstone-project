@@ -1,20 +1,22 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
+import useSeasons from '../hooks/useSeasons'
 import ButtonSeason from './ButtonSeason'
 import EpisodeCard from './EpisodeCard'
 import Poster from './Poster'
-import useSeasons from '../hooks/useSeasons'
 
 SeasonsList.propTypes = {
   seriesSeasons: PropTypes.array.isRequired,
+  isOnWatchlist: PropTypes.bool.isRequired,
 }
 
-export default function SeasonsList({ seriesSeasons }) {
+export default function SeasonsList({ seriesSeasons, isOnWatchlist }) {
   const {
     currentSeason,
     currentSeasonNumber,
     currentEpisodes,
     setCurrentSeasonNumber,
+    setCurrentEpisodes,
   } = useSeasons(seriesSeasons)
 
   return (
@@ -58,7 +60,12 @@ export default function SeasonsList({ seriesSeasons }) {
       <StyledList>
         {currentEpisodes &&
           currentEpisodes.map(episode => (
-            <EpisodeCard key={episode.id} episode={episode} />
+            <EpisodeCard
+              key={episode.id}
+              episode={episode}
+              isOnWatchlist={isOnWatchlist}
+              handleCheckEpisode={() => handleCheckEpisode(episode.id)}
+            />
           ))}
       </StyledList>
     </Wrapper>
@@ -66,6 +73,17 @@ export default function SeasonsList({ seriesSeasons }) {
 
   function handleOnClick(seasonNumber) {
     setCurrentSeasonNumber(seasonNumber)
+  }
+
+  function handleCheckEpisode(id) {
+    const index = currentEpisodes.findIndex(el => el.id === Number(id))
+    const entryToUpdate = currentEpisodes[index]
+
+    setCurrentEpisodes([
+      ...currentEpisodes.slice(0, index),
+      { ...entryToUpdate, isWatched: !entryToUpdate.isWatched },
+      ...currentEpisodes.slice(index + 1),
+    ])
   }
 
   function formatDate(date) {

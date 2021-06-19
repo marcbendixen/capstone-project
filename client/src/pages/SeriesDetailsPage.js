@@ -65,7 +65,7 @@ export default function SeriesDetails({
     name,
     poster_path: posterPath,
     overview,
-    isOnWatchlist,
+    isOnWatchlist = false,
   } = seriesDetails
 
   return (
@@ -106,7 +106,10 @@ export default function SeriesDetails({
         )}
       </Overview>
       <h2>Staffeln</h2>
-      <SeasonsList seriesSeasons={seriesSeasons} />
+      <SeasonsList
+        seriesSeasons={seriesSeasons}
+        isOnWatchlist={isOnWatchlist}
+      />
       <h2>Besetzung</h2>
       <List>
         {cast.map(({ id, profile_path: profilePath, name, character }) => (
