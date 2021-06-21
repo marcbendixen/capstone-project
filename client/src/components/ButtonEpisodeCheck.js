@@ -37,4 +37,9 @@ const StyledButton = styled.button`
   text-decoration: none;
   cursor: pointer;
   color: ${props => (props.isEpisodeWatched ? '#01dc4a' : '#14171A')};
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
