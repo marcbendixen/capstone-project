@@ -10,6 +10,7 @@ import getSeriesDetails from './services/getSeriesDetails'
 export default function App() {
   const [series, setSeries] = useState([])
   const [watchlist, setWatchlist] = useState([])
+  const [watchedEpisodes, setWatchedEpisodes] = useState([])
 
   useEffect(() => {
     series.length === 0 &&
@@ -48,9 +49,10 @@ export default function App() {
           <Route exact path="/serie/:id">
             <SeriesDetailsPage
               series={series}
-              watchlist={watchlist}
               handleNewSeries={handleNewSeries}
               handleWatchlist={handleWatchlist}
+              handleCheckEpisode={handleCheckEpisode}
+              checkIsEpisodeWatched={checkIsEpisodeWatched}
             />
           </Route>
           <Route exact path="/watchlist">
@@ -87,6 +89,24 @@ export default function App() {
       { ...entryToUpdate, isOnWatchlist: !entryToUpdate.isOnWatchlist },
       ...series.slice(index + 1),
     ])
+  }
+
+  function handleCheckEpisode(id) {
+    const checkIfOnList = watchedEpisodes.some(el => el === id)
+
+    if (checkIfOnList) {
+      const index = watchedEpisodes.findIndex(el => el === id)
+      setWatchedEpisodes([
+        ...watchedEpisodes.slice(0, index),
+        ...watchedEpisodes.slice(index + 1),
+      ])
+    } else {
+      setWatchedEpisodes([...watchedEpisodes, id])
+    }
+  }
+
+  function checkIsEpisodeWatched(id) {
+    return watchedEpisodes.some(el => el === id)
   }
 }
 

@@ -3,13 +3,21 @@ import styled from 'styled-components/macro'
 import { ReactComponent as IconCheck } from '../assets/icons/check-circle-solid.svg'
 
 ButtonEpisodeCheck.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  isWatched: PropTypes.bool.isRequired,
+  id: PropTypes.number.isRequired,
+  isEpisodeWatched: PropTypes.bool.isRequired,
+  handleCheckEpisode: PropTypes.func.isRequired,
 }
 
-export default function ButtonEpisodeCheck({ onClick, isWatched }) {
+export default function ButtonEpisodeCheck({
+  id,
+  isEpisodeWatched,
+  handleCheckEpisode,
+}) {
   return (
-    <StyledButton onClick={onClick} isWatched={isWatched}>
+    <StyledButton
+      onClick={() => handleCheckEpisode(id)}
+      isEpisodeWatched={isEpisodeWatched}
+    >
       <IconCheck />
     </StyledButton>
   )
@@ -28,5 +36,5 @@ const StyledButton = styled.button`
   background: none;
   text-decoration: none;
   cursor: pointer;
-  color: ${props => (props.isWatched ? '#01dc4a' : '#14171A')};
+  color: ${props => (props.isEpisodeWatched ? '#01dc4a' : '#14171A')};
 `

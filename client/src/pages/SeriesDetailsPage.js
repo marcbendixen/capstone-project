@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -10,10 +11,20 @@ import getSeason from '../services/getSeason'
 import getSeriesCredits from '../services/getSeriesCredits'
 import getSeriesDetails from '../services/getSeriesDetails'
 
-export default function SeriesDetails({
+SeriesDetailsPage.propTypes = {
+  series: PropTypes.array.isRequired,
+  handleWatchlist: PropTypes.func.isRequired,
+  handleNewSeries: PropTypes.func.isRequired,
+  handleCheckEpisode: PropTypes.func.isRequired,
+  checkIsEpisodeWatched: PropTypes.func.isRequired,
+}
+
+export default function SeriesDetailsPage({
   series,
   handleWatchlist,
   handleNewSeries,
+  handleCheckEpisode,
+  checkIsEpisodeWatched,
 }) {
   const { id } = useParams()
   const [seriesDetails, setSeriesDetails] = useState([])
@@ -108,7 +119,9 @@ export default function SeriesDetails({
       <h2>Staffeln</h2>
       <SeasonsList
         seriesSeasons={seriesSeasons}
-        isOnWatchlist={isOnWatchlist}
+        seriesIsOnWatchlist={isOnWatchlist}
+        checkIsEpisodeWatched={checkIsEpisodeWatched}
+        handleCheckEpisode={handleCheckEpisode}
       />
       <h2>Besetzung</h2>
       <List>

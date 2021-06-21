@@ -4,32 +4,33 @@ import ButtonEpisodeCheck from './ButtonEpisodeCheck'
 
 EpisodeCard.propTypes = {
   episode: PropTypes.object.isRequired,
+  seriesIsOnWatchlist: PropTypes.bool.isRequired,
+  isEpisodeWatched: PropTypes.bool.isRequired,
   handleCheckEpisode: PropTypes.func.isRequired,
-  isOnWatchlist: PropTypes.bool.isRequired,
 }
 
 export default function EpisodeCard({
   episode,
-  isOnWatchlist,
+  seriesIsOnWatchlist,
+  isEpisodeWatched,
   handleCheckEpisode,
 }) {
-  const {
-    name,
-    episode_number: episodeNumber,
-    overview,
-    isWatched = false,
-  } = episode
+  const { name, episode_number: episodeNumber, overview, id } = episode
+
   return (
-    <Wrapper isWatched={isWatched}>
+    <Wrapper isEpisodeWatched={isEpisodeWatched}>
       <Heading>
-        <StyledEpisodeNumber isWatched={isWatched}>
+        <StyledEpisodeNumber
+          isEpisodeWatched={isEpisodeWatched && seriesIsOnWatchlist}
+        >
           {episodeNumber}
         </StyledEpisodeNumber>
         <h4>{name}</h4>
-        {isOnWatchlist && (
+        {seriesIsOnWatchlist && (
           <ButtonEpisodeCheck
-            onClick={handleCheckEpisode}
-            isWatched={isWatched}
+            id={id}
+            isEpisodeWatched={isEpisodeWatched}
+            handleCheckEpisode={handleCheckEpisode}
           />
         )}
       </Heading>
@@ -71,7 +72,8 @@ const StyledEpisodeNumber = styled.span`
   width: calc(2ch + 16px);
   text-align: center;
   background-color: #38b4f2;
-  background-color: ${props => (props.isWatched ? '#01dc4a' : '#38b4f2')};
+  background-color: ${props =>
+    props.isEpisodeWatched ? '#01dc4a' : '#38b4f2'};
   padding: 4px 8px;
   border-radius: 4px;
 `

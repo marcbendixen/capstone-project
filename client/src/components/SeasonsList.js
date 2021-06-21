@@ -1,23 +1,29 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import styled from 'styled-components/macro'
-import useSeasons from '../hooks/useSeasons'
 import ButtonSeason from './ButtonSeason'
 import EpisodeCard from './EpisodeCard'
 import Poster from './Poster'
 
 SeasonsList.propTypes = {
   seriesSeasons: PropTypes.array.isRequired,
-  isOnWatchlist: PropTypes.bool.isRequired,
+  seriesIsOnWatchlist: PropTypes.bool.isRequired,
+  checkIsEpisodeWatched: PropTypes.func.isRequired,
+  handleCheckEpisode: PropTypes.func.isRequired,
 }
 
-export default function SeasonsList({ seriesSeasons, isOnWatchlist }) {
-  const {
-    currentSeason,
-    currentSeasonNumber,
-    currentEpisodes,
-    setCurrentSeasonNumber,
-    setCurrentEpisodes,
-  } = useSeasons(seriesSeasons)
+export default function SeasonsList({
+  seriesSeasons,
+  seriesIsOnWatchlist,
+  checkIsEpisodeWatched,
+  handleCheckEpisode,
+}) {
+  const [currentSeasonNumber, setCurrentSeasonNumber] = useState(1)
+
+  const currentSeason = seriesSeasons?.find(
+    ({ season_number: seasonNumber }) => seasonNumber === currentSeasonNumber
+  )
+  const currentEpisodes = currentSeason?.episodes
 
   return (
     <Wrapper>
@@ -26,7 +32,7 @@ export default function SeasonsList({ seriesSeasons, isOnWatchlist }) {
           <ButtonSeason
             key={seasonNumber}
             name={name}
-            onClick={() => handleOnClick(seasonNumber)}
+            onClick={() => handleSwitchSeason(seasonNumber)}
             isActive={seasonNumber === currentSeasonNumber}
           />
         ))}
@@ -63,27 +69,17 @@ export default function SeasonsList({ seriesSeasons, isOnWatchlist }) {
             <EpisodeCard
               key={episode.id}
               episode={episode}
-              isOnWatchlist={isOnWatchlist}
-              handleCheckEpisode={() => handleCheckEpisode(episode.id)}
+              seriesIsOnWatchlist={seriesIsOnWatchlist}
+              isEpisodeWatched={checkIsEpisodeWatched(episode.id)}
+              handleCheckEpisode={handleCheckEpisode}
             />
           ))}
       </StyledList>
     </Wrapper>
   )
 
-  function handleOnClick(seasonNumber) {
+  function handleSwitchSeason(seasonNumber) {
     setCurrentSeasonNumber(seasonNumber)
-  }
-
-  function handleCheckEpisode(id) {
-    const index = currentEpisodes.findIndex(el => el.id === Number(id))
-    const entryToUpdate = currentEpisodes[index]
-
-    setCurrentEpisodes([
-      ...currentEpisodes.slice(0, index),
-      { ...entryToUpdate, isWatched: !entryToUpdate.isWatched },
-      ...currentEpisodes.slice(index + 1),
-    ])
   }
 
   function formatDate(date) {
