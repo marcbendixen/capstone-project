@@ -8,7 +8,13 @@ describe('SeriesDetailsPage', () => {
   it('has heading', () => {
     render(
       <Router>
-        <SeriesDetailsPage series={series} />
+        <SeriesDetailsPage
+          series={series}
+          handleWatchlist={() => jest.fn()}
+          handleNewSeries={() => jest.fn()}
+          handleCheckEpisode={() => jest.fn()}
+          checkIsEpisodeWatched={() => jest.fn()}
+        />
       </Router>
     )
 
@@ -19,7 +25,13 @@ describe('SeriesDetailsPage', () => {
   it('has a header', () => {
     render(
       <Router>
-        <SeriesDetailsPage series={series} />
+        <SeriesDetailsPage
+          series={series}
+          handleWatchlist={() => jest.fn()}
+          handleNewSeries={() => jest.fn()}
+          handleCheckEpisode={() => jest.fn()}
+          checkIsEpisodeWatched={() => jest.fn()}
+        />
       </Router>
     )
 
@@ -30,7 +42,13 @@ describe('SeriesDetailsPage', () => {
   it('has lists', () => {
     render(
       <Router>
-        <SeriesDetailsPage series={series} />
+        <SeriesDetailsPage
+          series={series}
+          handleWatchlist={() => jest.fn()}
+          handleNewSeries={() => jest.fn()}
+          handleCheckEpisode={() => jest.fn()}
+          checkIsEpisodeWatched={() => jest.fn()}
+        />
       </Router>
     )
 

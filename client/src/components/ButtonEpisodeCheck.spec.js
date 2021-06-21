@@ -4,7 +4,13 @@ import ButtonEpisodeCheck from './ButtonEpisodeCheck'
 
 describe('ButtonEpisodeCheck', () => {
   it('renders', () => {
-    render(<ButtonEpisodeCheck onClick={() => jest.fn()} isWatched={false} />)
+    render(
+      <ButtonEpisodeCheck
+        id={123}
+        handleCheckEpisode={() => jest.fn()}
+        isEpisodeWatched={false}
+      />
+    )
 
     const button = screen.getByRole('button')
     expect(button).toBeInTheDocument()
@@ -12,7 +18,13 @@ describe('ButtonEpisodeCheck', () => {
 
   it('has onClick function', () => {
     const handleOnClick = jest.fn()
-    render(<ButtonEpisodeCheck onClick={handleOnClick} isWatched={false} />)
+    render(
+      <ButtonEpisodeCheck
+        id={123}
+        handleCheckEpisode={handleOnClick}
+        isEpisodeWatched={false}
+      />
+    )
 
     const button = screen.getByRole('button')
     userEvent.click(button)

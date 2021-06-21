@@ -4,6 +4,7 @@ import EpisodeCard from './EpisodeCard'
 describe('EpisodeCard', () => {
   it('renders', () => {
     const episode = {
+      id: 123,
       name: 'Title',
       overview: 'Lorem Ipsum Dolor',
       episode_number: 1,
@@ -12,7 +13,8 @@ describe('EpisodeCard', () => {
     render(
       <EpisodeCard
         episode={episode}
-        isOnWatchlist={true}
+        seriesIsOnWatchlist={true}
+        isEpisodeWatched={true}
         handleCheckEpisode={() => jest.fn()}
       />
     )
@@ -23,6 +25,7 @@ describe('EpisodeCard', () => {
 
   it('has a heading', () => {
     const episode = {
+      id: 123,
       name: 'Title',
       overview: 'Lorem Ipsum Dolor',
       episode_number: 1,
@@ -31,7 +34,8 @@ describe('EpisodeCard', () => {
     render(
       <EpisodeCard
         episode={episode}
-        isOnWatchlist={true}
+        seriesIsOnWatchlist={true}
+        isEpisodeWatched={true}
         handleCheckEpisode={() => jest.fn()}
       />
     )
@@ -42,6 +46,7 @@ describe('EpisodeCard', () => {
 
   it('has the correct heading text', () => {
     const episode = {
+      id: 123,
       name: 'Title',
       overview: 'Lorem Ipsum Dolor',
       episode_number: 1,
@@ -50,7 +55,8 @@ describe('EpisodeCard', () => {
     render(
       <EpisodeCard
         episode={episode}
-        isOnWatchlist={true}
+        seriesIsOnWatchlist={true}
+        isEpisodeWatched={true}
         handleCheckEpisode={() => jest.fn()}
       />
     )
