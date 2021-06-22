@@ -1,21 +1,29 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import styled from 'styled-components/macro'
 import ButtonSeason from './ButtonSeason'
 import EpisodeCard from './EpisodeCard'
 import Poster from './Poster'
-import useSeasons from '../hooks/useSeasons'
 
 SeasonsList.propTypes = {
   seriesSeasons: PropTypes.array.isRequired,
+  seriesIsOnWatchlist: PropTypes.bool.isRequired,
+  checkIsEpisodeWatched: PropTypes.func.isRequired,
+  onCheckEpisode: PropTypes.func.isRequired,
 }
 
-export default function SeasonsList({ seriesSeasons }) {
-  const {
-    currentSeason,
-    currentSeasonNumber,
-    currentEpisodes,
-    setCurrentSeasonNumber,
-  } = useSeasons(seriesSeasons)
+export default function SeasonsList({
+  seriesSeasons,
+  seriesIsOnWatchlist,
+  checkIsEpisodeWatched,
+  onCheckEpisode,
+}) {
+  const [currentSeasonNumber, setCurrentSeasonNumber] = useState(1)
+
+  const currentSeason = seriesSeasons?.find(
+    ({ season_number: seasonNumber }) => seasonNumber === currentSeasonNumber
+  )
+  const currentEpisodes = currentSeason?.episodes
 
   return (
     <Wrapper>
@@ -24,7 +32,7 @@ export default function SeasonsList({ seriesSeasons }) {
           <ButtonSeason
             key={seasonNumber}
             name={name}
-            onClick={() => handleOnClick(seasonNumber)}
+            onClick={() => handleSwitchSeason(seasonNumber)}
             isActive={seasonNumber === currentSeasonNumber}
           />
         ))}
@@ -58,13 +66,19 @@ export default function SeasonsList({ seriesSeasons }) {
       <StyledList>
         {currentEpisodes &&
           currentEpisodes.map(episode => (
-            <EpisodeCard key={episode.id} episode={episode} />
+            <EpisodeCard
+              key={episode.id}
+              episode={episode}
+              seriesIsOnWatchlist={seriesIsOnWatchlist}
+              isEpisodeWatched={checkIsEpisodeWatched(episode.id)}
+              onCheckEpisode={onCheckEpisode}
+            />
           ))}
       </StyledList>
     </Wrapper>
   )
 
-  function handleOnClick(seasonNumber) {
+  function handleSwitchSeason(seasonNumber) {
     setCurrentSeasonNumber(seasonNumber)
   }
 

@@ -5,34 +5,24 @@ import SeriesDetailsPage from './SeriesDetailsPage'
 describe('SeriesDetailsPage', () => {
   const series = []
 
-  it('has heading', () => {
+  it('renders a details page with header, headings and lists', () => {
     render(
       <Router>
-        <SeriesDetailsPage series={series} />
-      </Router>
-    )
-
-    const heading = screen.getAllByRole('heading')
-    expect(heading).toHaveLength(3)
-  })
-
-  it('has a header', () => {
-    render(
-      <Router>
-        <SeriesDetailsPage series={series} />
+        <SeriesDetailsPage
+          series={series}
+          handleWatchlist={() => jest.fn()}
+          handleNewSeries={() => jest.fn()}
+          onCheckEpisode={() => jest.fn()}
+          checkIsEpisodeWatched={() => jest.fn()}
+        />
       </Router>
     )
 
     const header = screen.getByRole('banner')
     expect(header).toBeInTheDocument()
-  })
 
-  it('has lists', () => {
-    render(
-      <Router>
-        <SeriesDetailsPage series={series} />
-      </Router>
-    )
+    const heading = screen.getAllByRole('heading')
+    expect(heading).toHaveLength(3)
 
     const list = screen.getAllByRole('list')
     expect(list).toHaveLength(2)
