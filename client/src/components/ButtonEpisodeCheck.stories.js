@@ -9,13 +9,13 @@ export default {
 const Template = args => <ButtonEpisodeCheck {...args} />
 
 export const Active = Template.bind({})
-Active.args = { isWatched: true }
+Active.args = { isEpisodeWatched: true, id: 123 }
 Active.parameters = {
   backgrounds: { default: 'light' },
 }
 
 export const Inactive = Template.bind({})
-Inactive.args = { isWatched: false }
+Inactive.args = { isEpisodeWatched: false, id: 123 }
 Inactive.parameters = {
   backgrounds: { default: 'light' },
 }
