@@ -1,40 +1,16 @@
-import { useEffect, useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Header from './components/Header'
 import PosterList from './components/PosterList'
+import useEpisodes from './hooks/useEpisodes'
+import useSeries from './hooks/useSeries'
+import useWatchlist from './hooks/useWatchlist'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
-import getPopular from './services/getPopular'
-import getSeriesDetails from './services/getSeriesDetails'
 
 export default function App() {
-  const [series, setSeries] = useState([])
-  const [watchlist, setWatchlist] = useState([])
-  const [watchedEpisodesIds, setWatchedEpisodesIds] = useState([])
-
-  useEffect(() => {
-    series.length === 0 &&
-      getPopular()
-        .then(data => {
-          Promise.all(
-            data.results.map(({ id }) =>
-              getSeriesDetails(id).then(
-                data => (data = { ...data, isPopular: true })
-              )
-            )
-          ).then(data => {
-            setSeries(data)
-          })
-        })
-        .catch(error => {
-          console.error('Error:', error)
-        })
-  }, [series])
-
-  useEffect(() => {
-    const onWatchlist = series.filter(el => el.isOnWatchlist)
-    setWatchlist(onWatchlist)
-  }, [series])
+  const { series, handleNewSeries } = useSeries()
+  const { watchlist, handleWatchlist, checkIsOnWatchlist } = useWatchlist()
+  const { handleCheckEpisode, checkIsEpisodeWatched } = useEpisodes()
 
   return (
     <Container>
@@ -53,6 +29,7 @@ export default function App() {
               handleWatchlist={handleWatchlist}
               onCheckEpisode={handleCheckEpisode}
               checkIsEpisodeWatched={checkIsEpisodeWatched}
+              checkIsOnWatchlist={checkIsOnWatchlist}
             />
           </Route>
           <Route exact path="/watchlist">
@@ -75,46 +52,13 @@ export default function App() {
       </StyledMain>
     </Container>
   )
-
-  function handleNewSeries(data) {
-    setSeries([...series, data])
-  }
-
-  function handleWatchlist(id) {
-    const index = series.findIndex(el => el.id === Number(id))
-    const entryToUpdate = series[index]
-
-    setSeries([
-      ...series.slice(0, index),
-      { ...entryToUpdate, isOnWatchlist: !entryToUpdate.isOnWatchlist },
-      ...series.slice(index + 1),
-    ])
-  }
-
-  function handleCheckEpisode(episodeId) {
-    const isOnList = watchedEpisodesIds.some(el => el === episodeId)
-
-    if (isOnList) {
-      const indexToRemove = watchedEpisodesIds.findIndex(el => el === episodeId)
-      setWatchedEpisodesIds([
-        ...watchedEpisodesIds.slice(0, indexToRemove),
-        ...watchedEpisodesIds.slice(indexToRemove + 1),
-      ])
-    } else {
-      setWatchedEpisodesIds([...watchedEpisodesIds, episodeId])
-    }
-  }
-
-  function checkIsEpisodeWatched(id) {
-    return watchedEpisodesIds.some(el => el === id)
-  }
 }
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 1024px;
+  max-width: 768px;
   width: 100%;
   margin-bottom: 32px;
 `

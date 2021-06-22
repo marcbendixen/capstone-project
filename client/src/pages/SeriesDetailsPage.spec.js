@@ -6,6 +6,8 @@ describe('SeriesDetailsPage', () => {
   const series = []
 
   it('renders a details page with header, headings and lists', () => {
+    const handleIsOnWatchlist = jest.fn()
+
     render(
       <Router>
         <SeriesDetailsPage
@@ -14,6 +16,7 @@ describe('SeriesDetailsPage', () => {
           handleNewSeries={() => jest.fn()}
           onCheckEpisode={() => jest.fn()}
           checkIsEpisodeWatched={() => jest.fn()}
+          checkIsOnWatchlist={handleIsOnWatchlist.mockReturnValueOnce(true)}
         />
       </Router>
     )
