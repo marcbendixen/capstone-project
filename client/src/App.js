@@ -10,7 +10,7 @@ import getSeriesDetails from './services/getSeriesDetails'
 export default function App() {
   const [series, setSeries] = useState([])
   const [watchlist, setWatchlist] = useState([])
-  const [watchedEpisodes, setWatchedEpisodes] = useState([])
+  const [watchedEpisodesIds, setWatchedEpisodesIds] = useState([])
 
   useEffect(() => {
     series.length === 0 &&
@@ -91,22 +91,22 @@ export default function App() {
     ])
   }
 
-  function handleCheckEpisode(id) {
-    const checkIfOnList = watchedEpisodes.some(el => el === id)
+  function handleCheckEpisode(episodeId) {
+    const isOnList = watchedEpisodesIds.some(el => el === episodeId)
 
-    if (checkIfOnList) {
-      const index = watchedEpisodes.findIndex(el => el === id)
-      setWatchedEpisodes([
-        ...watchedEpisodes.slice(0, index),
-        ...watchedEpisodes.slice(index + 1),
+    if (isOnList) {
+      const indexToRemove = watchedEpisodesIds.findIndex(el => el === episodeId)
+      setWatchedEpisodesIds([
+        ...watchedEpisodesIds.slice(0, indexToRemove),
+        ...watchedEpisodesIds.slice(indexToRemove + 1),
       ])
     } else {
-      setWatchedEpisodes([...watchedEpisodes, id])
+      setWatchedEpisodesIds([...watchedEpisodesIds, episodeId])
     }
   }
 
   function checkIsEpisodeWatched(id) {
-    return watchedEpisodes.some(el => el === id)
+    return watchedEpisodesIds.some(el => el === id)
   }
 }
 
