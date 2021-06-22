@@ -7,7 +7,7 @@ describe('ButtonEpisodeCheck', () => {
     render(
       <ButtonEpisodeCheck
         id={123}
-        handleCheckEpisode={() => jest.fn()}
+        onCheckEpisode={() => jest.fn()}
         isEpisodeWatched={false}
       />
     )
@@ -21,7 +21,7 @@ describe('ButtonEpisodeCheck', () => {
     render(
       <ButtonEpisodeCheck
         id={123}
-        handleCheckEpisode={handleOnClick}
+        onCheckEpisode={handleOnClick}
         isEpisodeWatched={false}
       />
     )

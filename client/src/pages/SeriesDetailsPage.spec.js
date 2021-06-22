@@ -12,7 +12,7 @@ describe('SeriesDetailsPage', () => {
           series={series}
           handleWatchlist={() => jest.fn()}
           handleNewSeries={() => jest.fn()}
-          handleCheckEpisode={() => jest.fn()}
+          onCheckEpisode={() => jest.fn()}
           checkIsEpisodeWatched={() => jest.fn()}
         />
       </Router>
@@ -29,7 +29,7 @@ describe('SeriesDetailsPage', () => {
           series={series}
           handleWatchlist={() => jest.fn()}
           handleNewSeries={() => jest.fn()}
-          handleCheckEpisode={() => jest.fn()}
+          onCheckEpisode={() => jest.fn()}
           checkIsEpisodeWatched={() => jest.fn()}
         />
       </Router>
@@ -46,7 +46,7 @@ describe('SeriesDetailsPage', () => {
           series={series}
           handleWatchlist={() => jest.fn()}
           handleNewSeries={() => jest.fn()}
-          handleCheckEpisode={() => jest.fn()}
+          onCheckEpisode={() => jest.fn()}
           checkIsEpisodeWatched={() => jest.fn()}
         />
       </Router>

@@ -15,7 +15,7 @@ describe('EpisodeCard', () => {
         episode={episode}
         seriesIsOnWatchlist={true}
         isEpisodeWatched={true}
-        handleCheckEpisode={() => jest.fn()}
+        onCheckEpisode={() => jest.fn()}
       />
     )
 
@@ -36,7 +36,7 @@ describe('EpisodeCard', () => {
         episode={episode}
         seriesIsOnWatchlist={true}
         isEpisodeWatched={true}
-        handleCheckEpisode={() => jest.fn()}
+        onCheckEpisode={() => jest.fn()}
       />
     )
 
@@ -57,7 +57,7 @@ describe('EpisodeCard', () => {
         episode={episode}
         seriesIsOnWatchlist={true}
         isEpisodeWatched={true}
-        handleCheckEpisode={() => jest.fn()}
+        onCheckEpisode={() => jest.fn()}
       />
     )
 
