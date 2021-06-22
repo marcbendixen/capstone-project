@@ -17,6 +17,7 @@ SeriesDetailsPage.propTypes = {
   handleNewSeries: PropTypes.func.isRequired,
   onCheckEpisode: PropTypes.func.isRequired,
   checkIsEpisodeWatched: PropTypes.func.isRequired,
+  checkIsOnWatchlist: PropTypes.func.isRequired,
 }
 
 export default function SeriesDetailsPage({
@@ -25,11 +26,14 @@ export default function SeriesDetailsPage({
   handleNewSeries,
   onCheckEpisode,
   checkIsEpisodeWatched,
+  checkIsOnWatchlist,
 }) {
   const { id } = useParams()
   const [seriesDetails, setSeriesDetails] = useState([])
   const [seriesSeasons, setSeriesSeasons] = useState([])
   const [cast, setCast] = useState([])
+
+  const isOnWatchlist = checkIsOnWatchlist(id)
 
   useEffect(() => {
     const findItem = series.find(el => el.id === Number(id))
@@ -72,12 +76,7 @@ export default function SeriesDetailsPage({
       })
   }, [id])
 
-  const {
-    name,
-    poster_path: posterPath,
-    overview,
-    isOnWatchlist = false,
-  } = seriesDetails
+  const { name, poster_path: posterPath, overview } = seriesDetails
 
   return (
     <Wrapper>
@@ -99,7 +98,7 @@ export default function SeriesDetailsPage({
           <h1>{name}</h1>
           <ButtonWatchlist
             onClick={() => handleWatchlist(id)}
-            isOnWatchlist={isOnWatchlist ?? false}
+            isOnWatchlist={isOnWatchlist}
           />
         </RightArea>
       </Header>

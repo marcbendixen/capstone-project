@@ -6,11 +6,19 @@ import PosterList from './components/PosterList'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
 import getPopular from './services/getPopular'
 import getSeriesDetails from './services/getSeriesDetails'
+import { getLocalStorage, setLocalStorage } from './utils/localStorage'
 
 export default function App() {
   const [series, setSeries] = useState([])
   const [watchlist, setWatchlist] = useState([])
-  const [watchedEpisodesIds, setWatchedEpisodesIds] = useState([])
+  const [watchlistIds, setWatchlistIds] = useState(
+    getLocalStorage('watchlistIds') ?? []
+  )
+  const [watchedEpisodesIds, setWatchedEpisodesIds] = useState(
+    getLocalStorage('watchedEpisodesIds') ?? []
+  )
+
+  console.log('WATCHLIST: ', watchlist)
 
   useEffect(() => {
     series.length === 0 &&
@@ -32,9 +40,18 @@ export default function App() {
   }, [series])
 
   useEffect(() => {
-    const onWatchlist = series.filter(el => el.isOnWatchlist)
-    setWatchlist(onWatchlist)
-  }, [series])
+    setLocalStorage('watchedEpisodesIds', watchedEpisodesIds)
+  }, [watchedEpisodesIds])
+
+  useEffect(() => {
+    setLocalStorage('watchlistIds', watchlistIds)
+  }, [watchlistIds])
+
+  useEffect(() => {
+    Promise.all(
+      watchlistIds.map(id => getSeriesDetails(id).then(data => data))
+    ).then(data => setWatchlist(data.reverse()))
+  }, [watchlistIds])
 
   return (
     <Container>
@@ -53,6 +70,7 @@ export default function App() {
               handleWatchlist={handleWatchlist}
               onCheckEpisode={handleCheckEpisode}
               checkIsEpisodeWatched={checkIsEpisodeWatched}
+              checkIsOnWatchlist={checkIsOnWatchlist}
             />
           </Route>
           <Route exact path="/watchlist">
@@ -81,14 +99,18 @@ export default function App() {
   }
 
   function handleWatchlist(id) {
-    const index = series.findIndex(el => el.id === Number(id))
-    const entryToUpdate = series[index]
+    const seriesId = Number(id)
+    const isOnList = watchlistIds.some(el => el === seriesId)
 
-    setSeries([
-      ...series.slice(0, index),
-      { ...entryToUpdate, isOnWatchlist: !entryToUpdate.isOnWatchlist },
-      ...series.slice(index + 1),
-    ])
+    if (isOnList) {
+      const indexToRemove = watchlistIds.findIndex(el => el === seriesId)
+      setWatchlistIds([
+        ...watchlistIds.slice(0, indexToRemove),
+        ...watchlistIds.slice(indexToRemove + 1),
+      ])
+    } else {
+      setWatchlistIds([...watchlistIds, seriesId])
+    }
   }
 
   function handleCheckEpisode(episodeId) {
@@ -107,6 +129,10 @@ export default function App() {
 
   function checkIsEpisodeWatched(id) {
     return watchedEpisodesIds.some(el => el === id)
+  }
+
+  function checkIsOnWatchlist(id) {
+    return watchlistIds.some(el => el === Number(id))
   }
 }
 
