@@ -5,17 +5,17 @@ import { ReactComponent as IconCheck } from '../assets/icons/check-circle-solid.
 ButtonEpisodeCheck.propTypes = {
   id: PropTypes.number.isRequired,
   isEpisodeWatched: PropTypes.bool.isRequired,
-  handleCheckEpisode: PropTypes.func.isRequired,
+  onCheckEpisode: PropTypes.func.isRequired,
 }
 
 export default function ButtonEpisodeCheck({
   id,
   isEpisodeWatched,
-  handleCheckEpisode,
+  onCheckEpisode,
 }) {
   return (
     <StyledButton
-      onClick={() => handleCheckEpisode(id)}
+      onClick={() => onCheckEpisode(id)}
       isEpisodeWatched={isEpisodeWatched}
     >
       <IconCheck />

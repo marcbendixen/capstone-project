@@ -6,14 +6,14 @@ EpisodeCard.propTypes = {
   episode: PropTypes.object.isRequired,
   seriesIsOnWatchlist: PropTypes.bool.isRequired,
   isEpisodeWatched: PropTypes.bool.isRequired,
-  handleCheckEpisode: PropTypes.func.isRequired,
+  onCheckEpisode: PropTypes.func.isRequired,
 }
 
 export default function EpisodeCard({
   episode,
   seriesIsOnWatchlist,
   isEpisodeWatched,
-  handleCheckEpisode,
+  onCheckEpisode,
 }) {
   const { name, episode_number: episodeNumber, overview, id } = episode
 
@@ -30,7 +30,7 @@ export default function EpisodeCard({
           <ButtonEpisodeCheck
             id={id}
             isEpisodeWatched={isEpisodeWatched}
-            handleCheckEpisode={handleCheckEpisode}
+            onCheckEpisode={onCheckEpisode}
           />
         )}
       </Heading>

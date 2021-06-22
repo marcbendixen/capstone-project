@@ -15,7 +15,7 @@ SeriesDetailsPage.propTypes = {
   series: PropTypes.array.isRequired,
   handleWatchlist: PropTypes.func.isRequired,
   handleNewSeries: PropTypes.func.isRequired,
-  handleCheckEpisode: PropTypes.func.isRequired,
+  onCheckEpisode: PropTypes.func.isRequired,
   checkIsEpisodeWatched: PropTypes.func.isRequired,
 }
 
@@ -23,7 +23,7 @@ export default function SeriesDetailsPage({
   series,
   handleWatchlist,
   handleNewSeries,
-  handleCheckEpisode,
+  onCheckEpisode,
   checkIsEpisodeWatched,
 }) {
   const { id } = useParams()
@@ -121,7 +121,7 @@ export default function SeriesDetailsPage({
         seriesSeasons={seriesSeasons}
         seriesIsOnWatchlist={isOnWatchlist}
         checkIsEpisodeWatched={checkIsEpisodeWatched}
-        handleCheckEpisode={handleCheckEpisode}
+        onCheckEpisode={onCheckEpisode}
       />
       <h2>Besetzung</h2>
       <List>

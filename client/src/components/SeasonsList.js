@@ -9,14 +9,14 @@ SeasonsList.propTypes = {
   seriesSeasons: PropTypes.array.isRequired,
   seriesIsOnWatchlist: PropTypes.bool.isRequired,
   checkIsEpisodeWatched: PropTypes.func.isRequired,
-  handleCheckEpisode: PropTypes.func.isRequired,
+  onCheckEpisode: PropTypes.func.isRequired,
 }
 
 export default function SeasonsList({
   seriesSeasons,
   seriesIsOnWatchlist,
   checkIsEpisodeWatched,
-  handleCheckEpisode,
+  onCheckEpisode,
 }) {
   const [currentSeasonNumber, setCurrentSeasonNumber] = useState(1)
 
@@ -71,7 +71,7 @@ export default function SeasonsList({
               episode={episode}
               seriesIsOnWatchlist={seriesIsOnWatchlist}
               isEpisodeWatched={checkIsEpisodeWatched(episode.id)}
-              handleCheckEpisode={handleCheckEpisode}
+              onCheckEpisode={onCheckEpisode}
             />
           ))}
       </StyledList>

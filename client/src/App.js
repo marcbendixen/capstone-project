@@ -51,7 +51,7 @@ export default function App() {
               series={series}
               handleNewSeries={handleNewSeries}
               handleWatchlist={handleWatchlist}
-              handleCheckEpisode={handleCheckEpisode}
+              onCheckEpisode={handleCheckEpisode}
               checkIsEpisodeWatched={checkIsEpisodeWatched}
             />
           </Route>
