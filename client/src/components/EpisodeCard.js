@@ -19,7 +19,7 @@ export default function EpisodeCard({
 
   return (
     <Wrapper isEpisodeWatched={isEpisodeWatched}>
-      <Heading>
+      <HeadingContainer>
         <StyledEpisodeNumber
           isEpisodeWatched={isEpisodeWatched && seriesIsOnWatchlist}
         >
@@ -33,7 +33,7 @@ export default function EpisodeCard({
             onCheckEpisode={onCheckEpisode}
           />
         )}
-      </Heading>
+      </HeadingContainer>
       <p>{overview}</p>
     </Wrapper>
   )
@@ -53,7 +53,7 @@ const Wrapper = styled.li`
   }
 `
 
-const Heading = styled.div`
+const HeadingContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
