@@ -2,10 +2,15 @@ import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import { ReactComponent as IconFire } from '../assets/icons/fire-solid.svg'
 import { ReactComponent as IconList } from '../assets/icons/list-solid.svg'
+import { ReactComponent as IconSearch } from '../assets/icons/search-solid.svg'
 
 export default function Navigation() {
   return (
     <StyledNavigation>
+      <StyledNavLink exact to="/suche" activeClassName="active">
+        <StyledIconSearch />
+        Suche
+      </StyledNavLink>
       <StyledNavLink exact to="/" activeClassName="active">
         <StyledIconFire />
         Beliebt
@@ -21,7 +26,8 @@ export default function Navigation() {
 const StyledNavigation = styled.nav`
   display: flex;
   justify-content: space-between;
-  margin: 0 -8px 16px 8px;
+  gap: 16px;
+  margin: 0 -8px 0 16px;
 `
 
 const StyledNavLink = styled(NavLink)`
@@ -65,6 +71,10 @@ const StyledNavLink = styled(NavLink)`
     width: 16px;
     height: 16px;
   }
+`
+
+const StyledIconSearch = styled(IconSearch)`
+  color: #38b4f2;
 `
 
 const StyledIconFire = styled(IconFire)`

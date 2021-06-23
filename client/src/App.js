@@ -15,7 +15,7 @@ export default function App() {
 
   return (
     <Container>
-      <Route exact path={['/', '/watchlist']}>
+      <Route exact path={['/', '/suche', '/watchlist']}>
         <Header />
       </Route>
       <StyledMain>
