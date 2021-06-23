@@ -4,7 +4,7 @@ import Poster from '../components/Poster'
 import useSearch from '../hooks/useSearch'
 
 export default function SearchPage() {
-  const { results, handleSearch } = useSearch()
+  const { query, results, handleSearch } = useSearch()
 
   return (
     <Wrapper>
@@ -15,7 +15,10 @@ export default function SearchPage() {
       />
       {results !== null && (
         <StyledList>
-          <div>{results.length} Ergebnisse gefunden 🥳</div>
+          <div>
+            <strong>{results.length}</strong> Ergebnisse für <i>"{query}"</i>{' '}
+            gefunden 🥳
+          </div>
           {results.map(
             ({
               id,

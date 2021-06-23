@@ -14,5 +14,5 @@ export default function useSearch() {
     currentQuery !== '' ? setQuery(currentQuery) : setResults(null)
   }
 
-  return { results, handleSearch }
+  return { query, results, handleSearch }
 }
