@@ -16,7 +16,7 @@ export default function PosterList({ list = [] }) {
             <Poster
               path={
                 posterPath
-                  ? `https://image.tmdb.org/t/p/w300/${posterPath}`
+                  ? `https://image.tmdb.org/t/p/w300${posterPath}`
                   : 'poster.png'
               }
               alt={`Poster von ${name}`}
