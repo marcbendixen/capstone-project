@@ -5,6 +5,7 @@ import PosterList from './components/PosterList'
 import useEpisodes from './hooks/useEpisodes'
 import useSeries from './hooks/useSeries'
 import useWatchlist from './hooks/useWatchlist'
+import SearchPage from './pages/SearchPage'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
 
 export default function App() {
@@ -21,6 +22,9 @@ export default function App() {
         <Switch>
           <Route exact path="/">
             <PosterList list={series.filter(el => el.isPopular)} />
+          </Route>
+          <Route exact path="/suche">
+            <SearchPage />
           </Route>
           <Route exact path="/serie/:id">
             <SeriesDetailsPage
