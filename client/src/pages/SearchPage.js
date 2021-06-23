@@ -12,41 +12,47 @@ export default function SearchPage() {
         type="text"
         placeholder="Suche nach Serien…"
         onChange={handleSearch}
+        onKeyDown={event =>
+          (event.key === 'Enter' || event.key === 'Escape') &&
+          event.target.blur()
+        }
       />
       {results !== null && (
-        <StyledList>
-          <div>
-            <strong>{results.length}</strong> Ergebnisse für <i>"{query}"</i>{' '}
-            gefunden 🥳
-          </div>
-          {results.map(
-            ({
-              id,
-              name,
-              poster_path: posterPath,
-              first_air_date: firstAirDate,
-            }) => (
-              <Link to={`/serie/${id}`} key={id}>
-                <StyledListItem>
-                  <Poster
-                    path={
-                      posterPath
-                        ? `https://image.tmdb.org/t/p/w154${posterPath}`
-                        : 'poster.png'
-                    }
-                    alt={`Poster von ${name}`}
-                  />
-                  <StyledMetaInfos>
-                    <StyledHeading>{name}</StyledHeading>
-                    {firstAirDate !== undefined && (
-                      <div>{firstAirDate.substring(0, 4)}</div>
-                    )}
-                  </StyledMetaInfos>
-                </StyledListItem>
-              </Link>
-            )
-          )}
-        </StyledList>
+        <>
+          <StyledResultInfo>
+            <strong>{results.length}</strong> Ergebnis
+            {results.length > 1 && `se`} für <i>"{query}"</i> gefunden 🥳
+          </StyledResultInfo>
+          <StyledList>
+            {results.map(
+              ({
+                id,
+                name,
+                poster_path: posterPath,
+                first_air_date: firstAirDate,
+              }) => (
+                <Link to={`/serie/${id}`} key={id}>
+                  <StyledListItem>
+                    <Poster
+                      path={
+                        posterPath
+                          ? `https://image.tmdb.org/t/p/w154${posterPath}`
+                          : 'poster.png'
+                      }
+                      alt={`Poster von ${name}`}
+                    />
+                    <StyledMetaInfos>
+                      <StyledHeading>{name}</StyledHeading>
+                      {firstAirDate !== undefined && (
+                        <div>{firstAirDate.substring(0, 4)}</div>
+                      )}
+                    </StyledMetaInfos>
+                  </StyledListItem>
+                </Link>
+              )
+            )}
+          </StyledList>
+        </>
       )}
     </Wrapper>
   )
@@ -63,9 +69,15 @@ const Wrapper = styled.div`
 const StyledInput = styled.input`
   max-width: 375px;
   width: 100%;
-  padding: 8px;
+  padding: 12px 8px;
+  border-radius: 4px;
+  border-color: transparent;
   font-size: 1rem;
   font-family: inherit;
+`
+
+const StyledResultInfo = styled.span`
+  text-align: center;
 `
 
 const StyledList = styled.ul`
@@ -76,6 +88,7 @@ const StyledList = styled.ul`
   padding: 0;
   margin: 0;
   width: 100%;
+  border-top: 1px solid #2c3440;
 
   a {
     text-decoration: none;
