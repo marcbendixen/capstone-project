@@ -6,7 +6,12 @@ export default function useSearch() {
   const [results, setResults] = useState(null)
 
   useEffect(() => {
-    query && getSearchResults(query).then(data => setResults(data.results))
+    query &&
+      getSearchResults(query)
+        .then(data => setResults(data.results))
+        .catch(error => {
+          console.error('Error:', error)
+        })
   }, [query])
 
   function handleSearch(event) {

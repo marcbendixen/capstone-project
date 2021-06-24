@@ -20,7 +20,7 @@ export default function SearchPage() {
           }
         />
       </StyledLabel>
-      {results !== null && (
+      {results && (
         <>
           <StyledResultInfo>
             <strong>{results.length}</strong> Ergebnis
@@ -70,8 +70,7 @@ const Wrapper = styled.div`
 `
 
 const StyledLabel = styled.label`
-  display: flex;
-  flex-direction: column;
+  display: grid;
   max-width: 375px;
   width: 100%;
 `
