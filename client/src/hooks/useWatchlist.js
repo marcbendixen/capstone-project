@@ -9,9 +9,11 @@ export default function useWatchlist() {
   )
 
   useEffect(() => {
-    Promise.all(
-      watchlistIds.map(id => getSeriesDetails(id).then(data => data))
-    ).then(data => setWatchlist(data.reverse()))
+    Promise.all(watchlistIds.map(id => getSeriesDetails(id).then(data => data)))
+      .then(data => setWatchlist(data.reverse()))
+      .catch(error => {
+        console.error('Error:', error)
+      })
   }, [watchlistIds])
 
   useEffect(() => {

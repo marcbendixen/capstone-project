@@ -7,6 +7,7 @@ const { PORT = 4000 } = process.env
 
 app.use('/api', express.json())
 app.use('/api/series', require('./routes/series'))
+app.use('/api/search', require('./routes/search'))
 app.use(express.static('client/build'))
 
 app.use('*', (req, res) => {
