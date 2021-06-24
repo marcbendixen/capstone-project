@@ -8,15 +8,18 @@ export default function SearchPage() {
 
   return (
     <Wrapper>
-      <StyledInput
-        type="text"
-        placeholder="Suche nach Serien…"
-        onChange={handleSearch}
-        onKeyDown={event =>
-          (event.key === 'Enter' || event.key === 'Escape') &&
-          event.target.blur()
-        }
-      />
+      <StyledLabel>
+        Suche:
+        <StyledInput
+          type="text"
+          placeholder="Was willst du finden?"
+          onChange={handleSearch}
+          onKeyDown={event =>
+            (event.key === 'Enter' || event.key === 'Escape') &&
+            event.target.blur()
+          }
+        />
+      </StyledLabel>
       {results !== null && (
         <>
           <StyledResultInfo>
@@ -66,9 +69,14 @@ const Wrapper = styled.div`
   gap: 32px;
 `
 
-const StyledInput = styled.input`
+const StyledLabel = styled.label`
+  display: flex;
+  flex-direction: column;
   max-width: 375px;
   width: 100%;
+`
+
+const StyledInput = styled.input`
   padding: 12px 8px;
   border-radius: 4px;
   border-color: transparent;
