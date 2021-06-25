@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
@@ -7,9 +6,8 @@ import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-
 import ButtonWatchlist from '../components/ButtonWatchlist'
 import Poster from '../components/Poster'
 import SeasonsList from '../components/SeasonsList'
-import getSeason from '../services/getSeason'
-import getSeriesCredits from '../services/getSeriesCredits'
-import getSeriesDetails from '../services/getSeriesDetails'
+import useSeriesCredits from '../hooks/useSeriesCredits'
+import useSeriesDetails from '../hooks/useSeriesDetails'
 
 SeriesDetailsPage.propTypes = {
   series: PropTypes.array.isRequired,
@@ -29,54 +27,14 @@ export default function SeriesDetailsPage({
   checkIsOnWatchlist,
 }) {
   const { id } = useParams()
-  const [seriesDetails, setSeriesDetails] = useState([])
-  const [seriesSeasons, setSeriesSeasons] = useState([])
-  const [cast, setCast] = useState([])
-
-  const isOnWatchlist = checkIsOnWatchlist(id)
-
-  useEffect(() => {
-    const findItem = series.find(el => el.id === Number(id))
-
-    if (findItem) {
-      setSeriesDetails(findItem)
-      fetchSeasonDetails(findItem)
-    } else {
-      getSeriesDetails(id)
-        .then(data => {
-          setSeriesDetails(data)
-          handleNewSeries(data)
-          fetchSeasonDetails(data)
-        })
-        .catch(error => {
-          console.error('Error:', error)
-        })
-    }
-
-    async function fetchSeasonDetails(element) {
-      const { id, seasons } = element
-
-      const fetchData = Promise.all(
-        seasons.map(({ season_number: seasonNumber }) =>
-          getSeason(id, seasonNumber).then(data => data)
-        )
-      )
-      const allSeasons = await fetchData
-      setSeriesSeasons([...allSeasons])
-    }
-  }, [id, series, handleNewSeries])
-
-  useEffect(() => {
-    getSeriesCredits(id)
-      .then(data => {
-        setCast(data.cast)
-      })
-      .catch(error => {
-        console.error('Error:', error)
-      })
-  }, [id])
-
+  const { seriesDetails, seriesSeasons } = useSeriesDetails(
+    id,
+    series,
+    handleNewSeries
+  )
+  const { cast } = useSeriesCredits(id)
   const { name, poster_path: posterPath, overview } = seriesDetails
+  const isOnWatchlist = checkIsOnWatchlist(id)
 
   return (
     <Wrapper>
@@ -136,10 +94,10 @@ export default function SeriesDetailsPage({
               width="200"
               height="300"
             />
-            <NameWrapper>
+            <div>
               <h4>{name}</h4>
               <span>{character}</span>
-            </NameWrapper>
+            </div>
           </ListItem>
         ))}
       </List>
@@ -220,4 +178,3 @@ const ListItem = styled.li`
     margin: 0 0 4px 0;
   }
 `
-const NameWrapper = styled.div``
