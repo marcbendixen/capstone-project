@@ -13,6 +13,7 @@ export default function SearchPage() {
         <StyledInput
           type="text"
           placeholder="Was willst du finden?"
+          autoComplete="off"
           onChange={handleSearch}
           onKeyDown={event =>
             (event.key === 'Enter' || event.key === 'Escape') &&
