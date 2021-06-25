@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
-import styled from 'styled-components/macro'
+import { useState } from 'react'
+import styled, { css } from 'styled-components/macro'
+import { ReactComponent as IconChevronDown } from '../assets/icons/chevron-down-solid.svg'
 import ButtonEpisodeCheck from './ButtonEpisodeCheck'
 
 EpisodeCard.propTypes = {
@@ -16,6 +18,7 @@ export default function EpisodeCard({
   onCheckEpisode,
 }) {
   const { name, episode_number: episodeNumber, overview, id } = episode
+  const [isCollapsed, setIsCollapsed] = useState(true)
 
   return (
     <Wrapper isEpisodeWatched={isEpisodeWatched}>
@@ -26,6 +29,14 @@ export default function EpisodeCard({
           {episodeNumber}
         </StyledEpisodeNumber>
         <h4>{name}</h4>
+        {overview !== '' && (
+          <StyledCollapseButton
+            onClick={handleIsCollapsed}
+            isCollapsed={isCollapsed}
+          >
+            <IconChevronDown />
+          </StyledCollapseButton>
+        )}
         {seriesIsOnWatchlist && (
           <ButtonEpisodeCheck
             id={id}
@@ -34,9 +45,15 @@ export default function EpisodeCard({
           />
         )}
       </HeadingContainer>
-      <p>{overview}</p>
+      {overview !== '' && (
+        <StyledOverview isCollapsed={isCollapsed}>{overview}</StyledOverview>
+      )}
     </Wrapper>
   )
+
+  function handleIsCollapsed() {
+    setIsCollapsed(!isCollapsed)
+  }
 }
 
 const Wrapper = styled.li`
@@ -47,10 +64,40 @@ const Wrapper = styled.li`
   background: #3c4b5b;
   margin-bottom: 16px;
   position: relative;
+`
 
-  p {
-    margin: 0;
+const StyledCollapseButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  text-decoration: none;
+  cursor: pointer;
+  color: #14171a;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    transform: scaleY(-1);
   }
+
+  ${props =>
+    props.isCollapsed &&
+    css`
+      svg {
+        transform: scaleY(1);
+      }
+    `}
+`
+
+const StyledOverview = styled.p`
+  display: ${props => (props.isCollapsed ? 'none' : 'block')};
+  height: 100%;
+  margin: 0;
 `
 
 const HeadingContainer = styled.div`
