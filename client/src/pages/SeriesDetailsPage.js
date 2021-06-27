@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import { ReactComponent as IconChevronDown } from '../assets/icons/chevron-down-solid.svg'
 import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
 import ButtonWatchlist from '../components/ButtonWatchlist'
 import Poster from '../components/Poster'
@@ -35,6 +37,7 @@ export default function SeriesDetailsPage({
   const { cast } = useSeriesCredits(id)
   const { name, poster_path: posterPath, overview } = seriesDetails
   const isOnWatchlist = checkIsOnWatchlist(id)
+  const [isReadMore, setIsReadMore] = useState(false)
 
   return (
     <Wrapper>
@@ -60,19 +63,26 @@ export default function SeriesDetailsPage({
           />
         </RightArea>
       </Header>
-      <Overview>
-        {overview !== '' ? (
-          overview
-        ) : (
-          <span>
-            <em>
-              Die Beschreibung der Serie ist leider noch nicht vorhanden. Bitte
-              hab noch etwas Geduld und sieh später nochmal rein, danke
-            </em>
-            ✌️
-          </span>
+      <OverviewWrapper>
+        <Overview isReadMore={isReadMore}>
+          {overview !== '' ? (
+            overview
+          ) : (
+            <span>
+              <em>
+                Die Beschreibung der Serie ist leider noch nicht vorhanden.
+                Bitte hab noch etwas Geduld und sieh später nochmal rein, danke
+              </em>
+              ✌️
+            </span>
+          )}
+        </Overview>
+        {overview !== '' && overview?.length >= 350 && (
+          <ReadMoreButton onClick={handleReadMore} isReadMore={isReadMore}>
+            <IconChevronDown />
+          </ReadMoreButton>
         )}
-      </Overview>
+      </OverviewWrapper>
       <h2>Staffeln</h2>
       <SeasonsList
         seriesSeasons={seriesSeasons}
@@ -103,6 +113,10 @@ export default function SeriesDetailsPage({
       </List>
     </Wrapper>
   )
+
+  function handleReadMore() {
+    setIsReadMore(!isReadMore)
+  }
 }
 
 const Wrapper = styled.section`
@@ -149,8 +163,46 @@ const RightArea = styled.div`
   width: 100%;
 `
 
+const OverviewWrapper = styled.div`
+  position: relative;
+  display: grid;
+  justify-items: center;
+  min-width: 100%;
+`
+
 const Overview = styled.p`
   min-width: 100%;
+  max-height: ${props => (props.isReadMore ? '100%' : '150px')};
+  padding-bottom: ${props => (props.isReadMore ? '16px' : '0')};
+  transition: all 0.02s ease-in-out;
+  overflow: hidden;
+`
+
+const ReadMoreButton = styled.button`
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  background: ${props =>
+    props.isReadMore
+      ? 'transparent'
+      : `linear-gradient(
+    180deg,
+    rgba(20, 23, 26, 0) 0%,
+    rgba(20, 23, 26, 0.6) 20%,
+    rgba(20, 23, 26, 0.8) 30%,
+    rgba(20, 23, 26, 0.9) 45%,
+    rgba(20, 23, 26, 1) 100%
+  )`};
+  border: none;
+  color: #fff;
+  padding: ${props => (props.isReadMore ? '32px 0 0 0' : '32px 0 24px 0')};
+  cursor: pointer;
+
+  svg {
+    width: 16px;
+    height: auto;
+    transform: ${props => (props.isReadMore ? 'scaleY(-1)' : 'scaleY(1)')};
+  }
 `
 
 const List = styled.ul`
