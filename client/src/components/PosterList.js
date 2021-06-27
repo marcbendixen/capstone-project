@@ -32,7 +32,7 @@ const StyledPosterList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px;
+  gap: 8px;
   list-style: none;
   padding: 0;
   margin: 0;

@@ -22,7 +22,7 @@ body {
 }
 
 h1, h2, h3 {
-  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-family: 'Domine', 'Times New Roman',  serif;
   letter-spacing: 0.04em;
 }
 
