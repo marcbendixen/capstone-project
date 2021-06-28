@@ -35,15 +35,22 @@ export default function SeriesDetailsPage({
     handleNewSeries
   )
   const { cast } = useSeriesCredits(id)
-  const { name, poster_path: posterPath, overview } = seriesDetails
+  const {
+    name,
+    poster_path: posterPath,
+    overview,
+    backdrop_path: backdropPath,
+  } = seriesDetails
   const isOnWatchlist = checkIsOnWatchlist(id)
   const [isReadMore, setIsReadMore] = useState(false)
 
   return (
     <Wrapper>
-      <BackButton to="/" aria-label="Zurück zur Startseite">
-        <IconArrowLeft />
-      </BackButton>
+      <StyledBackdropImageWrapper backdropPath={backdropPath}>
+        <BackButton to="/" aria-label="Zurück zur Startseite">
+          <IconArrowLeft />
+        </BackButton>
+      </StyledBackdropImageWrapper>
       <Header>
         <PosterWrapper>
           <Poster
@@ -137,16 +144,64 @@ const BackButton = styled(Link)`
   display: flex;
   align-items: center;
   align-self: flex-start;
+  position: absolute;
+  left: 12px;
+  top: 12px;
 
   svg {
-    width: 28px;
+    width: 36px;
     height: auto;
+    background: rgba(20, 23, 26, 0.2);
+    border-radius: 4px;
+    padding: 0 4px;
+  }
+`
+
+const StyledBackdropImageWrapper = styled.div`
+  position: relative;
+  max-width: 768px;
+  width: calc(100% + 32px);
+  min-height: 210px;
+  height: 100%;
+  top: -16px;
+  left: -16px;
+  margin-bottom: -64px;
+  background: ${props =>
+      props.backdropPath &&
+      `url(https://image.tmdb.org/t/p/w780${props.backdropPath})`}
+    center no-repeat;
+  background-size: cover;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(
+      0deg,
+      #14171a 0,
+      #14171a 4%,
+      rgba(20, 23, 26, 0.98) 6%,
+      rgba(20, 23, 26, 0.94) 8%,
+      rgba(20, 23, 26, 0.88) 10%,
+      rgba(20, 23, 26, 0.8) 12%,
+      rgba(20, 23, 26, 0.71) 14%,
+      rgba(20, 23, 26, 0.6) 16%,
+      rgba(20, 23, 26, 0.5) 18%,
+      rgba(20, 23, 26, 0.39) 20%,
+      rgba(20, 23, 26, 0.29) 22%,
+      rgba(20, 23, 26, 0.2) 24%,
+      rgba(20, 23, 26, 0.12) 26%,
+      rgba(20, 23, 26, 0) 30%
+    );
   }
 `
 
 const Header = styled.header`
   display: flex;
   gap: 16px;
+  z-index: 2;
 
   h1 {
     margin: 0;
