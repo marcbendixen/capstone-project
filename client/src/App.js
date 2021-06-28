@@ -7,6 +7,7 @@ import useSeries from './hooks/useSeries'
 import useWatchlist from './hooks/useWatchlist'
 import SearchPage from './pages/SearchPage'
 import SeriesDetailsPage from './pages/SeriesDetailsPage'
+import WatchlistPage from './pages/WatchlistPage'
 
 export default function App() {
   const { series, handleNewSeries } = useSeries()
@@ -37,19 +38,7 @@ export default function App() {
             />
           </Route>
           <Route exact path="/watchlist">
-            {watchlist.length === 0 ? (
-              <StyledParagraph>
-                <i>Du hast noch keine Serie auf deiner Watchlist.</i>
-              </StyledParagraph>
-            ) : (
-              <>
-                <StyledParagraph>
-                  Du hast <strong>{watchlist.length}</strong> Serie
-                  {watchlist.length > 1 && 'n'} auf deiner Watchlist.
-                </StyledParagraph>
-                <PosterList list={watchlist} />
-              </>
-            )}
+            <WatchlistPage watchlist={watchlist} />
           </Route>
           <Route>404 not found</Route>
         </Switch>
@@ -69,8 +58,4 @@ const Container = styled.div`
 
 const StyledMain = styled.main`
   width: 100%;
-`
-
-const StyledParagraph = styled.p`
-  text-align: center;
 `
