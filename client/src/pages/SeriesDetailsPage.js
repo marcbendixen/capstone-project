@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import { ReactComponent as IconArrowUp } from '../assets/icons/arrow-alt-circle-up-solid.svg'
 import { ReactComponent as IconChevronDown } from '../assets/icons/chevron-down-solid.svg'
 import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
 import ButtonWatchlist from '../components/ButtonWatchlist'
@@ -90,14 +91,21 @@ export default function SeriesDetailsPage({
           </ReadMoreButton>
         )}
       </OverviewWrapper>
-      <h2>Staffeln</h2>
+      <Navigation>
+        <NavigationItem href="#">
+          <IconArrowUp />
+        </NavigationItem>
+        <NavigationItem href="#staffeln">Staffeln</NavigationItem>
+        <NavigationItem href="#besetzung">Besetzung</NavigationItem>
+      </Navigation>
+      <h2 id="staffeln">Staffeln</h2>
       <SeasonsList
         seriesSeasons={seriesSeasons}
         seriesIsOnWatchlist={isOnWatchlist}
         checkIsEpisodeWatched={checkIsEpisodeWatched}
         onCheckEpisode={onCheckEpisode}
       />
-      <h2>Besetzung</h2>
+      <h2 id="besetzung">Besetzung</h2>
       <List>
         {cast.map(({ id, profile_path: profilePath, name, character }) => (
           <ListItem key={id}>
@@ -218,6 +226,39 @@ const RightArea = styled.div`
   width: 100%;
 `
 
+const Navigation = styled.nav`
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 12px;
+  background: var(--color-black);
+`
+
+const NavigationItem = styled.a`
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #d8e0e8;
+
+  :visited {
+    color: #d8e0e8;
+  }
+
+  :hover {
+    color: var(--color-green);
+  }
+
+  svg {
+    width: 21px;
+    height: auto;
+  }
+`
+
 const OverviewWrapper = styled.div`
   position: relative;
   display: grid;
@@ -227,6 +268,7 @@ const OverviewWrapper = styled.div`
 
 const Overview = styled.p`
   min-width: 100%;
+  margin-top: 0;
   max-height: ${props => (props.isReadMore ? '100%' : '150px')};
   padding-bottom: ${props => (props.isReadMore ? '16px' : '0')};
   transition: all 0.02s ease-in-out;

@@ -18,6 +18,10 @@ const GlobalStyles = createGlobalStyle`
   width: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   display: flex;
   justify-content: center;

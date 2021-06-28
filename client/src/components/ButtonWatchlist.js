@@ -45,6 +45,7 @@ const StyledButton = styled.button`
   border-radius: 4px;
   font-weight: bold;
   text-transform: uppercase;
+  opacity: ${props => (props.isOnWatchlist ? '0.5' : '1')};
 
   svg {
     color: ${props =>
