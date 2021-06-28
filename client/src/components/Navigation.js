@@ -25,9 +25,14 @@ export default function Navigation() {
 
 const StyledNavigation = styled.nav`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 16px;
-  margin: 0 -8px 0 16px;
+  margin-bottom: 16px;
+  padding: 16px 0 16px 24px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: var(--color-main-bg);
 `
 
 const StyledNavLink = styled(NavLink)`

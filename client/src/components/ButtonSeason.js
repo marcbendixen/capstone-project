@@ -18,8 +18,9 @@ const StyledButton = styled.button`
   border: 2px solid #38b4f2;
   padding: 4px;
   text-decoration: none;
-  background-color: ${props => (props.isActive ? '#38b4f2' : '#14171a')};
-  color: ${props => (props.isActive ? '#14171a' : '#fff')};
+  background-color: ${props =>
+    props.isActive ? '#38b4f2' : 'var(--color-main-bg)'};
+  color: ${props => (props.isActive ? 'var(--color-main-bg)' : '#fff')};
   font-family: inherit;
   font-size: 0.75rem;
   letter-spacing: 1px;

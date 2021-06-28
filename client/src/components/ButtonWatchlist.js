@@ -33,7 +33,7 @@ const StyledButton = styled.button`
   padding: 4px;
   margin: 8px 0 0 0;
   text-decoration: none;
-  background: #14171a;
+  background: var(--color-main-bg);
   color: ${props => (props.isOnWatchlist ? '#ff7500' : '#01dc4a')};
   font-family: inherit;
   font-size: 0.75rem;

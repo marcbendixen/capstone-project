@@ -77,7 +77,7 @@ const StyledCollapseButton = styled.button`
   background: none;
   text-decoration: none;
   cursor: pointer;
-  color: #14171a;
+  color: var(--color-main-bg);
 
   svg {
     width: 100%;
@@ -115,7 +115,7 @@ const HeadingContainer = styled.div`
 const StyledEpisodeNumber = styled.span`
   font-size: 1rem;
   font-weight: bold;
-  color: #14171a;
+  color: var(--color-main-bg);
   width: calc(2ch + 16px);
   text-align: center;
   background-color: #38b4f2;

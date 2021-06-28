@@ -4,12 +4,14 @@ import Navigation from './Navigation'
 
 export default function Header() {
   return (
-    <StyledHeader>
-      <Link to="/">
-        <h1>Serientracker</h1>
-      </Link>
+    <>
+      <StyledHeader>
+        <Link to="/">
+          <h1>Serientracker</h1>
+        </Link>
+      </StyledHeader>
       <Navigation />
-    </StyledHeader>
+    </>
   )
 }
 
@@ -17,7 +19,7 @@ const StyledHeader = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
 
   a {
     text-decoration: none;

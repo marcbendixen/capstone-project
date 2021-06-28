@@ -1,6 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
+:root {
+    --color-main-bg: #14171A;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -17,7 +21,7 @@ body {
   font-family: 'Gudea', Helvetica, sans-serif;
   line-height: 1.5;
   color: #fff;
-  background-color: #14171A;
+  background-color: var(--color-main-bg);
   scroll-behavior: smooth;
 }
 
