@@ -29,12 +29,15 @@ export default function ButtonWatchlist({ isOnWatchlist, onClick }) {
 const StyledButton = styled.button`
   display: inline-flex;
   align-items: center;
-  border: 2px solid ${props => (props.isOnWatchlist ? '#ff7500' : '#01dc4a')};
+  border: 2px solid
+    ${props =>
+      props.isOnWatchlist ? 'var(--color-orange)' : 'var(--color-green)'};
   padding: 4px;
   margin: 8px 0 0 0;
   text-decoration: none;
-  background: var(--color-main-bg);
-  color: ${props => (props.isOnWatchlist ? '#ff7500' : '#01dc4a')};
+  background: var(--color-black);
+  color: ${props =>
+    props.isOnWatchlist ? 'var(--color-orange)' : 'var(--color-green)'};
   font-family: inherit;
   font-size: 0.75rem;
   letter-spacing: 1px;
@@ -44,7 +47,8 @@ const StyledButton = styled.button`
   text-transform: uppercase;
 
   svg {
-    color: ${props => (props.isOnWatchlist ? '#ff7500' : '#01dc4a')};
+    color: ${props =>
+      props.isOnWatchlist ? 'var(--color-orange)' : 'var(--color-green)'};
     margin-right: 4px;
     width: 12px;
     height: 12px;

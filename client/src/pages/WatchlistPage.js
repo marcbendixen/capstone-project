@@ -73,7 +73,8 @@ const StyledStatsButton = styled.button`
   gap: 8px;
   background: transparent;
   border: none;
-  color: ${props => (props.isActive ? '#ff7500' : '#38b4f2')};
+  color: ${props =>
+    props.isActive ? 'var(--color-orange)' : 'var(--color-blue)'};
   font-family: inherit;
   cursor: pointer;
   margin-bottom: ${props => (props.isActive ? '8px' : '16px')};

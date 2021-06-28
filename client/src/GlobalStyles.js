@@ -2,7 +2,10 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
 :root {
-    --color-main-bg: #14171A;
+    --color-black: #14171A;
+    --color-blue: #38b4f2;
+    --color-orange: #ff7500;
+    --color-green: #01dc4a;
 }
 
 * {
@@ -21,7 +24,7 @@ body {
   font-family: 'Gudea', Helvetica, sans-serif;
   line-height: 1.5;
   color: #fff;
-  background-color: var(--color-main-bg);
+  background-color: var(--color-black);
   scroll-behavior: smooth;
 }
 

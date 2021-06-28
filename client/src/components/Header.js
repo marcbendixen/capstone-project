@@ -19,7 +19,6 @@ const StyledHeader = styled.header`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-bottom: 24px; */
 
   a {
     text-decoration: none;

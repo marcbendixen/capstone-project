@@ -77,7 +77,7 @@ const StyledCollapseButton = styled.button`
   background: none;
   text-decoration: none;
   cursor: pointer;
-  color: var(--color-main-bg);
+  color: var(--color-black);
 
   svg {
     width: 100%;
@@ -115,12 +115,12 @@ const HeadingContainer = styled.div`
 const StyledEpisodeNumber = styled.span`
   font-size: 1rem;
   font-weight: bold;
-  color: var(--color-main-bg);
+  color: var(--color-black);
   width: calc(2ch + 16px);
   text-align: center;
-  background-color: #38b4f2;
+  background-color: var(--color-blue);
   background-color: ${props =>
-    props.isEpisodeWatched ? '#01dc4a' : '#38b4f2'};
+    props.isEpisodeWatched ? 'var(--color-green)' : 'var(--color-blue)'};
   padding: 4px 8px;
   border-radius: 4px;
 `

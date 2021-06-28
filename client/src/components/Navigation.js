@@ -32,7 +32,7 @@ const StyledNavigation = styled.nav`
   position: sticky;
   top: 0;
   width: 100%;
-  background: var(--color-main-bg);
+  background: var(--color-black);
 `
 
 const StyledNavLink = styled(NavLink)`
@@ -79,13 +79,13 @@ const StyledNavLink = styled(NavLink)`
 `
 
 const StyledIconSearch = styled(IconSearch)`
-  color: #38b4f2;
+  color: var(--color-blue);
 `
 
 const StyledIconFire = styled(IconFire)`
-  color: #ff7500;
+  color: var(--color-orange);
 `
 
 const StyledIconList = styled(IconList)`
-  color: #01dc4a;
+  color: var(--color-green);
 `

@@ -27,6 +27,7 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
   width: 32px;
   height: auto;
   margin-left: auto;
@@ -37,7 +38,7 @@ const StyledButton = styled.button`
   text-decoration: none;
   cursor: pointer;
   color: ${props =>
-    props.isEpisodeWatched ? '#01dc4a' : 'var(--color-main-bg)'};
+    props.isEpisodeWatched ? 'var(--color-green)' : 'var(--color-black)'};
 
   svg {
     width: 100%;
