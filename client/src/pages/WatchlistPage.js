@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import { ReactComponent as IconChartBar } from '../assets/icons/chart-bar-solid.svg'
 import PosterList from '../components/PosterList'
+import { getLocalStorage } from '../utils/localStorage'
 
 export default function WatchlistPage({ watchlist }) {
   const [showStats, setShowStats] = useState(false)
@@ -27,6 +28,24 @@ export default function WatchlistPage({ watchlist }) {
             {calcTotalEpisodes() > 1 && 'n'} und{' '}
             <strong>{calcTotalWatchtime()}</strong> Minuten oder{' '}
             <strong>{(calcTotalWatchtime() / 60).toFixed(2)}</strong> Stunden.
+            {calcTotalEpisodesWatched() >= 0 && (
+              <>
+                <br />
+                Von <strong>{calcTotalEpisodes()}</strong> Episode
+                {calcTotalEpisodes() > 1 && 'n'} hast du{' '}
+                <strong>{calcTotalEpisodesWatched()}</strong> als gesehen
+                markiert. Das sind{' '}
+                <strong>{calcPercentageEpisodesWatched()}%</strong>.
+              </>
+            )}
+            <BarWrapper>
+              <BarWatchedEpisodes
+                percentageWatched={calcPercentageEpisodesWatched()}
+              ></BarWatchedEpisodes>
+              <BarNotWatchedEpisodes
+                percentageNotWatched={calcPercentageEpisodesNotWatched()}
+              ></BarNotWatchedEpisodes>
+            </BarWrapper>
           </StyledStatsParagraph>
           <PosterList list={watchlist} />
         </>
@@ -54,12 +73,42 @@ export default function WatchlistPage({ watchlist }) {
     }, 0)
   }
 
+  function calcTotalEpisodesWatched() {
+    const episodes = getLocalStorage('watchedEpisodesIds')
+    return episodes.length
+  }
+
+  function calcPercentageEpisodesWatched() {
+    return ((calcTotalEpisodesWatched() / calcTotalEpisodes()) * 100).toFixed(2)
+  }
+
+  function calcPercentageEpisodesNotWatched() {
+    return 100 - calcPercentageEpisodesWatched()
+  }
+
   function calcTotalWatchtime() {
     return watchlist.reduce(function (prev, cur) {
       return prev + cur.number_of_episodes * cur.episode_run_time[0]
     }, 0)
   }
 }
+
+const BarWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  height: 12px;
+  margin-top: 4px;
+`
+
+const BarWatchedEpisodes = styled.div`
+  width: ${props => props.percentageWatched + '%'};
+  background: var(--color-green);
+`
+
+const BarNotWatchedEpisodes = styled.div`
+  width: ${props => props.percentageNotWatched + '%'};
+  background: var(--color-orange);
+`
 
 const Wrapper = styled.div`
   display: flex;
@@ -90,7 +139,6 @@ const StyledStatsParagraph = styled.p`
   text-align: center;
   padding: 0 8px 8px 8px;
   margin: 0 16px 16px 16px;
-  border-bottom: 1px solid #2c3440;
 `
 
 const StyledParagraph = styled.p`
