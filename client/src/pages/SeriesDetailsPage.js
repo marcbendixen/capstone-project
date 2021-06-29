@@ -9,6 +9,7 @@ import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-
 import ButtonWatchlist from '../components/ButtonWatchlist'
 import Poster from '../components/Poster'
 import SeasonsList from '../components/SeasonsList'
+import SeriesMetaInfo from '../components/SeriesMetaInfo'
 import useSeriesCredits from '../hooks/useSeriesCredits'
 import useSeriesDetails from '../hooks/useSeriesDetails'
 
@@ -48,7 +49,7 @@ export default function SeriesDetailsPage({
   return (
     <Wrapper>
       <StyledBackdropImageWrapper backdropPath={backdropPath}>
-        <BackButton to="/" aria-label="Zurück zur Startseite">
+        <BackButton to="/watchlist" aria-label="Zurück zur Startseite">
           <IconArrowLeft />
         </BackButton>
       </StyledBackdropImageWrapper>
@@ -71,6 +72,7 @@ export default function SeriesDetailsPage({
           />
         </RightArea>
       </Header>
+      <SeriesMetaInfo seriesDetails={seriesDetails} />
       <OverviewWrapper>
         <Overview isReadMore={isReadMore}>
           {overview !== '' ? (
@@ -98,13 +100,15 @@ export default function SeriesDetailsPage({
         <NavigationItem href="#staffeln">Staffeln</NavigationItem>
         <NavigationItem href="#besetzung">Besetzung</NavigationItem>
       </Navigation>
-      <h2 id="staffeln">Staffeln</h2>
+      <AnchorPoint id="staffeln"></AnchorPoint>
+      <h2>Staffeln</h2>
       <SeasonsList
         seriesSeasons={seriesSeasons}
         seriesIsOnWatchlist={isOnWatchlist}
         checkIsEpisodeWatched={checkIsEpisodeWatched}
         onCheckEpisode={onCheckEpisode}
       />
+      <AnchorPoint id="besetzung"></AnchorPoint>
       <h2 id="besetzung">Besetzung</h2>
       <List>
         {cast.map(({ id, profile_path: profilePath, name, character }) => (
@@ -155,6 +159,7 @@ const BackButton = styled(Link)`
   position: absolute;
   left: 12px;
   top: 12px;
+  cursor: pointer;
 
   svg {
     width: 36px;
@@ -326,4 +331,10 @@ const ListItem = styled.li`
   h4 {
     margin: 0 0 4px 0;
   }
+`
+
+const AnchorPoint = styled.div`
+  position: relative;
+  top: -16px;
+  visibility: hidden;
 `
