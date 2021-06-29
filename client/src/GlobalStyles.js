@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components/macro'
 
 const GlobalStyles = createGlobalStyle`
 :root {
@@ -6,6 +6,7 @@ const GlobalStyles = createGlobalStyle`
     --color-blue: #38b4f2;
     --color-orange: #ff7500;
     --color-green: #01dc4a;
+    --color-gray-blue: #3c4b5b;
 }
 
 * {
