@@ -19,25 +19,27 @@ export default function WatchlistPage({ watchlist }) {
             <span>Statistiken {showStats ? 'ausblenden' : 'einblenden'}</span>
           </StyledStatsButton>
           <StyledStatsParagraph isActive={showStats}>
-            Du hast <strong>{calcTotalSeries()}</strong> Serie
-            {calcTotalSeries() > 1 && 'n'} auf deiner Watchlist.
-            <br />
-            Das macht insgesamt <strong>{calcTotalSeasons()}</strong> Staffel
-            {calcTotalSeasons() > 1 && 'n'},{' '}
-            <strong>{calcTotalEpisodes()}</strong> Episode
-            {calcTotalEpisodes() > 1 && 'n'} und{' '}
-            <strong>{calcTotalWatchtime()}</strong> Minuten oder{' '}
-            <strong>{(calcTotalWatchtime() / 60).toFixed(2)}</strong> Stunden.
-            {calcTotalEpisodesWatched() >= 0 && (
-              <>
-                <br />
-                Von <strong>{calcTotalEpisodes()}</strong> Episode
-                {calcTotalEpisodes() > 1 && 'n'} hast du{' '}
-                <strong>{calcTotalEpisodesWatched()}</strong> als gesehen
-                markiert. Das sind{' '}
-                <strong>{calcPercentageEpisodesWatched()}%</strong>.
-              </>
-            )}
+            <p>
+              Du hast <strong>{calcTotalSeries()}</strong> Serie
+              {calcTotalSeries() > 1 && 'n'} auf deiner Watchlist.
+              <br />
+              Das macht insgesamt <strong>{calcTotalSeasons()}</strong> Staffel
+              {calcTotalSeasons() > 1 && 'n'},{' '}
+              <strong>{calcTotalEpisodes()}</strong> Episode
+              {calcTotalEpisodes() > 1 && 'n'} und{' '}
+              <strong>{calcTotalWatchtime()}</strong> Minuten oder{' '}
+              <strong>{(calcTotalWatchtime() / 60).toFixed(2)}</strong> Stunden.
+              {calcTotalEpisodesWatched() >= 0 && (
+                <>
+                  <br />
+                  Von <strong>{calcTotalEpisodes()}</strong> Episode
+                  {calcTotalEpisodes() > 1 && 'n'} hast du{' '}
+                  <strong>{calcTotalEpisodesWatched()}</strong> als gesehen
+                  markiert. Das sind{' '}
+                  <strong>{calcPercentageEpisodesWatched()}%</strong>.
+                </>
+              )}
+            </p>
             <BarWrapper>
               <BarWatchedEpisodes
                 percentageWatched={calcPercentageEpisodesWatched()}
@@ -134,11 +136,15 @@ const StyledStatsButton = styled.button`
   }
 `
 
-const StyledStatsParagraph = styled.p`
+const StyledStatsParagraph = styled.div`
   display: ${props => (props.isActive ? 'block' : 'none')};
   text-align: center;
-  padding: 0 8px 8px 8px;
   margin: 0 16px 16px 16px;
+
+  p {
+    margin: 0;
+    padding: 0 8px;
+  }
 `
 
 const StyledParagraph = styled.p`
