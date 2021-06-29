@@ -144,7 +144,7 @@ const Wrapper = styled.section`
 
   h2 {
     font-size: 1.25rem;
-    margin: 16px 0 0 0;
+    margin: 16px 0 8px 0;
   }
 `
 
