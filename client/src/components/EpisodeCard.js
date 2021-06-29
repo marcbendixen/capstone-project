@@ -61,7 +61,7 @@ const Wrapper = styled.li`
   flex-direction: column;
   padding: 8px;
   border-radius: 4px;
-  background: #3c4b5b;
+  background: var(--color-gray-blue);
   margin-bottom: 16px;
   position: relative;
 `
