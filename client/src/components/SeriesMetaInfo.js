@@ -97,7 +97,7 @@ const Wrapper = styled.div`
 `
 
 const MetaItemsWrapper = styled.div`
-  display: ${props => (props.isHidden ? 'none' : 'grid')};
+  display: ${({ isHidden }) => (isHidden ? 'none' : 'grid')};
   background: var(--color-gray-blue);
   border-radius: 4px;
 `
@@ -109,9 +109,8 @@ const MetaInfoButton = styled.button`
   border: none;
   padding: 0;
   background: transparent;
-  color: ${props => (props.isHidden ? '#fff' : 'var(--color-orange)')};
-  margin-bottom: ${props => (props.isHidden ? '0' : '8px')};
-  cursor: pointer;
+  color: ${({ isHidden }) => (isHidden ? '#fff' : 'var(--color-orange)')};
+  margin-bottom: ${({ isHidden }) => (isHidden ? '0' : '8px')};
   transition: all 0.2s ease-in-out;
 
   svg {
