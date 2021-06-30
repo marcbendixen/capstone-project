@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import { ReactComponent as IconSearch } from '../assets/icons/search-solid.svg'
 import Poster from '../components/Poster'
 import useSearch from '../hooks/useSearch'
 
@@ -21,7 +22,7 @@ export default function SearchPage() {
           }
         />
       </StyledLabel>
-      {results && (
+      {results ? (
         <>
           <StyledResultInfo>
             <strong>{results.length}</strong> Ergebnis
@@ -57,10 +58,19 @@ export default function SearchPage() {
             )}
           </StyledList>
         </>
+      ) : (
+        <StyledIconSearch />
       )}
     </Wrapper>
   )
 }
+
+const StyledIconSearch = styled(IconSearch)`
+  margin-top: 40px;
+  width: 160px;
+  color: var(--color-gray-blue);
+  opacity: 0.2;
+`
 
 const Wrapper = styled.div`
   display: flex;
@@ -74,6 +84,7 @@ const StyledLabel = styled.label`
   display: grid;
   max-width: 375px;
   width: 100%;
+  color: var(--color-black);
 `
 
 const StyledInput = styled.input`
@@ -82,6 +93,8 @@ const StyledInput = styled.input`
   border-color: transparent;
   font-size: 1rem;
   font-family: inherit;
+  background: var(--color-gray-blue);
+  color: #fff;
 `
 
 const StyledResultInfo = styled.span`
