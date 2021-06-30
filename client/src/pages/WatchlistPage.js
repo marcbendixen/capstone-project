@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { ReactComponent as IconChartBar } from '../assets/icons/chart-bar-solid.svg'
 import PosterList from '../components/PosterList'
 import { getLocalStorage } from '../utils/localStorage'

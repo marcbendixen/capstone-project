@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import Poster from '../components/Poster'
 import useSearch from '../hooks/useSearch'
 
