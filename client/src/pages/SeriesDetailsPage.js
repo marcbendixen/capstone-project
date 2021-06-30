@@ -8,10 +8,12 @@ import { ReactComponent as IconChevronDown } from '../assets/icons/chevron-down-
 import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
 import ButtonWatchlist from '../components/ButtonWatchlist'
 import Poster from '../components/Poster'
+import PosterList from '../components/PosterList'
 import SeasonsList from '../components/SeasonsList'
 import SeriesMetaInfo from '../components/SeriesMetaInfo'
 import useSeriesCredits from '../hooks/useSeriesCredits'
 import useSeriesDetails from '../hooks/useSeriesDetails'
+import useSimilarSeries from '../hooks/useSimilarSeries'
 
 SeriesDetailsPage.propTypes = {
   series: PropTypes.array.isRequired,
@@ -43,6 +45,7 @@ export default function SeriesDetailsPage({
     overview,
     backdrop_path: backdropPath,
   } = seriesDetails
+  const { similarSeries } = useSimilarSeries(id)
   const isOnWatchlist = checkIsOnWatchlist(id)
   const [isReadMore, setIsReadMore] = useState(false)
 
@@ -99,6 +102,7 @@ export default function SeriesDetailsPage({
         </NavigationItem>
         <NavigationItem href="#staffeln">Staffeln</NavigationItem>
         <NavigationItem href="#besetzung">Besetzung</NavigationItem>
+        <NavigationItem href="#aehnlich">Ähnlich</NavigationItem>
       </Navigation>
       <AnchorPoint id="staffeln"></AnchorPoint>
       <h2>Staffeln</h2>
@@ -130,6 +134,9 @@ export default function SeriesDetailsPage({
           </ListItem>
         ))}
       </List>
+      <AnchorPoint id="aehnlich"></AnchorPoint>
+      <h2 id="aehnlich">Diese Serien könnten dir auch gefallen:</h2>
+      <PosterList list={similarSeries} />
     </Wrapper>
   )
 

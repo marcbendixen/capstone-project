@@ -14,6 +14,15 @@ router.get('/:id', async (req, res) => {
   res.send(data)
 })
 
+router.get('/:id/similar', async (req, res) => {
+  const { id } = req.params
+  const url = `${API_BASE_URL}/${id}/similar?api_key=${API_KEY}&language=${API_LANGUAGE}`
+
+  const fetchResponse = await fetch(url)
+  const data = await fetchResponse.json()
+  res.send(data)
+})
+
 router.get('/:id/credits', async (req, res) => {
   const { id } = req.params
   const url = `${API_BASE_URL}/${id}/credits?api_key=${API_KEY}&language=${API_LANGUAGE}`
