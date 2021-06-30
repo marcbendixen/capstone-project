@@ -62,7 +62,7 @@ const Wrapper = styled.li`
   padding: 8px;
   border-radius: 4px;
   background: var(--color-gray-blue);
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   position: relative;
 `
 
