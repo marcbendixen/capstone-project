@@ -107,7 +107,9 @@ export default function SeriesDetailsPage({
               <IconArrowUp />
             </NavigationItem>
             <NavigationItem href="#staffeln">Staffeln</NavigationItem>
-            <NavigationItem href="#besetzung">Besetzung</NavigationItem>
+            {cast.length > 0 && (
+              <NavigationItem href="#besetzung">Besetzung</NavigationItem>
+            )}
             {similarSeries.length > 0 && (
               <NavigationItem href="#aehnlich">Ähnlich</NavigationItem>
             )}
@@ -120,28 +122,34 @@ export default function SeriesDetailsPage({
             checkIsEpisodeWatched={checkIsEpisodeWatched}
             onCheckEpisode={onCheckEpisode}
           />
-          <AnchorPoint id="besetzung"></AnchorPoint>
-          <h2 id="besetzung">Besetzung</h2>
-          <List>
-            {cast.map(({ id, profile_path: profilePath, name, character }) => (
-              <ListItem key={id}>
-                <img
-                  src={
-                    profilePath !== null
-                      ? `https://image.tmdb.org/t/p/w200${profilePath}`
-                      : '../profile.png'
-                  }
-                  alt={`Portait von ${name}`}
-                  width="200"
-                  height="300"
-                />
-                <div>
-                  <h4>{name}</h4>
-                  <span>{character}</span>
-                </div>
-              </ListItem>
-            ))}
-          </List>
+          {cast.length > 0 && (
+            <>
+              <AnchorPoint id="besetzung"></AnchorPoint>
+              <h2 id="besetzung">Besetzung</h2>
+              <List>
+                {cast.map(
+                  ({ id, profile_path: profilePath, name, character }) => (
+                    <ListItem key={id}>
+                      <img
+                        src={
+                          profilePath !== null
+                            ? `https://image.tmdb.org/t/p/w200${profilePath}`
+                            : '../profile.png'
+                        }
+                        alt={`Portait von ${name}`}
+                        width="200"
+                        height="300"
+                      />
+                      <div>
+                        <h4>{name}</h4>
+                        <span>{character}</span>
+                      </div>
+                    </ListItem>
+                  )
+                )}
+              </List>
+            </>
+          )}
           {similarSeries.length > 0 && (
             <>
               <AnchorPoint id="aehnlich"></AnchorPoint>
