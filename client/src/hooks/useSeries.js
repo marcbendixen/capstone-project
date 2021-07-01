@@ -4,6 +4,7 @@ import getSeriesDetails from '../services/getSeriesDetails'
 
 export default function useSeries() {
   const [series, setSeries] = useState([])
+  const isLoading = series.length === 0
 
   useEffect(() => {
     series.length === 0 &&
@@ -28,5 +29,5 @@ export default function useSeries() {
     setSeries([...series, data])
   }
 
-  return { series, handleNewSeries }
+  return { series, handleNewSeries, isLoading }
 }

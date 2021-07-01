@@ -7,6 +7,7 @@ import { ReactComponent as IconArrowUp } from '../assets/icons/arrow-alt-circle-
 import { ReactComponent as IconChevronDown } from '../assets/icons/chevron-down-solid.svg'
 import { ReactComponent as IconArrowLeft } from '../assets/icons/long-arrow-alt-left-solid.svg'
 import ButtonWatchlist from '../components/ButtonWatchlist'
+import LoadingSpinner from '../components/LoadingSpinner'
 import Poster from '../components/Poster'
 import PosterList from '../components/PosterList'
 import SeasonsList from '../components/SeasonsList'
@@ -33,11 +34,11 @@ export default function SeriesDetailsPage({
   checkIsOnWatchlist,
 }) {
   const { id } = useParams()
-  const { seriesDetails, seriesSeasons } = useSeriesDetails(
-    id,
-    series,
-    handleNewSeries
-  )
+  const {
+    seriesDetails,
+    seriesSeasons,
+    isLoadingSeriesDetails,
+  } = useSeriesDetails(id, series, handleNewSeries)
   const { cast } = useSeriesCredits(id)
   const {
     name,
@@ -75,68 +76,75 @@ export default function SeriesDetailsPage({
           />
         </RightArea>
       </Header>
-      <SeriesMetaInfo seriesDetails={seriesDetails} />
-      <OverviewWrapper>
-        <Overview isReadMore={isReadMore}>
-          {overview !== '' ? (
-            overview
-          ) : (
-            <span>
-              <em>
-                Die Beschreibung der Serie ist leider noch nicht vorhanden.
-                Bitte hab noch etwas Geduld und sieh später nochmal rein, danke
-              </em>
-              ✌️
-            </span>
-          )}
-        </Overview>
-        {overview !== '' && overview?.length >= 350 && (
-          <ReadMoreButton onClick={handleReadMore} isReadMore={isReadMore}>
-            <IconChevronDown />
-          </ReadMoreButton>
-        )}
-      </OverviewWrapper>
-      <Navigation>
-        <NavigationItem href="#">
-          <IconArrowUp />
-        </NavigationItem>
-        <NavigationItem href="#staffeln">Staffeln</NavigationItem>
-        <NavigationItem href="#besetzung">Besetzung</NavigationItem>
-        <NavigationItem href="#aehnlich">Ähnlich</NavigationItem>
-      </Navigation>
-      <AnchorPoint id="staffeln"></AnchorPoint>
-      <h2>Staffeln</h2>
-      <SeasonsList
-        seriesSeasons={seriesSeasons}
-        seriesIsOnWatchlist={isOnWatchlist}
-        checkIsEpisodeWatched={checkIsEpisodeWatched}
-        onCheckEpisode={onCheckEpisode}
-      />
-      <AnchorPoint id="besetzung"></AnchorPoint>
-      <h2 id="besetzung">Besetzung</h2>
-      <List>
-        {cast.map(({ id, profile_path: profilePath, name, character }) => (
-          <ListItem key={id}>
-            <img
-              src={
-                profilePath !== null
-                  ? `https://image.tmdb.org/t/p/w200${profilePath}`
-                  : '../profile.png'
-              }
-              alt={`Portait von ${name}`}
-              width="200"
-              height="300"
-            />
-            <div>
-              <h4>{name}</h4>
-              <span>{character}</span>
-            </div>
-          </ListItem>
-        ))}
-      </List>
-      <AnchorPoint id="aehnlich"></AnchorPoint>
-      <h2 id="aehnlich">Diese Serien könnten dir auch gefallen:</h2>
-      <PosterList list={similarSeries} />
+      {isLoadingSeriesDetails ? (
+        <LoadingSpinner />
+      ) : (
+        <>
+          <SeriesMetaInfo seriesDetails={seriesDetails} />
+          <OverviewWrapper>
+            <Overview isReadMore={isReadMore}>
+              {overview !== '' ? (
+                overview
+              ) : (
+                <span>
+                  <em>
+                    Die Beschreibung der Serie ist leider noch nicht vorhanden.
+                    Bitte hab noch etwas Geduld und sieh später nochmal rein,
+                    danke
+                  </em>
+                  ✌️
+                </span>
+              )}
+            </Overview>
+            {overview !== '' && overview?.length >= 350 && (
+              <ReadMoreButton onClick={handleReadMore} isReadMore={isReadMore}>
+                <IconChevronDown />
+              </ReadMoreButton>
+            )}
+          </OverviewWrapper>
+          <Navigation>
+            <NavigationItem href="#">
+              <IconArrowUp />
+            </NavigationItem>
+            <NavigationItem href="#staffeln">Staffeln</NavigationItem>
+            <NavigationItem href="#besetzung">Besetzung</NavigationItem>
+            <NavigationItem href="#aehnlich">Ähnlich</NavigationItem>
+          </Navigation>
+          <AnchorPoint id="staffeln"></AnchorPoint>
+          <h2>Staffeln</h2>
+          <SeasonsList
+            seriesSeasons={seriesSeasons}
+            seriesIsOnWatchlist={isOnWatchlist}
+            checkIsEpisodeWatched={checkIsEpisodeWatched}
+            onCheckEpisode={onCheckEpisode}
+          />
+          <AnchorPoint id="besetzung"></AnchorPoint>
+          <h2 id="besetzung">Besetzung</h2>
+          <List>
+            {cast.map(({ id, profile_path: profilePath, name, character }) => (
+              <ListItem key={id}>
+                <img
+                  src={
+                    profilePath !== null
+                      ? `https://image.tmdb.org/t/p/w200${profilePath}`
+                      : '../profile.png'
+                  }
+                  alt={`Portait von ${name}`}
+                  width="200"
+                  height="300"
+                />
+                <div>
+                  <h4>{name}</h4>
+                  <span>{character}</span>
+                </div>
+              </ListItem>
+            ))}
+          </List>
+          <AnchorPoint id="aehnlich"></AnchorPoint>
+          <h2 id="aehnlich">Diese Serien könnten dir auch gefallen:</h2>
+          <PosterList list={similarSeries} />
+        </>
+      )}
     </Wrapper>
   )
 

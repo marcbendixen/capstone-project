@@ -5,6 +5,8 @@ import getSeriesDetails from '../services/getSeriesDetails'
 export default function useSeriesDetails(id, series, handleNewSeries) {
   const [seriesDetails, setSeriesDetails] = useState([])
   const [seriesSeasons, setSeriesSeasons] = useState([])
+  const isLoadingSeriesDetails =
+    seriesDetails.length === 0 || seriesSeasons.length === 0
 
   useEffect(() => {
     const findItem = series.find(el => el.id === Number(id))
@@ -37,5 +39,10 @@ export default function useSeriesDetails(id, series, handleNewSeries) {
     }
   }, [id, series, handleNewSeries])
 
-  return { seriesDetails, seriesSeasons, handleNewSeries }
+  return {
+    seriesDetails,
+    seriesSeasons,
+    handleNewSeries,
+    isLoadingSeriesDetails,
+  }
 }

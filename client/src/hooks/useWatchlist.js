@@ -7,6 +7,7 @@ export default function useWatchlist() {
   const [watchlistIds, setWatchlistIds] = useState(
     getLocalStorage('watchlistIds') ?? []
   )
+  const isLoadingWatchlist = watchlist.length === 0
 
   useEffect(() => {
     Promise.all(watchlistIds.map(id => getSeriesDetails(id).then(data => data)))
@@ -39,5 +40,5 @@ export default function useWatchlist() {
     return watchlistIds.some(el => el === Number(id))
   }
 
-  return { watchlist, handleWatchlist, checkIsOnWatchlist }
+  return { watchlist, handleWatchlist, checkIsOnWatchlist, isLoadingWatchlist }
 }
