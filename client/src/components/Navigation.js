@@ -33,6 +33,7 @@ const StyledNavigation = styled.nav`
   top: 0;
   width: 100%;
   background: var(--color-black);
+  z-index: 9;
 `
 
 const StyledNavLink = styled(NavLink)`

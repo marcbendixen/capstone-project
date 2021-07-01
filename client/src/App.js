@@ -86,6 +86,7 @@ const StyledBrand = styled.a`
   position: relative;
   text-decoration: none;
   font-family: 'Domine', 'Times New Roman', serif;
+  z-index: 0;
 
   &::after {
     content: '';
