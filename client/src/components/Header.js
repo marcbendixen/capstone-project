@@ -35,9 +35,9 @@ const StyledHeader = styled.header`
       height: 5px;
       background: linear-gradient(
         90deg,
-        rgba(56, 180, 242, 1) 0%,
-        rgba(1, 220, 74, 1) 50%,
-        rgba(255, 117, 0, 1) 100%
+        var(--color-blue) 0%,
+        var(--color-green) 50%,
+        var(--color-orange) 100%
       );
     }
   }

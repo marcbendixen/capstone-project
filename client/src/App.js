@@ -1,4 +1,5 @@
-import { Route, Switch } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
 import Header from './components/Header'
 import LoadingSpinner from './components/LoadingSpinner'
@@ -15,6 +16,12 @@ export default function App() {
   const { watchlist, handleWatchlist, checkIsOnWatchlist } = useWatchlist()
   const { handleCheckEpisode, checkIsEpisodeWatched } = useEpisodes()
 
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
   return (
     <Container>
       <Route exact path={['/', '/suche', '/watchlist']}>
@@ -23,6 +30,11 @@ export default function App() {
       <StyledMain>
         <Switch>
           <Route exact path="/">
+            <StyledText>
+              Mit dem <StyledBrand href="/">Serientracker</StyledBrand> kannst
+              du deinen Serien folgen und alle Episoden tracken, um immer zu
+              wissen, wo du stehen geblieben bist.
+            </StyledText>
             {isLoading ? (
               <LoadingSpinner />
             ) : (
@@ -63,4 +75,30 @@ const Container = styled.div`
 
 const StyledMain = styled.main`
   width: 100%;
+`
+
+const StyledText = styled.p`
+  margin: 0 0 16px 0;
+  text-align: center;
+`
+
+const StyledBrand = styled.a`
+  position: relative;
+  text-decoration: none;
+  font-family: 'Domine', 'Times New Roman', serif;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      var(--color-blue) 0%,
+      var(--color-green) 50%,
+      var(--color-orange) 100%
+    );
+  }
 `

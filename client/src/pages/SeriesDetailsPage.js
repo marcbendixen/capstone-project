@@ -108,7 +108,9 @@ export default function SeriesDetailsPage({
             </NavigationItem>
             <NavigationItem href="#staffeln">Staffeln</NavigationItem>
             <NavigationItem href="#besetzung">Besetzung</NavigationItem>
-            <NavigationItem href="#aehnlich">Ähnlich</NavigationItem>
+            {similarSeries.length > 0 && (
+              <NavigationItem href="#aehnlich">Ähnlich</NavigationItem>
+            )}
           </Navigation>
           <AnchorPoint id="staffeln"></AnchorPoint>
           <h2>Staffeln</h2>
@@ -140,11 +142,15 @@ export default function SeriesDetailsPage({
               </ListItem>
             ))}
           </List>
-          <AnchorPoint id="aehnlich"></AnchorPoint>
-          <StyledHeadline id="aehnlich">
-            Diese Serien könnten dir auch gefallen:
-          </StyledHeadline>
-          <PosterList list={similarSeries} />
+          {similarSeries.length > 0 && (
+            <>
+              <AnchorPoint id="aehnlich"></AnchorPoint>
+              <StyledHeadline id="aehnlich">
+                Diese Serien könnten dir auch gefallen:
+              </StyledHeadline>
+              <PosterList list={similarSeries} />
+            </>
+          )}
         </>
       )}
     </Wrapper>
