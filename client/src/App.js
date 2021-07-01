@@ -12,12 +12,7 @@ import WatchlistPage from './pages/WatchlistPage'
 
 export default function App() {
   const { series, handleNewSeries, isLoading } = useSeries()
-  const {
-    watchlist,
-    handleWatchlist,
-    checkIsOnWatchlist,
-    isLoadingWatchlist,
-  } = useWatchlist()
+  const { watchlist, handleWatchlist, checkIsOnWatchlist } = useWatchlist()
   const { handleCheckEpisode, checkIsEpisodeWatched } = useEpisodes()
 
   return (
@@ -48,11 +43,7 @@ export default function App() {
             />
           </Route>
           <Route exact path="/watchlist">
-            {isLoadingWatchlist ? (
-              <LoadingSpinner />
-            ) : (
-              <WatchlistPage watchlist={watchlist} />
-            )}
+            <WatchlistPage watchlist={watchlist} />
           </Route>
           <Route>404 not found</Route>
         </Switch>
