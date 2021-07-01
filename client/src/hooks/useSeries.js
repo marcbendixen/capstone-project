@@ -11,10 +11,12 @@ export default function useSeries() {
       getPopular()
         .then(data => {
           Promise.all(
-            data.results.map(({ id }) =>
-              getSeriesDetails(id).then(
-                data => (data = { ...data, isPopular: true })
-              )
+            data.results.map(
+              ({ id }) =>
+                !checkIfOnBlacklist(id) &&
+                getSeriesDetails(id).then(
+                  data => (data = { ...data, isPopular: true })
+                )
             )
           ).then(data => {
             setSeries(data)
@@ -27,6 +29,11 @@ export default function useSeries() {
 
   function handleNewSeries(data) {
     setSeries([...series, data])
+  }
+
+  function checkIfOnBlacklist(id) {
+    const blacklist = [94722]
+    return blacklist.some(element => element === id)
   }
 
   return { series, handleNewSeries, isLoading }
