@@ -79,6 +79,7 @@ const StyledMain = styled.main`
 
 const StyledText = styled.p`
   margin: 0 0 16px 0;
+  padding: 0 8px;
   text-align: center;
 `
 
