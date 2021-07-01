@@ -141,7 +141,9 @@ export default function SeriesDetailsPage({
             ))}
           </List>
           <AnchorPoint id="aehnlich"></AnchorPoint>
-          <h2 id="aehnlich">Diese Serien könnten dir auch gefallen:</h2>
+          <StyledHeadline id="aehnlich">
+            Diese Serien könnten dir auch gefallen:
+          </StyledHeadline>
           <PosterList list={similarSeries} />
         </>
       )}
@@ -165,6 +167,12 @@ const Wrapper = styled.section`
     font-size: 1.25rem;
     margin: 16px 0 8px 0;
   }
+`
+
+const StyledHeadline = styled.h2`
+  font-size: 1.25rem;
+  margin: 16px 0 8px 0;
+  padding: 0 8px;
 `
 
 const BackButton = styled(Link)`
