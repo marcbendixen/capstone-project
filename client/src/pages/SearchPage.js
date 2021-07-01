@@ -26,7 +26,8 @@ export default function SearchPage() {
         <>
           <StyledResultInfo>
             <strong>{results.length}</strong> Ergebnis
-            {results.length > 1 && `se`} für <i>"{query}"</i> gefunden 🥳
+            {results.length !== 1 && `se`} für <i>"{query}"</i> gefunden{' '}
+            {results.length !== 0 ? '🥳' : '🙈'}
           </StyledResultInfo>
           <StyledList>
             {results.map(
@@ -95,6 +96,10 @@ const StyledInput = styled.input`
   font-family: inherit;
   background: var(--color-gray-blue);
   color: #fff;
+
+  :focus {
+    outline-color: var(--color-blue);
+  }
 `
 
 const StyledResultInfo = styled.span`
