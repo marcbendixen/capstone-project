@@ -8,17 +8,16 @@ Poster.propTypes = {
 
 export default function Poster({
   path = 'poster.png',
-  alt = 'Poster of Series',
+  alt = 'Poster der Serie',
 }) {
-  return <StyledPoster src={path} alt={alt} width="300" height="450" />
+  return <StyledImage src={path} alt={alt} width="300" height="450" />
 }
 
-const StyledPoster = styled.img`
+const StyledImage = styled.img`
   display: flex;
   max-width: 140px;
   width: 100%;
   height: auto;
-  font-size: 0;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
-  border: 1px solid rgba(221, 238, 255, 0.35);
 `

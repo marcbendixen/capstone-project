@@ -362,7 +362,7 @@ const ListItem = styled.li`
     width: 100%;
     height: auto;
     border-radius: 4px;
-    border: 1px solid rgba(221, 238, 255, 0.35);
+    border: 1px solid var(--color-border);
   }
 
   h4 {
