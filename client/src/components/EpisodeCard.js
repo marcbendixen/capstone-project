@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import styled, { css } from 'styled-components/macro'
-import { ReactComponent as IconChevronDown } from '../assets/icons/chevron-down-solid.svg'
+import { ReactComponent as IconChevronDown } from '../assets/icons/chevron-down.svg'
 import ButtonEpisodeCheck from './ButtonEpisodeCheck'
 
 EpisodeCard.propTypes = {

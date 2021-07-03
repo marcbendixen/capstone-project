@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
-import { ReactComponent as IconCheck } from '../assets/icons/check-circle-solid.svg'
+import { ReactComponent as IconCheck } from '../assets/icons/check.svg'
 
 ButtonEpisodeCheck.propTypes = {
   id: PropTypes.number.isRequired,

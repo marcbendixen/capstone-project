@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { ReactComponent as IconSearch } from '../assets/icons/search-solid.svg'
+import { ReactComponent as IconSearch } from '../assets/icons/search.svg'
 import Poster from '../components/Poster'
 import useSearch from '../hooks/useSearch'
 

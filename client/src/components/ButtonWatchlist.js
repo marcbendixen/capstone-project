@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import styled from 'styled-components/macro'
-import { ReactComponent as IconMinus } from '../assets/icons/minus-solid.svg'
-import { ReactComponent as IconPlus } from '../assets/icons/plus-solid.svg'
+import { ReactComponent as IconMinus } from '../assets/icons/minus.svg'
+import { ReactComponent as IconPlus } from '../assets/icons/plus.svg'
 
 ButtonWatchlist.propTypes = {
   isOnWatchlist: PropTypes.bool.isRequired,

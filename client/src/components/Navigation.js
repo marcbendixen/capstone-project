@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { ReactComponent as IconFire } from '../assets/icons/fire-solid.svg'
-import { ReactComponent as IconList } from '../assets/icons/list-solid.svg'
-import { ReactComponent as IconSearch } from '../assets/icons/search-solid.svg'
+import { ReactComponent as IconFire } from '../assets/icons/fire.svg'
+import { ReactComponent as IconList } from '../assets/icons/list.svg'
+import { ReactComponent as IconSearch } from '../assets/icons/search.svg'
 
 export default function Navigation() {
   return (

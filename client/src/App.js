@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Link, Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
-import { ReactComponent as IconGhost } from './assets/icons/ghost-solid.svg'
+import { ReactComponent as IconGhost } from './assets/icons/ghost.svg'
 import Header from './components/Header'
 import LoadingSpinner from './components/LoadingSpinner'
 import PosterList from './components/PosterList'

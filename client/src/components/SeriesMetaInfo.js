@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
-import { ReactComponent as IconInfoCircle } from '../assets/icons/info-circle-solid.svg'
-import { ReactComponent as IconLink } from '../assets/icons/link-solid.svg'
+import { ReactComponent as IconInfoCircle } from '../assets/icons/info-circle.svg'
+import { ReactComponent as IconLink } from '../assets/icons/link.svg'
 
 export default function SeriesMetaInfo({ seriesDetails }) {
   const [isHidden, setIsHidden] = useState(true)
