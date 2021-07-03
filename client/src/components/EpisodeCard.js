@@ -76,7 +76,7 @@ const StyledEpisodeNumber = styled.span`
   text-align: center;
   color: var(--color-black);
   width: calc(2ch + 16px);
-  background-color: ${props =>
+  background: ${props =>
     props.isEpisodeWatched ? 'var(--color-green)' : 'var(--color-blue)'};
   border-radius: 4px;
   padding: 4px 8px;

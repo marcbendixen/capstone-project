@@ -23,7 +23,7 @@ const GlobalStyles = createGlobalStyle`
     font-family: "Gudea", Helvetica, sans-serif;
     line-height: 1.5;
     color: #fff;
-    background-color: var(--color-black);
+    background: var(--color-black);
   }
 
   #root {

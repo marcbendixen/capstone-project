@@ -23,7 +23,7 @@ const StyledButton = styled.button`
   text-transform: uppercase;
   white-space: nowrap;
   color: ${({ isActive }) => (isActive ? 'var(--color-black)' : 'inherit')};
-  background-color: ${({ isActive }) =>
+  background: ${({ isActive }) =>
     isActive ? 'var(--color-blue)' : 'var(--color-black)'};
   border: 2px solid var(--color-blue);
   border-radius: 4px;
