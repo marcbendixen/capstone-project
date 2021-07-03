@@ -21,20 +21,20 @@ export default function EpisodeCard({
   const [isCollapsed, setIsCollapsed] = useState(true)
 
   return (
-    <Wrapper isEpisodeWatched={isEpisodeWatched}>
-      <HeadingContainer>
+    <StyledListItem isEpisodeWatched={isEpisodeWatched}>
+      <StyledContainer isCollapsed={isCollapsed}>
         <StyledEpisodeNumber
           isEpisodeWatched={isEpisodeWatched && seriesIsOnWatchlist}
         >
           {episodeNumber}
         </StyledEpisodeNumber>
-        <h4>{name}</h4>
+        <StyledHeadline>{name}</StyledHeadline>
         {overview !== '' && (
           <StyledCollapseButton
             onClick={handleIsCollapsed}
             isCollapsed={isCollapsed}
           >
-            <IconChevronDown />
+            <StyledIconChevronDown />
           </StyledCollapseButton>
         )}
         {seriesIsOnWatchlist && (
@@ -44,11 +44,11 @@ export default function EpisodeCard({
             onCheckEpisode={onCheckEpisode}
           />
         )}
-      </HeadingContainer>
+      </StyledContainer>
       {overview !== '' && (
-        <StyledOverview isCollapsed={isCollapsed}>{overview}</StyledOverview>
+        <StyledParagraph isCollapsed={isCollapsed}>{overview}</StyledParagraph>
       )}
-    </Wrapper>
+    </StyledListItem>
   )
 
   function handleIsCollapsed() {
@@ -56,37 +56,48 @@ export default function EpisodeCard({
   }
 }
 
-const Wrapper = styled.li`
-  display: flex;
-  flex-direction: column;
-  padding: 8px;
-  border-radius: 4px;
+const StyledListItem = styled.li`
+  display: grid;
   background: var(--color-gray-blue);
+  border-radius: 4px;
+  padding: 8px;
   margin-bottom: 8px;
-  position: relative;
+`
+
+const StyledContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: ${({ isCollapsed }) => (isCollapsed ? '0' : '4px')};
+`
+
+const StyledEpisodeNumber = styled.span`
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-black);
+  width: calc(2ch + 16px);
+  background-color: ${props =>
+    props.isEpisodeWatched ? 'var(--color-green)' : 'var(--color-blue)'};
+  border-radius: 4px;
+  padding: 4px 8px;
+`
+
+const StyledHeadline = styled.h4`
+  font-size: 1.05rem;
+  margin: 0;
 `
 
 const StyledCollapseButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 18px;
-  height: auto;
+  color: var(--color-black);
   padding: 0;
   border: none;
   background: none;
-  text-decoration: none;
-  cursor: pointer;
-  color: var(--color-black);
 
-  svg {
-    width: 100%;
-    height: 100%;
-    transform: scaleY(-1);
-  }
-
-  ${props =>
-    props.isCollapsed &&
+  ${({ isCollapsed }) =>
+    isCollapsed &&
     css`
       svg {
         transform: scaleY(1);
@@ -94,33 +105,14 @@ const StyledCollapseButton = styled.button`
     `}
 `
 
-const StyledOverview = styled.p`
-  display: ${props => (props.isCollapsed ? 'none' : 'block')};
+const StyledIconChevronDown = styled(IconChevronDown)`
+  width: 18px;
+  height: auto;
+  transform: scaleY(-1);
+`
+
+const StyledParagraph = styled.p`
+  display: ${({ isCollapsed }) => (isCollapsed ? 'none' : 'block')};
   height: 100%;
   margin: 0;
-`
-
-const HeadingContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1.1rem;
-  margin-bottom: 4px;
-
-  h4 {
-    margin: 0;
-  }
-`
-
-const StyledEpisodeNumber = styled.span`
-  font-size: 1rem;
-  font-weight: bold;
-  color: var(--color-black);
-  width: calc(2ch + 16px);
-  text-align: center;
-  background-color: var(--color-blue);
-  background-color: ${props =>
-    props.isEpisodeWatched ? 'var(--color-green)' : 'var(--color-blue)'};
-  padding: 4px 8px;
-  border-radius: 4px;
 `
