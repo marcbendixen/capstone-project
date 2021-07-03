@@ -1,24 +1,24 @@
 import PropTypes from 'prop-types'
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
 import { ReactComponent as IconMinus } from '../assets/icons/minus.svg'
 import { ReactComponent as IconPlus } from '../assets/icons/plus.svg'
 
 ButtonWatchlist.propTypes = {
-  isOnWatchlist: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  isOnWatchlist: PropTypes.bool.isRequired,
 }
 
-export default function ButtonWatchlist({ isOnWatchlist, onClick }) {
+export default function ButtonWatchlist({ onClick, isOnWatchlist }) {
   return (
     <StyledButton onClick={onClick} isOnWatchlist={isOnWatchlist}>
       {isOnWatchlist ? (
         <>
-          <IconMinus />
+          <StyledIconMinus />
           <span>entfernen</span>
         </>
       ) : (
         <>
-          <IconPlus />
+          <StyledIconPlus />
           <span>hinzufügen</span>
         </>
       )}
@@ -29,29 +29,34 @@ export default function ButtonWatchlist({ isOnWatchlist, onClick }) {
 const StyledButton = styled.button`
   display: inline-flex;
   align-items: center;
+  font-size: 0.75rem;
+  font-family: inherit;
+  font-weight: 700;
+  letter-spacing: 0.083em;
+  text-transform: uppercase;
+  color: ${({ isOnWatchlist }) =>
+    isOnWatchlist ? 'var(--color-orange)' : 'var(--color-green)'};
+  background: var(--color-black);
   border: 2px solid
-    ${props =>
-      props.isOnWatchlist ? 'var(--color-orange)' : 'var(--color-green)'};
+    ${({ isOnWatchlist }) =>
+      isOnWatchlist ? 'var(--color-orange)' : 'var(--color-green)'};
+  border-radius: 4px;
+  opacity: ${({ isOnWatchlist }) => (isOnWatchlist ? '0.5' : '1')};
   padding: 4px;
   margin: 8px 0 0 0;
-  text-decoration: none;
-  background: var(--color-black);
-  color: ${props =>
-    props.isOnWatchlist ? 'var(--color-orange)' : 'var(--color-green)'};
-  font-family: inherit;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
-  cursor: pointer;
-  border-radius: 4px;
-  font-weight: bold;
-  text-transform: uppercase;
-  opacity: ${props => (props.isOnWatchlist ? '0.5' : '1')};
+`
 
-  svg {
-    color: ${props =>
-      props.isOnWatchlist ? 'var(--color-orange)' : 'var(--color-green)'};
-    margin-right: 4px;
-    width: 12px;
-    height: 12px;
-  }
+const iconStyle = css`
+  ${StyledButton}color: ${({ isOnWatchlist }) =>
+    isOnWatchlist ? 'var(--color-orange)' : 'var(--color-green)'};
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+`
+
+const StyledIconPlus = styled(IconPlus)`
+  ${iconStyle}
+`
+const StyledIconMinus = styled(IconMinus)`
+  ${iconStyle}
 `
