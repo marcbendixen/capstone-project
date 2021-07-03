@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
-import { Route, Switch, useLocation } from 'react-router-dom'
+import { Link, Route, Switch, useLocation } from 'react-router-dom'
 import styled from 'styled-components/macro'
+import { ReactComponent as IconGhost } from './assets/icons/ghost-solid.svg'
 import Header from './components/Header'
 import LoadingSpinner from './components/LoadingSpinner'
 import PosterList from './components/PosterList'
@@ -23,18 +24,18 @@ export default function App() {
   }, [pathname])
 
   return (
-    <Container>
+    <StyledAppContainer>
       <Route exact path={['/', '/suche', '/watchlist']}>
         <Header />
       </Route>
       <StyledMain>
         <Switch>
           <Route exact path="/">
-            <StyledText>
-              Mit dem <StyledBrand href="/">Serientracker</StyledBrand> kannst
-              du deinen Serien folgen und alle Episoden tracken, um immer zu
+            <StyledParagraph>
+              Mit dem <StyledLink href="/">Serientracker</StyledLink> kannst du
+              deinen Serien folgen und alle Episoden tracken, um immer zu
               wissen, wo du stehen geblieben bist.
-            </StyledText>
+            </StyledParagraph>
             {isLoading ? (
               <LoadingSpinner />
             ) : (
@@ -57,17 +58,26 @@ export default function App() {
           <Route exact path="/watchlist">
             <WatchlistPage watchlist={watchlist} />
           </Route>
-          <Route>404 not found</Route>
+          <Route>
+            <StyledNotFound>
+              <Header />
+              <h2>404 not found</h2>
+              <p>
+                Huch, die Seite konnte leider nicht gefunden werden. Versuche es
+                doch mal über die <Link to="/suche">Suche</Link>.
+              </p>
+              <StyledIconGhost />
+            </StyledNotFound>
+          </Route>
         </Switch>
       </StyledMain>
-    </Container>
+    </StyledAppContainer>
   )
 }
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+const StyledAppContainer = styled.div`
+  display: grid;
+  justify-items: center;
   max-width: 768px;
   width: 100%;
   margin-bottom: 32px;
@@ -77,23 +87,23 @@ const StyledMain = styled.main`
   width: 100%;
 `
 
-const StyledText = styled.p`
+const StyledParagraph = styled.p`
   margin: 0 0 16px 0;
   padding: 0 8px;
   text-align: center;
 `
 
-const StyledBrand = styled.a`
+const StyledLink = styled.a`
   position: relative;
-  text-decoration: none;
   font-family: 'Domine', 'Times New Roman', serif;
+  text-decoration: none;
   z-index: 0;
 
-  &::after {
+  ::after {
     content: '';
     position: absolute;
-    bottom: 0;
     left: 0;
+    bottom: 0;
     width: 100%;
     height: 2px;
     background: linear-gradient(
@@ -103,4 +113,23 @@ const StyledBrand = styled.a`
       var(--color-orange) 100%
     );
   }
+`
+
+const StyledNotFound = styled.section`
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  text-align: center;
+
+  h2,
+  p {
+    margin: 0;
+    padding: 0 16px;
+  }
+`
+
+const StyledIconGhost = styled(IconGhost)`
+  width: 160px;
+  height: auto;
+  color: var(--color-gray-blue);
 `
