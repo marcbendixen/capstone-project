@@ -2,6 +2,8 @@
   "name": "capstone-project",
   "version": "0.0.1",
   "description": "A capstone-project for the web development bootcamp at neue fische",
+  "author": "Marc Bendixen <moin@marcbendixen.de>",
+  "license": "ISC",
   "main": "server.js",
   "scripts": {
     "dev": "npm-run-all --parallel dev:client dev:server",
@@ -17,8 +19,6 @@
     "type": "git",
     "url": "git+https://github.com/marcbendixen/capstone-project.git"
   },
-  "author": "Marc Bendixen <moin@marcbendixen.de>",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/marcbendixen/capstone-project/issues"
   },
