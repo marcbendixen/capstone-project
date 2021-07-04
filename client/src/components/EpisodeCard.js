@@ -59,7 +59,7 @@ export default function EpisodeCard({
 const StyledListItem = styled.li`
   display: grid;
   background: var(--color-gray-blue);
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   padding: 8px;
   margin-bottom: 8px;
 `
@@ -78,7 +78,7 @@ const StyledEpisodeNumber = styled.span`
   width: calc(2ch + 16px);
   background: ${props =>
     props.isEpisodeWatched ? 'var(--color-green)' : 'var(--color-blue)'};
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   padding: 4px 8px;
 `
 

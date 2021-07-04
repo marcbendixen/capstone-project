@@ -19,5 +19,5 @@ const StyledImage = styled.img`
   width: 100%;
   height: auto;
   border: 1px solid var(--color-border);
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 `

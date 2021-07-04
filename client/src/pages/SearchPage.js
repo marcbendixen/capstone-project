@@ -90,7 +90,7 @@ const StyledLabel = styled.label`
 
 const StyledInput = styled.input`
   padding: 12px 8px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   border-color: transparent;
   font-size: 1rem;
   font-family: inherit;

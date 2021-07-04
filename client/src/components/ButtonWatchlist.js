@@ -40,7 +40,7 @@ const StyledButton = styled.button`
   border: 2px solid
     ${({ isOnWatchlist }) =>
       isOnWatchlist ? 'var(--color-orange)' : 'var(--color-green)'};
-  border-radius: 4px;
+  border-radius: var(--border-radius);
   opacity: ${({ isOnWatchlist }) => (isOnWatchlist ? '0.5' : '1')};
   padding: 4px;
   margin: 8px 0 0 0;

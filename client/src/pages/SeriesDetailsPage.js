@@ -202,7 +202,7 @@ const BackButton = styled(Link)`
     width: 36px;
     height: auto;
     background: rgba(20, 23, 26, 0.2);
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     padding: 0 4px;
   }
 `
@@ -361,7 +361,7 @@ const ListItem = styled.li`
     max-width: 80px;
     width: 100%;
     height: auto;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     border: 1px solid var(--color-border);
   }
 

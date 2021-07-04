@@ -114,6 +114,6 @@ const StyledHeadline = styled.h3`
 `
 
 const StyledList = styled.ul`
-  list-style-type: none;
+  list-style: none;
   padding: 0;
 `
