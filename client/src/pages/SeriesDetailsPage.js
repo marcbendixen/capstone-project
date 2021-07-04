@@ -219,7 +219,7 @@ const StyledBackdropImageWrapper = styled.div`
   background: ${props =>
       props.backdropPath &&
       `url(https://image.tmdb.org/t/p/w780${props.backdropPath})`}
-    center no-repeat;
+    center 0 no-repeat;
   background-size: cover;
 
   &::before {
