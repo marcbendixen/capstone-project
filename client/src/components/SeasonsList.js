@@ -66,16 +66,15 @@ export default function SeasonsList({
         </StyledContainer>
       )}
       <StyledList>
-        {currentEpisodes &&
-          currentEpisodes.map(episode => (
-            <EpisodeCard
-              key={episode.id}
-              episode={episode}
-              seriesIsOnWatchlist={seriesIsOnWatchlist}
-              isEpisodeWatched={checkIsEpisodeWatched(episode.id)}
-              onCheckEpisode={onCheckEpisode}
-            />
-          ))}
+        {currentEpisodes?.map(episode => (
+          <EpisodeCard
+            key={episode.id}
+            episode={episode}
+            seriesIsOnWatchlist={seriesIsOnWatchlist}
+            isEpisodeWatched={checkIsEpisodeWatched(episode.id)}
+            onCheckEpisode={onCheckEpisode}
+          />
+        ))}
       </StyledList>
     </section>
   )
