@@ -80,7 +80,7 @@ const StyledAppContainer = styled.div`
   justify-items: center;
   max-width: 768px;
   width: 100%;
-  margin-bottom: 32px;
+  margin-bottom: 80px;
 `
 
 const StyledMain = styled.main`
@@ -102,8 +102,8 @@ const StyledLink = styled.a`
   ::after {
     content: '';
     position: absolute;
+    bottom: -2px;
     left: 0;
-    bottom: 0;
     width: 100%;
     height: 2px;
     background: linear-gradient(

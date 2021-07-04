@@ -7,9 +7,9 @@ PosterList.propTypes = {
   list: PropTypes.array.isRequired,
 }
 
-export default function PosterList({ list = [] }) {
+export default function PosterList({ list }) {
   return (
-    <StyledPosterList>
+    <StyledList>
       {list.map(({ id, poster_path: posterPath, name }) => (
         <li key={id}>
           <Link to={`/serie/${id}`}>
@@ -24,26 +24,17 @@ export default function PosterList({ list = [] }) {
           </Link>
         </li>
       ))}
-    </StyledPosterList>
+    </StyledList>
   )
 }
 
-const StyledPosterList = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
+const StyledList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(103px, 1fr));
   justify-content: center;
   gap: 8px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
   width: 100%;
-
-  li {
-    max-width: 105px;
-    width: 100%;
-
-    a {
-      display: flex;
-    }
-  }
+  list-style: none;
+  padding: 0 8px;
+  margin: 0;
 `
