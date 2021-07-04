@@ -19,49 +19,51 @@ export default function SeasonsList({
   onCheckEpisode,
 }) {
   const [currentSeasonNumber, setCurrentSeasonNumber] = useState(1)
-
   const currentSeason = seriesSeasons?.find(
     ({ season_number: seasonNumber }) => seasonNumber === currentSeasonNumber
   )
+  const {
+    poster_path: posterPath,
+    name,
+    air_date: airDate,
+    episodes,
+  } = currentSeason
   const currentEpisodes = currentSeason?.episodes
 
   return (
-    <Wrapper>
-      <Navigation>
-        {seriesSeasons.map(({ season_number: seasonNumber, name }) => (
+    <section>
+      <StyledNavigation>
+        {seriesSeasons.map(({ id, season_number: seasonNumber, name }) => (
           <ButtonSeason
-            key={seasonNumber}
+            key={id}
             name={name}
             onClick={() => handleSwitchSeason(seasonNumber)}
             isActive={seasonNumber === currentSeasonNumber}
           />
         ))}
-      </Navigation>
+      </StyledNavigation>
       {currentSeason && (
-        <SeasonMeta>
+        <StyledContainer>
           <Poster
             path={
-              currentSeason.poster_path !== undefined &&
-              currentSeason.poster_path
-                ? `https://image.tmdb.org/t/p/w300${currentSeason.poster_path}`
+              posterPath !== undefined && posterPath
+                ? `https://image.tmdb.org/t/p/w300${posterPath}`
                 : '../poster.png'
             }
-            alt={`Poster von ${currentSeason.name}`}
+            alt={`Poster von ${name}`}
           />
           {
-            <SeasonMetaInfo>
-              <h3>{currentSeason.name}</h3>
-              <div>
-                <i>Ausstrahlung:</i>{' '}
-                <strong>{formatDate(currentSeason.air_date)}</strong>
-              </div>
-              <div>
-                <i>Episoden:</i>{' '}
-                <strong>{currentSeason.episodes.length}</strong>
-              </div>
-            </SeasonMetaInfo>
+            <StyledMetaInfo>
+              <StyledHeadline>{name}</StyledHeadline>
+              <span>
+                <i>Ausstrahlung:</i> <strong>{formatDate(airDate)}</strong>
+              </span>
+              <span>
+                <i>Episoden:</i> <strong>{episodes.length}</strong>
+              </span>
+            </StyledMetaInfo>
           }
-        </SeasonMeta>
+        </StyledContainer>
       )}
       <StyledList>
         {currentEpisodes &&
@@ -75,7 +77,7 @@ export default function SeasonsList({
             />
           ))}
       </StyledList>
-    </Wrapper>
+    </section>
   )
 
   function handleSwitchSeason(seasonNumber) {
@@ -87,9 +89,7 @@ export default function SeasonsList({
   }
 }
 
-const Wrapper = styled.div``
-
-const Navigation = styled.nav`
+const StyledNavigation = styled.nav`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -98,22 +98,22 @@ const Navigation = styled.nav`
   margin-bottom: 16px;
 `
 
-const SeasonMeta = styled.div`
+const StyledContainer = styled.div`
   display: flex;
-  gap: 16px;
   align-items: flex-start;
-
-  h3 {
-    margin-top: 0;
-  }
+  gap: 8px;
 `
 
-const SeasonMetaInfo = styled.div`
+const StyledMetaInfo = styled.div`
   display: flex;
   flex-direction: column;
 `
 
+const StyledHeadline = styled.h3`
+  margin: 0 0 8px 0;
+`
+
 const StyledList = styled.ul`
-  padding: 0;
   list-style-type: none;
+  padding: 0;
 `
