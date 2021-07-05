@@ -34,31 +34,31 @@ export default function SeriesDetailsPage({
   checkIsOnWatchlist,
 }) {
   const { id } = useParams()
-  const {
-    seriesDetails,
-    seriesSeasons,
-    isLoadingSeriesDetails,
-  } = useSeriesDetails(id, series, handleNewSeries)
+  const { seriesDetails, seriesSeasons, isLoading } = useSeriesDetails(
+    id,
+    series,
+    handleNewSeries
+  )
   const { cast } = useSeriesCredits(id)
+  const { similarSeries } = useSimilarSeries(id)
+  const [isReadMore, setIsReadMore] = useState(false)
+  const isOnWatchlist = checkIsOnWatchlist(id)
   const {
     name,
     poster_path: posterPath,
     overview,
     backdrop_path: backdropPath,
   } = seriesDetails
-  const { similarSeries } = useSimilarSeries(id)
-  const isOnWatchlist = checkIsOnWatchlist(id)
-  const [isReadMore, setIsReadMore] = useState(false)
 
   return (
-    <Wrapper>
-      <StyledBackdropImageWrapper backdropPath={backdropPath}>
-        <BackButton to="/watchlist" aria-label="Zurück zur Startseite">
-          <IconArrowLeft />
-        </BackButton>
-      </StyledBackdropImageWrapper>
-      <Header>
-        <PosterWrapper>
+    <StyledSection>
+      <StyledBackdrop backdropPath={backdropPath}>
+        <StyledButtonBack to="/watchlist" aria-label="Zurück">
+          <StyledIconArrowLeft />
+        </StyledButtonBack>
+      </StyledBackdrop>
+      <StyledHeader>
+        <StyledPosterWrapper>
           <Poster
             path={
               posterPath !== undefined
@@ -67,22 +67,22 @@ export default function SeriesDetailsPage({
             }
             alt={`Poster von ${name}`}
           />
-        </PosterWrapper>
-        <RightArea>
-          <h1>{name}</h1>
+        </StyledPosterWrapper>
+        <StyledHeadingWrapper>
+          <StyledHeading1>{name}</StyledHeading1>
           <ButtonWatchlist
             onClick={() => handleWatchlist(id)}
             isOnWatchlist={isOnWatchlist}
           />
-        </RightArea>
-      </Header>
-      {isLoadingSeriesDetails ? (
+        </StyledHeadingWrapper>
+      </StyledHeader>
+      {isLoading ? (
         <LoadingSpinner />
       ) : (
         <>
           <SeriesMetaInfo seriesDetails={seriesDetails} />
-          <OverviewWrapper>
-            <Overview isReadMore={isReadMore}>
+          <StyledOverviewWrapper>
+            <StyledParagraph isReadMore={isReadMore}>
               {overview !== '' ? (
                 overview
               ) : (
@@ -95,27 +95,36 @@ export default function SeriesDetailsPage({
                   ✌️
                 </span>
               )}
-            </Overview>
+            </StyledParagraph>
             {overview !== '' && overview?.length >= 350 && (
-              <ReadMoreButton onClick={handleReadMore} isReadMore={isReadMore}>
-                <IconChevronDown />
-              </ReadMoreButton>
+              <StyledButtonReadMore
+                onClick={handleReadMore}
+                isReadMore={isReadMore}
+              >
+                <StyledIconChevronDown />
+              </StyledButtonReadMore>
             )}
-          </OverviewWrapper>
-          <Navigation>
-            <NavigationItem href="#">
-              <IconArrowUp />
-            </NavigationItem>
-            <NavigationItem href="#staffeln">Staffeln</NavigationItem>
+          </StyledOverviewWrapper>
+          <StyledNavigation>
+            <StyledNavigationItem href="#">
+              <StyledIconArrowUp />
+            </StyledNavigationItem>
+            <StyledNavigationItem href="#staffeln">
+              Staffeln
+            </StyledNavigationItem>
             {cast.length > 0 && (
-              <NavigationItem href="#besetzung">Besetzung</NavigationItem>
+              <StyledNavigationItem href="#besetzung">
+                Besetzung
+              </StyledNavigationItem>
             )}
             {similarSeries.length > 0 && (
-              <NavigationItem href="#aehnlich">Ähnlich</NavigationItem>
+              <StyledNavigationItem href="#aehnlich">
+                Ähnlich
+              </StyledNavigationItem>
             )}
-          </Navigation>
-          <AnchorPoint id="staffeln"></AnchorPoint>
-          <h2>Staffeln</h2>
+          </StyledNavigation>
+          <StyledAnchorPoint id="staffeln"></StyledAnchorPoint>
+          <StyledHeading2>Staffeln</StyledHeading2>
           <SeasonsList
             seriesSeasons={seriesSeasons}
             seriesIsOnWatchlist={isOnWatchlist}
@@ -124,13 +133,13 @@ export default function SeriesDetailsPage({
           />
           {cast.length > 0 && (
             <>
-              <AnchorPoint id="besetzung"></AnchorPoint>
-              <h2 id="besetzung">Besetzung</h2>
-              <List>
+              <StyledAnchorPoint id="besetzung"></StyledAnchorPoint>
+              <StyledHeading2>Besetzung</StyledHeading2>
+              <StyledList>
                 {cast.map(
                   ({ id, profile_path: profilePath, name, character }) => (
-                    <ListItem key={id}>
-                      <img
+                    <StyledListItem key={id}>
+                      <StyledProfileImage
                         src={
                           profilePath !== null
                             ? `https://image.tmdb.org/t/p/w200${profilePath}`
@@ -141,27 +150,27 @@ export default function SeriesDetailsPage({
                         height="300"
                       />
                       <div>
-                        <h4>{name}</h4>
+                        <StyledHeadline3>{name}</StyledHeadline3>
                         <span>{character}</span>
                       </div>
-                    </ListItem>
+                    </StyledListItem>
                   )
                 )}
-              </List>
+              </StyledList>
             </>
           )}
           {similarSeries.length > 0 && (
             <>
-              <AnchorPoint id="aehnlich"></AnchorPoint>
-              <StyledHeadline id="aehnlich">
+              <StyledAnchorPoint id="aehnlich"></StyledAnchorPoint>
+              <StyledHeading2 id="aehnlich" padding={true}>
                 Diese Serien könnten dir auch gefallen:
-              </StyledHeadline>
+              </StyledHeading2>
               <PosterList list={similarSeries} />
             </>
           )}
         </>
       )}
-    </Wrapper>
+    </StyledSection>
   )
 
   function handleReadMore() {
@@ -169,45 +178,14 @@ export default function SeriesDetailsPage({
   }
 }
 
-const Wrapper = styled.section`
-  display: flex;
-  flex-direction: column;
+const StyledSection = styled.section`
+  display: grid;
   gap: 16px;
-  padding: 8px;
-  margin: 0;
   width: 100%;
-
-  h2 {
-    font-size: 1.25rem;
-    margin: 16px 0 8px 0;
-  }
+  padding: 8px;
 `
 
-const StyledHeadline = styled.h2`
-  font-size: 1.25rem;
-  margin: 16px 0 8px 0;
-  padding: 0 8px;
-`
-
-const BackButton = styled(Link)`
-  display: flex;
-  align-items: center;
-  align-self: flex-start;
-  position: absolute;
-  left: 12px;
-  top: 12px;
-  cursor: pointer;
-
-  svg {
-    width: 36px;
-    height: auto;
-    background: rgba(20, 23, 26, 0.2);
-    border-radius: var(--border-radius);
-    padding: 0 4px;
-  }
-`
-
-const StyledBackdropImageWrapper = styled.div`
+const StyledBackdrop = styled.div`
   position: relative;
   max-width: 768px;
   width: calc(100% + 32px);
@@ -215,14 +193,13 @@ const StyledBackdropImageWrapper = styled.div`
   height: 100%;
   top: -16px;
   left: -16px;
-  margin-bottom: -64px;
-  background: ${props =>
-      props.backdropPath &&
-      `url(https://image.tmdb.org/t/p/w780${props.backdropPath})`}
+  background: ${({ backdropPath }) =>
+      backdropPath && `url(https://image.tmdb.org/t/p/w780${backdropPath})`}
     center 0 no-repeat;
   background-size: cover;
+  margin-bottom: -64px;
 
-  &::before {
+  ::before {
     content: '';
     position: absolute;
     top: 0;
@@ -248,81 +225,64 @@ const StyledBackdropImageWrapper = styled.div`
   }
 `
 
-const Header = styled.header`
+const StyledButtonBack = styled(Link)`
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+`
+
+const StyledIconArrowLeft = styled(IconArrowLeft)`
+  width: 36px;
+  height: auto;
+  background: rgba(20, 23, 26, 0.2);
+  border-radius: var(--border-radius);
+  padding: 0 4px;
+`
+
+const StyledHeader = styled.header`
   display: flex;
   gap: 16px;
   z-index: 2;
-
-  h1 {
-    margin: 0;
-  }
 `
 
-const PosterWrapper = styled.div`
+const StyledPosterWrapper = styled.div`
   max-width: 140px;
   width: 100%;
   height: auto;
 `
 
-const RightArea = styled.div`
+const StyledHeadingWrapper = styled.div`
   width: 100%;
 `
 
-const Navigation = styled.nav`
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  padding: 12px;
-  background: var(--color-black);
+const StyledHeading1 = styled.h1`
+  margin: 0;
 `
 
-const NavigationItem = styled.a`
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: #d8e0e8;
-
-  :visited {
-    color: #d8e0e8;
-  }
-
-  :hover {
-    color: var(--color-green);
-  }
-
-  svg {
-    width: 21px;
-    height: auto;
-  }
-`
-
-const OverviewWrapper = styled.div`
-  position: relative;
+const StyledOverviewWrapper = styled.div`
   display: grid;
   justify-items: center;
+  position: relative;
   min-width: 100%;
 `
 
-const Overview = styled.p`
+const StyledParagraph = styled.p`
   min-width: 100%;
+  max-height: ${({ isReadMore }) => (isReadMore ? '100%' : '150px')};
+  padding-bottom: ${({ isReadMore }) => (isReadMore ? '16px' : '0')};
   margin-top: 0;
-  max-height: ${props => (props.isReadMore ? '100%' : '150px')};
-  padding-bottom: ${props => (props.isReadMore ? '16px' : '0')};
-  transition: all 0.02s ease-in-out;
   overflow: hidden;
 `
 
-const ReadMoreButton = styled.button`
+const StyledButtonReadMore = styled.button`
   position: absolute;
   width: 100%;
   bottom: 0;
-  background: ${props =>
-    props.isReadMore
+  background: ${({ isReadMore }) =>
+    isReadMore
       ? 'transparent'
       : `linear-gradient(
     180deg,
@@ -334,44 +294,87 @@ const ReadMoreButton = styled.button`
   )`};
   border: none;
   color: #fff;
-  padding: ${props => (props.isReadMore ? '32px 0 0 0' : '32px 0 24px 0')};
-  cursor: pointer;
+  padding: ${({ isReadMore }) => (isReadMore ? '32px 0 0 0' : '32px 0 24px 0')};
 
   svg {
-    width: 16px;
-    height: auto;
-    transform: ${props => (props.isReadMore ? 'scaleY(-1)' : 'scaleY(1)')};
+    transform: ${({ isReadMore }) => (isReadMore ? 'scaleY(-1)' : 'scaleY(1)')};
   }
 `
 
-const List = styled.ul`
+const StyledIconChevronDown = styled(IconChevronDown)`
+  width: 16px;
+  height: auto;
+`
+
+const StyledNavigation = styled.nav`
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  background: var(--color-black);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 12px;
+`
+
+const StyledNavigationItem = styled.a`
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.071em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-light-blue);
+
+  :visited {
+    color: var(--color-light-blue);
+  }
+
+  :hover {
+    color: var(--color-green);
+  }
+`
+
+const StyledIconArrowUp = styled(IconArrowUp)`
+  width: 21px;
+  height: auto;
+`
+
+const StyledAnchorPoint = styled.div`
+  position: relative;
+  top: -32px;
+  visibility: hidden;
+`
+
+const StyledHeading2 = styled.h2`
+  font-size: 1.25rem;
+  margin: 16px 0 8px 0;
+  ${({ padding }) => padding && 'padding: 0 8px'};
+`
+
+const StyledList = styled.ul`
+  display: grid;
   gap: 16px;
   list-style: none;
   padding: 0;
-  margin-top: 0;
+  margin: 0;
 `
 
-const ListItem = styled.li`
+const StyledListItem = styled.li`
   display: flex;
   gap: 16px;
-
-  img {
-    max-width: 80px;
-    width: 100%;
-    height: auto;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--color-border);
-  }
-
-  h4 {
-    margin: 0 0 4px 0;
-  }
 `
 
-const AnchorPoint = styled.div`
-  position: relative;
-  top: -16px;
-  visibility: hidden;
+const StyledProfileImage = styled.img`
+  max-width: 80px;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+`
+
+const StyledHeadline3 = styled.h3`
+  font-size: 1rem;
+  font-family: inherit;
+  letter-spacing: normal;
+  margin: 0 0 4px 0;
 `

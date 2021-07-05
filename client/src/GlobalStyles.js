@@ -7,6 +7,7 @@ const GlobalStyles = createGlobalStyle`
     --color-orange: #ff7500;
     --color-green: #01dc4a;
     --color-gray-blue: #3c4b5b;
+    --color-light-blue: #d8e0e8;
     --color-border: rgba(60, 75, 91, 0.5);
     --border-radius: 4px;
   }

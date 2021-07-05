@@ -54,7 +54,7 @@ export default function SeasonsList({
           />
           {
             <StyledMetaInfo>
-              <StyledHeadline>{name}</StyledHeadline>
+              <StyledHeading>{name}</StyledHeading>
               <span>
                 <i>Ausstrahlung:</i> <strong>{formatDate(airDate)}</strong>
               </span>
@@ -108,7 +108,7 @@ const StyledMetaInfo = styled.div`
   flex-direction: column;
 `
 
-const StyledHeadline = styled.h3`
+const StyledHeading = styled.h3`
   margin: 0 0 8px 0;
 `
 

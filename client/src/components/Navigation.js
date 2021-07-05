@@ -45,11 +45,11 @@ const StyledNavLink = styled(NavLink)`
   letter-spacing: 0.071em;
   text-transform: uppercase;
   text-decoration: none;
-  color: #d8e0e8;
+  color: var(--color-light-blue);
   margin: 8px 16px;
 
   :visited {
-    color: #d8e0e8;
+    color: var(--color-light-blue);
   }
 
   :hover {

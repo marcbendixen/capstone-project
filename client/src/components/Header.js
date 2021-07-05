@@ -7,7 +7,7 @@ export default function Header() {
     <>
       <StyledHeader>
         <StyledNavLink to="/">
-          <StyledHeadline>Serientracker</StyledHeadline>
+          <StyledHeading>Serientracker</StyledHeading>
         </StyledNavLink>
       </StyledHeader>
       <Navigation />
@@ -24,7 +24,7 @@ const StyledNavLink = styled(NavLink)`
   text-decoration: none;
 `
 
-const StyledHeadline = styled.h1`
+const StyledHeading = styled.h1`
   position: relative;
 
   ::after {

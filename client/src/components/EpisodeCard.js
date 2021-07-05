@@ -28,7 +28,7 @@ export default function EpisodeCard({
         >
           {episodeNumber}
         </StyledEpisodeNumber>
-        <StyledHeadline>{name}</StyledHeadline>
+        <StyledHeading>{name}</StyledHeading>
         {overview !== '' && (
           <StyledCollapseButton
             onClick={handleIsCollapsed}
@@ -82,7 +82,7 @@ const StyledEpisodeNumber = styled.span`
   padding: 4px 8px;
 `
 
-const StyledHeadline = styled.h4`
+const StyledHeading = styled.h4`
   font-size: 1.05rem;
   margin: 0;
 `
