@@ -1,24 +1,24 @@
 {
   "name": "capstone-project",
   "version": "0.0.1",
-  "description": "",
+  "description": "A capstone-project for the web development bootcamp at neue fische",
+  "author": "Marc Bendixen <moin@marcbendixen.de>",
+  "license": "ISC",
   "main": "server.js",
   "scripts": {
     "dev": "npm-run-all --parallel dev:client dev:server",
     "dev:client": "cd client && npm start",
     "dev:server": "nodemon server.js",
-    "storybook": "cd client && npm run storybook",
+    "start": "node server.js",
     "build": "cd client && npm run build",
     "postinstall": "cd client && npm install",
-    "start": "node server.js",
+    "storybook": "cd client && npm run storybook",
     "test": "cd client && npm run test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/marcbendixen/capstone-project.git"
   },
-  "author": "Marc Bendixen",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/marcbendixen/capstone-project/issues"
   },

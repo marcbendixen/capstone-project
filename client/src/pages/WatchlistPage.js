@@ -1,25 +1,26 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
-import { ReactComponent as IconChartBar } from '../assets/icons/chart-bar-solid.svg'
+import { ReactComponent as IconChartBar } from '../assets/icons/chart-bar.svg'
 import PosterList from '../components/PosterList'
 import { getLocalStorage } from '../utils/localStorage'
 
 export default function WatchlistPage({ watchlist }) {
   const [showStats, setShowStats] = useState(false)
+
   return (
-    <Wrapper>
+    <StyledContainer>
       {watchlist.length === 0 ? (
         <StyledParagraph>
           <i>Du hast noch keine Serie auf deiner Watchlist.</i>
         </StyledParagraph>
       ) : (
         <>
-          <StyledStatsButton onClick={handleToggleStats} isActive={showStats}>
-            <IconChartBar />
-            <span>Statistiken {showStats ? 'ausblenden' : 'einblenden'}</span>
-          </StyledStatsButton>
-          <StyledStatsParagraph isActive={showStats}>
-            <p>
+          <StyledButtonStats onClick={handleToggleStats} isActive={showStats}>
+            <StyledIconChartBar />
+            Statistiken {showStats ? 'ausblenden' : 'einblenden'}
+          </StyledButtonStats>
+          <StyledStatsWrapper isActive={showStats}>
+            <StyledParagraph>
               Du hast <strong>{calcTotalSeries()}</strong> Serie
               {calcTotalSeries() > 1 && 'n'} auf deiner Watchlist.
               <br />
@@ -39,20 +40,20 @@ export default function WatchlistPage({ watchlist }) {
                   <strong>{calcPercentageEpisodesWatched()}%</strong>.
                 </>
               )}
-            </p>
-            <BarWrapper>
-              <BarWatchedEpisodes
+            </StyledParagraph>
+            <StyledBarWrapper>
+              <StyledBarWatched
                 percentageWatched={calcPercentageEpisodesWatched()}
-              ></BarWatchedEpisodes>
-              <BarNotWatchedEpisodes
+              ></StyledBarWatched>
+              <StyledBarNotWatched
                 percentageNotWatched={calcPercentageEpisodesNotWatched()}
-              ></BarNotWatchedEpisodes>
-            </BarWrapper>
-          </StyledStatsParagraph>
+              ></StyledBarNotWatched>
+            </StyledBarWrapper>
+          </StyledStatsWrapper>
           <PosterList list={watchlist} />
         </>
       )}
-    </Wrapper>
+    </StyledContainer>
   )
 
   function handleToggleStats() {
@@ -95,59 +96,52 @@ export default function WatchlistPage({ watchlist }) {
   }
 }
 
-const BarWrapper = styled.div`
+const StyledContainer = styled.div`
+  display: grid;
+  justify-items: center;
+`
+
+const StyledParagraph = styled.p`
+  text-align: center;
+  padding: 0 8px;
+  margin: 0;
+`
+
+const StyledButtonStats = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+  color: ${({ isActive }) =>
+    isActive ? 'var(--color-orange)' : 'var(--color-blue)'};
+  background: transparent;
+  border: none;
+  margin-bottom: ${({ isActive }) => (isActive ? '8px' : '16px')};
+`
+
+const StyledIconChartBar = styled(IconChartBar)`
+  width: 24px;
+  height: auto;
+`
+
+const StyledStatsWrapper = styled.div`
+  display: ${({ isActive }) => (isActive ? 'block' : 'none')};
+  margin: 0 16px 16px 16px;
+`
+
+const StyledBarWrapper = styled.div`
   display: flex;
   width: 100%;
   height: 12px;
   margin-top: 4px;
 `
 
-const BarWatchedEpisodes = styled.div`
-  width: ${props => props.percentageWatched + '%'};
+const StyledBarWatched = styled.div`
+  width: ${({ percentageWatched }) => percentageWatched + '%'};
   background: var(--color-green);
 `
 
-const BarNotWatchedEpisodes = styled.div`
-  width: ${props => props.percentageNotWatched + '%'};
+const StyledBarNotWatched = styled.div`
+  width: ${({ percentageNotWatched }) => percentageNotWatched + '%'};
   background: var(--color-orange);
-`
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-const StyledStatsButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  border: none;
-  color: ${props =>
-    props.isActive ? 'var(--color-orange)' : 'var(--color-blue)'};
-  font-family: inherit;
-  cursor: pointer;
-  margin-bottom: ${props => (props.isActive ? '8px' : '16px')};
-
-  svg {
-    width: 24px;
-    height: auto;
-  }
-`
-
-const StyledStatsParagraph = styled.div`
-  display: ${props => (props.isActive ? 'block' : 'none')};
-  text-align: center;
-  margin: 0 16px 16px 16px;
-
-  p {
-    margin: 0;
-    padding: 0 8px;
-  }
-`
-
-const StyledParagraph = styled.p`
-  text-align: center;
-  padding: 0 8px;
 `

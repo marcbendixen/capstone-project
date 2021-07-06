@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components/macro'
-import { ReactComponent as IconInfoCircle } from '../assets/icons/info-circle-solid.svg'
-import { ReactComponent as IconLink } from '../assets/icons/link-solid.svg'
+import { ReactComponent as IconInfoCircle } from '../assets/icons/info-circle.svg'
+import { ReactComponent as IconLink } from '../assets/icons/link.svg'
 
 export default function SeriesMetaInfo({ seriesDetails }) {
   const [isHidden, setIsHidden] = useState(true)
@@ -18,124 +18,119 @@ export default function SeriesMetaInfo({ seriesDetails }) {
   } = seriesDetails
 
   return (
-    <Wrapper>
-      <MetaInfoButton
-        onClick={() => setIsHidden(!isHidden)}
-        isHidden={isHidden}
-      >
-        <IconInfoCircle /> Details {isHidden ? 'anzeigen' : 'ausblenden'}
-      </MetaInfoButton>
-      <MetaItemsWrapper isHidden={isHidden}>
-        <MetaItem>
+    <StyledContainer>
+      <StyledButton onClick={() => setIsHidden(!isHidden)} isHidden={isHidden}>
+        <StyledIconInfoCircle /> Details {isHidden ? 'anzeigen' : 'ausblenden'}
+      </StyledButton>
+      <StyledWrapper isHidden={isHidden}>
+        <StyledMetaItem>
           <i>Von:</i>
-          <ListWrapper>
+          <StyledList>
             {createdBy?.map(({ id, name }) => (
-              <div key={id}>
-                <strong>{name}</strong>
-              </div>
+              <li key={id}>{name}</li>
             ))}
-          </ListWrapper>
-        </MetaItem>
-        <MetaItem>
+          </StyledList>
+        </StyledMetaItem>
+        <StyledMetaItem>
           <i>Ausstrahlung seit:</i>
-          <strong>{firstAirDate?.split('-').reverse().join('.')}</strong>
-        </MetaItem>
-        <MetaItem>
+          {firstAirDate?.split('-').reverse().join('.')}
+        </StyledMetaItem>
+        <StyledMetaItem>
           <i>Genres:</i>
-          <ListWrapper>
+          <StyledList>
             {genres?.map(({ id, name }) => (
-              <div key={id}>
-                <strong>{name}</strong>
-              </div>
+              <li key={id}>{name}</li>
             ))}
-          </ListWrapper>
-        </MetaItem>
-        <MetaItem>
+          </StyledList>
+        </StyledMetaItem>
+        <StyledMetaItem>
           <i>Link:</i>
-          <StyledWebsiteLink href={homepage} target="_blank">
-            <IconLink />
+          <StyledLink href={homepage} target="_blank">
+            <StyledIconLink />
             Website
-          </StyledWebsiteLink>
-        </MetaItem>
-        <MetaItem>
+          </StyledLink>
+        </StyledMetaItem>
+        <StyledMetaItem>
           <i>Network:</i>
-          <ListWrapper>
+          <StyledList>
             {networks?.map(({ id, name }) => (
-              <div key={id}>{name}</div>
+              <li key={id}>{name}</li>
             ))}
-          </ListWrapper>
-        </MetaItem>
-        <MetaItem>
+          </StyledList>
+        </StyledMetaItem>
+        <StyledMetaItem>
           <i>Staffeln:</i>
           {numberOfSeasons}
-        </MetaItem>
-        <MetaItem>
+        </StyledMetaItem>
+        <StyledMetaItem>
           <i>Episoden:</i>
           {numberOfEpisodes}
-        </MetaItem>
-        <MetaItem>
+        </StyledMetaItem>
+        <StyledMetaItem>
           <div>
             <i>Ursprungsland: </i>
             {originCountry}
           </div>
-        </MetaItem>
-        <MetaItem>
+        </StyledMetaItem>
+        <StyledMetaItem>
           <i>Produktion:</i>
-          <ListWrapper>
+          <StyledList>
             {productionCompanies?.map(({ id, name }) => (
-              <div key={id}>{name}</div>
+              <li key={id}>{name}</li>
             ))}
-          </ListWrapper>
-        </MetaItem>
-      </MetaItemsWrapper>
-    </Wrapper>
+          </StyledList>
+        </StyledMetaItem>
+      </StyledWrapper>
+    </StyledContainer>
   )
 }
 
-const Wrapper = styled.div`
+const StyledContainer = styled.div`
   display: grid;
 `
 
-const MetaItemsWrapper = styled.div`
-  display: ${({ isHidden }) => (isHidden ? 'none' : 'grid')};
-  background: var(--color-gray-blue);
-  border-radius: 4px;
-`
-
-const MetaInfoButton = styled.button`
+const StyledButton = styled.button`
   display: flex;
   align-items: center;
   gap: 8px;
+  color: ${({ isHidden }) => (isHidden ? 'inherit' : 'var(--color-orange)')};
+  background: none;
   border: none;
   padding: 0;
-  background: transparent;
-  color: ${({ isHidden }) => (isHidden ? '#fff' : 'var(--color-orange)')};
   margin-bottom: ${({ isHidden }) => (isHidden ? '0' : '8px')};
   transition: all 0.2s ease-in-out;
-
-  svg {
-    width: 18px;
-    height: 18px;
-  }
 `
 
-const MetaItem = styled.div`
+const StyledIconInfoCircle = styled(IconInfoCircle)`
+  width: 18px;
+  height: 18px;
+`
+
+const StyledWrapper = styled.div`
+  display: ${({ isHidden }) => (isHidden ? 'none' : 'grid')};
+  background: var(--color-gray-blue);
+  border-radius: var(--border-radius);
+`
+
+const StyledMetaItem = styled.div`
   display: flex;
   gap: 8px;
   padding: 4px 8px;
 `
 
-const ListWrapper = styled.div`
-  display: grid;
+const StyledList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
 `
 
-const StyledWebsiteLink = styled.a`
+const StyledLink = styled.a`
   display: flex;
   align-items: center;
   gap: 4px;
+`
 
-  svg {
-    width: 12px;
-    height: auto;
-  }
+const StyledIconLink = styled(IconLink)`
+  width: 12px;
+  height: auto;
 `

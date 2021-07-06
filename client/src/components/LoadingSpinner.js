@@ -3,13 +3,13 @@ import styled from 'styled-components/macro'
 
 export default function LoadingSpinner() {
   return (
-    <Wrapper>
+    <StyledContainer>
       <ScaleLoader color={'var(--color-blue)'} />
-    </Wrapper>
+    </StyledContainer>
   )
 }
 
-const Wrapper = styled.div`
+const StyledContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
