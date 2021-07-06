@@ -32,7 +32,7 @@ export default function useSeries() {
   }
 
   function checkIfOnBlacklist(id) {
-    const blacklist = [94722]
+    const blacklist = [94722, 124598]
     return blacklist.some(element => element === id)
   }
 
