@@ -1,76 +1,46 @@
-# 📺 Serientracker 🍿
+# 📺 Serientracker – Capstone project
 
-## _Serientracker_ is your personal assistant to track your series and episodes and discover new ones.
+> Serientracker is a personal assistant to track your series and episodes and discover new ones.
 
----
+![github_neu](https://user-images.githubusercontent.com/82408272/124651069-c6688300-de9a-11eb-8769-02ad0ec0fabd.png)
 
-# Getting Started with Create React App
+<img align="right" src="https://user-images.githubusercontent.com/82408272/124649262-8c967d00-de98-11eb-81c2-aa266f65b952.gif" alt="" width="250px" style="margin-left:16px;"/>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## `Description`
 
-## Available Scripts
+**This is a capstone project for [neuefische](https://www.neuefische.de/) web development bootcamp.**
 
-In the project directory, you can run:
+You can save your favorite series in a watchlist, get additional information and have the possibility to discover new ones. Each episode can be marked as watched, so you always know where you left off. You will never miss an episode again! Happy watching 🍿
 
-### `npm start`
+### `Demo`
+You can find the hosted version on Heroku: [Serientracker Demo](https://serientracker.herokuapp.com/)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+***IMPORTANT NOTE: currently optimized for mobile!***
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+## `Tech Stack`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React
+- React Router
+- React Custom Hooks
+- Styled-Components
+- React Testing Library / Jest
+- Express
+- Node.js
+- localStorage
+- PropTypes
+- Storybook
+- TMDB API
+- Heroku
 
-### `npm run build`
+## `Project Setup`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Clone this repository
+- Use `.env.example` to create your own `.env` inside the root folder
+- Add your `API_KEY` from [TMDB](https://www.themoviedb.org/)
+- Inside root folder install all dependencies via `$ npm install`
+- Run app in development mode via `$ npm run dev`
+- Server: http://localhost:4000/
+- Client: http://localhost:3000/
+- Run tests via `$ npm run test`
+- Run Storybook via `$ npm run storybook`
