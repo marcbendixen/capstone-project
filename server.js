@@ -1,9 +1,12 @@
 const express = require('express')
+const compression = require('compression')
 const path = require('path')
 const app = express()
 require('dotenv').config()
 
 const { PORT = 4000 } = process.env
+
+app.use(compression())
 
 app.use('/api', express.json())
 app.use('/api/series', require('./routes/series'))
