@@ -10,7 +10,9 @@ export default function Poster({
   path = 'poster.png',
   alt = 'Poster der Serie',
 }) {
-  return <StyledImage src={path} alt={alt} width="300" height="450" />
+  return (
+    <StyledImage src={path} alt={alt} width="300" height="450" loading="lazy" />
+  )
 }
 
 const StyledImage = styled.img`

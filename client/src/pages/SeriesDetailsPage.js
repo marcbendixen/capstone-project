@@ -148,6 +148,7 @@ export default function SeriesDetailsPage({
                         alt={`Portait von ${name}`}
                         width="200"
                         height="300"
+                        loading="lazy"
                       />
                       <div>
                         <StyledHeadline3>{name}</StyledHeadline3>
