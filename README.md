@@ -4,7 +4,7 @@
 
 ![github_neu](https://user-images.githubusercontent.com/82408272/124651069-c6688300-de9a-11eb-8769-02ad0ec0fabd.png)
 
-<img align="right" src="https://user-images.githubusercontent.com/82408272/124649262-8c967d00-de98-11eb-81c2-aa266f65b952.gif" alt="" width="250px" style="margin-left:16px;"/>
+<img align="right" src="https://user-images.githubusercontent.com/82408272/124649262-8c967d00-de98-11eb-81c2-aa266f65b952.gif" alt="" width="250" style="margin-left:16px;"/>
 
 ## `Description`
 
